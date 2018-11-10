@@ -2,11 +2,19 @@ package matchers
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
 func EqualLiterals(tb testing.TB, expected, actual interface{}) {
 	if expected != actual {
+		fmt.Printf("Equality test failed. %q and %q are not equal", expected, actual)
+		tb.FailNow()
+	}
+}
+
+func DeepEqual(tb testing.TB, expected, actual interface{}) {
+	if !reflect.DeepEqual(expected, actual) {
 		fmt.Printf("Equality test failed. %q and %q are not equal", expected, actual)
 		tb.FailNow()
 	}
