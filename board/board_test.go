@@ -5,85 +5,70 @@ import (
 	"tictactoe/testHelper"
 )
 
-func TestMakeBoardReturnsBoardWithCells(t *testing.T) {
+var aBoard = setupBoard()
+
+func setupBoard() Board {
 	boardSize := 3
 	aBoard := MakeBoard(boardSize)
-	expectedNumOfCells := 9
-	actualNumOfCells := len(aBoard.cells)
-
-	matchers.EqualLiterals(t, expectedNumOfCells, actualNumOfCells)
-	matchers.EqualLiterals(t, boardSize, aBoard.size)
-}
-
-func TestPutMarkOnEmptyCell(t *testing.T) {
-	aBoard := MakeBoard(3)
-	cellIndex := 0
-	aBoard.putMarkOnBoard("X", cellIndex)
-
-	matchers.EqualLiterals(t, aBoard.cells[cellIndex], "X")
-}
-
-func TestCheckIfCellIsTakenOrEmpty(t *testing.T) {
-	aBoard := MakeBoard(3)
-	cellIndex := 0
-	aBoard.putMarkOnBoard("X", cellIndex)
-
-	matchers.IsTrue(t, aBoard.isCellAvailable(1))
-	matchers.IsFalse(t, aBoard.isCellAvailable(cellIndex))
-}
-
-func TestGetRowsReturnsArrayOfCellsSplitIntoRows(t *testing.T) {
-	aBoard := MakeBoard(3)
-	aBoard.putMarkOnBoard("X", 1)
-	aBoard.putMarkOnBoard("Y", 4)
-	expected := [][]string{{" ","X"," "}, {" ", "Y", " "}, {" ", " ", " "}}
-
-	matchers.DeepEqual(t, expected, aBoard.getRows())
-}
-
-func TestGetColumnsReturnsArrayOfCellsSplitIntoColumns(t *testing.T) {
-	aBoard := MakeBoard(3)
-	aBoard.putMarkOnBoard("X", 1)
-	aBoard.putMarkOnBoard("Y", 4)
-	expected := [][]string{{" "," "," "}, {"X", "Y", " "}, {" ", " ", " "}}
-
-	matchers.DeepEqual(t, expected, aBoard.getColumns())
-}
-
-func TestGetLeftDiagonal(t *testing.T) {
-	aBoard := MakeBoard(3)
-	aBoard.putMarkOnBoard("X", 0)
-	expected := []string{"X"," "," "}
-
-	matchers.DeepEqual(t, expected, aBoard.getLeftDiagonal())
-}
-
-func TestGetRightDiagonal(t *testing.T) {
-	aBoard := MakeBoard(3)
-	aBoard.putMarkOnBoard("X", 2)
-	aBoard.putMarkOnBoard("Y", 4)
-	expected := []string{"X","Y"," "}
-
-	matchers.DeepEqual(t, expected, aBoard.getRightDiagonal())
-}
-
-func TestGetDiagonals(t *testing.T) {
-	aBoard := MakeBoard(3)
-	aBoard.putMarkOnBoard("Y", 0)
-	aBoard.putMarkOnBoard("X", 2)
-	aBoard.putMarkOnBoard("Y", 4)
-	expected := [][]string{{"Y","Y"," "}, {"X", "Y", " "}}
-
-	matchers.DeepEqual(t, expected, aBoard.getDiagonals())
-}
-
-func TestGetLinesReturnsAllLinesOnBoard(t *testing.T) {
-	aBoard := MakeBoard(3)
 	aBoard.putMarkOnBoard("Y", 0)
 	aBoard.putMarkOnBoard("X", 2)
 	aBoard.putMarkOnBoard("Y", 4)
 	aBoard.putMarkOnBoard("Y", 8)
-	expected := [][]string{
+	return aBoard
+}
+
+func TestMakeBoardReturnsBoardWithCells(t *testing.T) {
+	expectedNumOfCellsInBoard := 9
+	actualNumOfCells := len(aBoard.cells)
+
+	matchers.EqualLiterals(t, expectedNumOfCellsInBoard, actualNumOfCells)
+	matchers.EqualLiterals(t, 3, aBoard.size)
+}
+
+func TestPutMarkOnEmptyCell(t *testing.T) {
+	aBoard := MakeBoard(3)
+	aBoard.putMarkOnBoard("X", 1)
+
+	matchers.EqualLiterals(t, aBoard.cells[1], "X")
+}
+
+func TestCheckIfCellIsTakenOrEmpty(t *testing.T) {
+	matchers.IsTrue(t, aBoard.isCellAvailable(1))
+	matchers.IsFalse(t, aBoard.isCellAvailable(2))
+}
+
+func TestGetRowsReturnsArrayOfCellsSplitIntoRows(t *testing.T) {
+	expectedRows := [][]string{{"Y"," ","X"}, {" ", "Y", " "}, {" ", " ", "Y"}}
+
+	matchers.DeepEqual(t, expectedRows, aBoard.getRows())
+}
+
+func TestGetColumnsReturnsArrayOfCellsSplitIntoColumns(t *testing.T) {
+	expectedColumns := [][]string{{"Y"," "," "}, {" ", "Y", " "}, {"X", " ", "Y"}}
+
+	matchers.DeepEqual(t, expectedColumns, aBoard.getColumns())
+}
+
+func TestGetLeftDiagonal(t *testing.T) {
+	expectedLeftDiagonal := []string{"Y","Y","Y"}
+
+	matchers.DeepEqual(t, expectedLeftDiagonal, aBoard.getLeftDiagonal())
+}
+
+func TestGetRightDiagonal(t *testing.T) {
+	expectedRightDiagonal := []string{"X","Y"," "}
+
+	matchers.DeepEqual(t, expectedRightDiagonal, aBoard.getRightDiagonal())
+}
+
+func TestGetDiagonals(t *testing.T) {
+	expectedDiagonals := [][]string{{"Y","Y","Y"}, {"X", "Y", " "}}
+
+	matchers.DeepEqual(t, expectedDiagonals, aBoard.getDiagonals())
+}
+
+func TestGetLinesReturnsAllLinesOnBoard(t *testing.T) {
+	expectedAllLines := [][]string{
 		{"Y"," ","X"},
 		{" ", "Y", " "},
 		{" ", " ", "Y"},
@@ -94,15 +79,10 @@ func TestGetLinesReturnsAllLinesOnBoard(t *testing.T) {
 		{"X", "Y", " "},
 	}
 
-	matchers.DeepEqual(t, expected, aBoard.getLines())
+	matchers.DeepEqual(t, expectedAllLines, aBoard.getLines())
 }
 
 func TestIsWinnerAcceptsMarkAndReturnsBool(t *testing.T) {
-	aBoard := MakeBoard(3)
-	aBoard.putMarkOnBoard("Y", 0)
-	aBoard.putMarkOnBoard("X", 2)
-	aBoard.putMarkOnBoard("Y", 4)
-	aBoard.putMarkOnBoard("Y", 8)
 	expectedWinnerSign := "Y"
 	expectedLoserSign := "X"
 
