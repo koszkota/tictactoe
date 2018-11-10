@@ -76,3 +76,23 @@ func TestGetDiagonals(t *testing.T) {
 
 	matchers.DeepEqual(t, expected, aBoard.getDiagonals())
 }
+
+func TestGetLinesReturnsAllLinesOnBoard(t *testing.T) {
+	aBoard := MakeBoard(3)
+	aBoard.putMarkOnBoard("Y", 0)
+	aBoard.putMarkOnBoard("X", 2)
+	aBoard.putMarkOnBoard("Y", 4)
+	aBoard.putMarkOnBoard("Y", 8)
+	expected := [][]string{
+		{"Y"," ","X"},
+		{" ", "Y", " "},
+		{" ", " ", "Y"},
+		{"Y", " ", " "},
+		{" ", "Y", " "},
+		{"X", " ", "Y"},
+		{"Y", "Y", "Y"},
+		{"X", "Y", " "},
+	}
+
+	matchers.DeepEqual(t, expected, aBoard.getLines())
+}

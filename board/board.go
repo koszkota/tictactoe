@@ -66,10 +66,14 @@ func (board *Board) getLeftDiagonal() []string {
 func (board *Board) getRightDiagonal() []string {
 	var rightDiagonal []string
 	rows := board.getRows()
-	endIndex := board.size -1
+	endIndex := board.size - 1
 	for i := 0; i < board.size; i++ {
 		rightDiagonal = append(rightDiagonal, rows[i][endIndex])
 		endIndex -= 1
 	}
 	return rightDiagonal
+}
+
+func (board *Board) getLines() [][]string {
+	return append(append(board.getRows(), board.getColumns()...), board.getDiagonals()...)
 }
