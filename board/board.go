@@ -78,7 +78,7 @@ func (board *Board) getLines() [][]string {
 	return append(append(board.getRows(), board.getColumns()...), board.getDiagonals()...)
 }
 
-func (board * Board) isWon(mark string) bool {
+func (board *Board) isWon(mark string) bool {
 	var allLines = board.getLines()
 	for _, line := range allLines {
 		if lineIsWon(line, mark) {
@@ -95,4 +95,13 @@ func lineIsWon(line []string, mark string) bool{
 		}
 	}
 	return true
+}
+
+func (board *Board) hasEmptyCell() bool {
+	for _, cell := range board.cells {
+		if cell == " " {
+			return true
+		}
+	}
+	return false
 }

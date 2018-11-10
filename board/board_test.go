@@ -89,3 +89,7 @@ func TestIsWinnerAcceptsMarkAndReturnsBool(t *testing.T) {
 	matchers.IsTrue(t, aBoard.isWon(expectedWinnerSign))
 	matchers.IsFalse(t, aBoard.isWon(expectedLoserSign))
 }
+
+func TestHasEmptyCellReturnsTrueWhenEmptyCellIsAvailable(t *testing.T) {
+	matchers.IsTrue(t, aBoard.hasEmptyCell())
+}
