@@ -77,3 +77,22 @@ func (board *Board) getRightDiagonal() []string {
 func (board *Board) getLines() [][]string {
 	return append(append(board.getRows(), board.getColumns()...), board.getDiagonals()...)
 }
+
+func (board * Board) isWon(mark string) bool {
+	var allLines = board.getLines()
+	for _, line := range allLines {
+		if lineIsWon(line, mark) {
+			return true
+		}
+	}
+	return false
+}
+
+func lineIsWon(line []string, mark string) bool{
+	for i := 0; i < len(line); i++ {
+		if line[i] != mark {
+			return false
+		}
+	}
+	return true
+}

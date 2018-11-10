@@ -96,3 +96,16 @@ func TestGetLinesReturnsAllLinesOnBoard(t *testing.T) {
 
 	matchers.DeepEqual(t, expected, aBoard.getLines())
 }
+
+func TestIsWinnerAcceptsMarkAndReturnsBool(t *testing.T) {
+	aBoard := MakeBoard(3)
+	aBoard.putMarkOnBoard("Y", 0)
+	aBoard.putMarkOnBoard("X", 2)
+	aBoard.putMarkOnBoard("Y", 4)
+	aBoard.putMarkOnBoard("Y", 8)
+	expectedWinnerSign := "Y"
+	expectedLoserSign := "X"
+
+	matchers.IsTrue(t, aBoard.isWon(expectedWinnerSign))
+	matchers.IsFalse(t, aBoard.isWon(expectedLoserSign))
+}
