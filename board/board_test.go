@@ -50,3 +50,29 @@ func TestGetColumnsReturnsArrayOfCellsSplitIntoColumns(t *testing.T) {
 	matchers.DeepEqual(t, expected, aBoard.getColumns())
 }
 
+func TestGetLeftDiagonal(t *testing.T) {
+	aBoard := MakeBoard(3)
+	aBoard.putMarkOnBoard("X", 0)
+	expected := []string{"X"," "," "}
+
+	matchers.DeepEqual(t, expected, aBoard.getLeftDiagonal())
+}
+
+func TestGetRightDiagonal(t *testing.T) {
+	aBoard := MakeBoard(3)
+	aBoard.putMarkOnBoard("X", 2)
+	aBoard.putMarkOnBoard("Y", 4)
+	expected := []string{"X","Y"," "}
+
+	matchers.DeepEqual(t, expected, aBoard.getRightDiagonal())
+}
+
+func TestGetDiagonals(t *testing.T) {
+	aBoard := MakeBoard(3)
+	aBoard.putMarkOnBoard("Y", 0)
+	aBoard.putMarkOnBoard("X", 2)
+	aBoard.putMarkOnBoard("Y", 4)
+	expected := [][]string{{"Y","Y"," "}, {"X", "Y", " "}}
+
+	matchers.DeepEqual(t, expected, aBoard.getDiagonals())
+}

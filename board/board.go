@@ -35,7 +35,7 @@ func (board *Board) getRows() [][]string {
 	return cellsSplitIntoRows
 }
 
-func (board Board) getColumns() [][]string {
+func (board *Board) getColumns() [][]string {
 	var cellsSplitIntoColumns [][]string
 	rows := board.getRows()
 	for i := 0; i < board.size; i++ {
@@ -46,4 +46,30 @@ func (board Board) getColumns() [][]string {
 		cellsSplitIntoColumns = append(cellsSplitIntoColumns, singleColumn)
 	}
 	return cellsSplitIntoColumns
+}
+
+func (board *Board) getDiagonals() [][]string {
+	var diagonals [][]string
+	diagonals = append(diagonals, board.getLeftDiagonal())
+	diagonals = append(diagonals, board.getRightDiagonal())
+	return diagonals
+}
+
+func (board *Board) getLeftDiagonal() []string {
+	var leftDiagonal []string
+	rows := board.getRows()
+	for i := 0; i < board.size; i++ {
+		leftDiagonal = append(leftDiagonal, rows[i][i])
+	}
+	return leftDiagonal
+}
+func (board *Board) getRightDiagonal() []string {
+	var rightDiagonal []string
+	rows := board.getRows()
+	endIndex := board.size -1
+	for i := 0; i < board.size; i++ {
+		rightDiagonal = append(rightDiagonal, rows[i][endIndex])
+		endIndex -= 1
+	}
+	return rightDiagonal
 }
