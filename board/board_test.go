@@ -5,13 +5,8 @@ import (
 	"tictactoe/testHelper"
 )
 
-func createBoard(cells [9]string) Board{
-	return Board{cells: cells}
-}
-
-func TestBoardHasCells(t *testing.T) {
-	cells := [9]string{" ", " ", " ", " ", " ", " ", " ", " ", " "}
-	aBoard := createBoard(cells)
+func TestMakeBoardReturnsBoardWithCells(t *testing.T) {
+	aBoard := MakeBoard(3)
 	expectedNumOfCells := 9
 	actualNumOfCells := len(aBoard.cells)
 
@@ -19,10 +14,18 @@ func TestBoardHasCells(t *testing.T) {
 }
 
 func TestPutMarkOnEmptyCell(t *testing.T) {
-	cells := [9]string{" ", " ", " ", " ", " ", " ", " ", " ", " "}
-	aBoard := createBoard(cells)
+	aBoard := MakeBoard(3)
 	cellIndex := 0
 	aBoard.putMarkOnBoard("X", cellIndex)
 
 	matchers.EqualLiterals(t, aBoard.cells[cellIndex], "X")
-}  
+}
+
+func TestCheckIfCellIsTakenOrEmpty(t *testing.T) {
+	aBoard := MakeBoard(3)
+	cellIndex := 0
+	aBoard.putMarkOnBoard("X", cellIndex)
+
+	matchers.IsTrue(t, aBoard.cellIsAvailable(1))
+	matchers.IsFalse(t, aBoard.cellIsAvailable(cellIndex))
+}
