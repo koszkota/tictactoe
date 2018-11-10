@@ -6,11 +6,13 @@ import (
 )
 
 func TestMakeBoardReturnsBoardWithCells(t *testing.T) {
-	aBoard := MakeBoard(3)
+	boardSize := 3
+	aBoard := MakeBoard(boardSize)
 	expectedNumOfCells := 9
 	actualNumOfCells := len(aBoard.cells)
 
 	matchers.EqualLiterals(t, expectedNumOfCells, actualNumOfCells)
+	matchers.EqualLiterals(t, boardSize, aBoard.size)
 }
 
 func TestPutMarkOnEmptyCell(t *testing.T) {
@@ -26,6 +28,15 @@ func TestCheckIfCellIsTakenOrEmpty(t *testing.T) {
 	cellIndex := 0
 	aBoard.putMarkOnBoard("X", cellIndex)
 
-	matchers.IsTrue(t, aBoard.cellIsAvailable(1))
-	matchers.IsFalse(t, aBoard.cellIsAvailable(cellIndex))
+	matchers.IsTrue(t, aBoard.isCellAvailable(1))
+	matchers.IsFalse(t, aBoard.isCellAvailable(cellIndex))
+}
+
+func TestGetRowsReturnsArrayOfCellsSplitIntoRows(t *testing.T) {
+	aBoard := MakeBoard(3)
+	aBoard.putMarkOnBoard("X", 1)
+	aBoard.putMarkOnBoard("Y", 4)
+	expected := [][]string{{" ","X"," "}, {" ", "Y", " "}, {" ", " ", " "}}
+
+	matchers.DeepEqual(t, expected, aBoard.getRows())
 }
