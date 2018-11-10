@@ -34,3 +34,16 @@ func (board *Board) getRows() [][]string {
 	}
 	return cellsSplitIntoRows
 }
+
+func (board Board) getColumns() [][]string {
+	var cellsSplitIntoColumns [][]string
+	rows := board.getRows()
+	for i := 0; i < board.size; i++ {
+		var singleColumn []string
+		for j := 0; j < len(rows); j++ {
+			singleColumn = append(singleColumn, rows[j][i])
+		}
+		cellsSplitIntoColumns = append(cellsSplitIntoColumns, singleColumn)
+	}
+	return cellsSplitIntoColumns
+}

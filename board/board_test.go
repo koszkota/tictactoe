@@ -40,3 +40,13 @@ func TestGetRowsReturnsArrayOfCellsSplitIntoRows(t *testing.T) {
 
 	matchers.DeepEqual(t, expected, aBoard.getRows())
 }
+
+func TestGetColumnsReturnsArrayOfCellsSplitIntoColumns(t *testing.T) {
+	aBoard := MakeBoard(3)
+	aBoard.putMarkOnBoard("X", 1)
+	aBoard.putMarkOnBoard("Y", 4)
+	expected := [][]string{{" "," "," "}, {"X", "Y", " "}, {" ", " ", " "}}
+
+	matchers.DeepEqual(t, expected, aBoard.getColumns())
+}
+
