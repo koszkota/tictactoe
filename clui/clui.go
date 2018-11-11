@@ -1,27 +1,36 @@
 package clui
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
-func HelloPlayers() string {
-	return "Hello and welcome to tic tac toe"
+func HelloPlayers() {
+	fmt.Println("Hello and welcome to tic tac toe")
 }
 
-func InformOfMove(positionOnBoard int, mark string) string {
-	return "Player " + mark + " picked position " + strconv.Itoa(positionOnBoard)
+func InformOfMove(positionOnBoard int, mark string)  {
+	fmt.Println("Player " + mark + " picked position " + strconv.Itoa(positionOnBoard))
 }
 
-func InformOfWinner(winnerMark string) string {
-	return "Player " + winnerMark + "won!"
+func InformOfWinner(winnerMark string) {
+	fmt.Println("Player " + winnerMark + "won!")
 }
 
-func InformOfTie() string {
-	return "It's a tie!"
+func InformOfTie()  {
+	fmt.Println("It's a tie!")
 }
 
-func AskForMove(mark string) string {
-	return "Player " + mark + ", pick a position"
+func AskForMove(mark string) {
+	fmt.Println("Player " + mark + ", pick a position")
 }
 
-func InformOfInvalidMove() string {
-	return "This move is not available"
+func InformOfInvalidMove() {
+	fmt.Println("This move is not available")
 }
+
+//func ShowBoard(rows [][]string) {
+//	for _, row := range rows {
+//		fmt.Println(row)
+//	}
+//}

@@ -1,50 +1,36 @@
 package clui_test
 
 import (
-	"testing"
 	"tictactoe/clui"
-	"tictactoe/testhelper"
 )
 
-func TestHelloPlayers(t *testing.T) {
-	expectedString := "Hello and welcome to tic tac toe"
-	actualString := clui.HelloPlayers()
-
-	matchers.EqualLiterals(t, actualString, expectedString)
+func ExampleHelloPlayers() {
+	clui.HelloPlayers()
+	// Output: Hello and welcome to tic tac toe
 }
 
-func TestInformOfMove(t *testing.T) {
-	expectedString := "Player X picked position 1"
-	actualString := clui.InformOfMove(1, "X")
-
-	matchers.EqualLiterals(t, actualString, expectedString)
+func ExampleInformOfMove() {
+	clui.InformOfMove(1, "X")
+	// Output: "Player X picked position 1"
 }
 
-func TestInformOfWinner(t *testing.T) {
-	expectedString := "Player X won!"
-	actualString := clui.InformOfWinner("X")
-
-	matchers.EqualLiterals(t, actualString, expectedString)
+func ExampleInformOfWinner() {
+	clui.InformOfWinner("X")
+	// Output: "Player X won!"
 }
 
-func TestInformOfTie(t *testing.T) {
-	expectedString := "It's a tie!"
-	actualString := clui.InformOfTie()
-
-	matchers.EqualLiterals(t, actualString, expectedString)
+func ExampleInformOfTie() {
+	clui.InformOfTie()
+	// Output: "It's a tie!"
 }
 
-func TestAskForMove(t *testing.T) {
-	expectedString := "Player X, pick a position"
-	actualString := clui.AskForMove("X")
-
-	matchers.EqualLiterals(t, actualString, expectedString)
+func ExampleAskForMove() {
+	clui.AskForMove("X")
+	// Output: "Player X, pick a position"
 }
 
-func TestInformOfInvalidMove(t *testing.T) {
-	expectedString := "This move is not available"
-	actualString := clui.InformOfInvalidMove()
-
-	matchers.EqualLiterals(t, actualString, expectedString)
+func ExampleInformOfInvalidMove() {
+	clui.InformOfInvalidMove()
+	// Output: "This move is not available"
 }
 
