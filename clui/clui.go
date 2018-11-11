@@ -1,9 +1,20 @@
 package clui
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"strconv"
 )
+
+type Clui struct {
+	reader *bufio.Reader
+}
+
+func MakeClui(input io.Reader) Clui {
+	reader := bufio.NewReader(input)
+	return Clui{reader: reader}
+}
 
 func HelloPlayers() {
 	fmt.Println("Hello and welcome to tic tac toe")
@@ -46,4 +57,9 @@ func buildBoardString(rows [][]string) string {
 		boardString += "\n"
 	}
 	return boardString
+}
+
+func (clui *Clui) ReadUserInput() string {
+	text, _ := clui.reader.ReadString('\n')
+	return text
 }

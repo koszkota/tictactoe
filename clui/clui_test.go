@@ -1,6 +1,7 @@
 package clui
 
 import (
+	"strings"
 	"testing"
 	"tictactoe/testhelper"
 )
@@ -40,4 +41,13 @@ func TestBuildBoardString(t *testing.T) {
 	rows := [][]string{{"1","2","3"}, {"4", "X", "6"}, {"7", "8", "9"}}
 	actualString := buildBoardString(rows)
 	matchers.EqualLiterals(t, actualString, expectedString)
+}
+
+func TestReadUserInputAndReturnIt(t *testing.T) {
+	hardcodedInput := "testWord"
+	// in real MakeClui pass os.Stdin
+	aClui := MakeClui(strings.NewReader(hardcodedInput))
+	actualString := aClui.ReadUserInput()
+
+	matchers.EqualLiterals(t, hardcodedInput, actualString)
 }
