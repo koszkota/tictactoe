@@ -14,7 +14,7 @@ func InformOfMove(positionOnBoard int, mark string)  {
 }
 
 func InformOfWinner(winnerMark string) {
-	fmt.Println("Player " + winnerMark + "won!")
+	fmt.Println("Player " + winnerMark + " won!")
 }
 
 func InformOfTie()  {
@@ -29,8 +29,21 @@ func InformOfInvalidMove() {
 	fmt.Println("This move is not available")
 }
 
-//func ShowBoard(rows [][]string) {
-//	for _, row := range rows {
-//		fmt.Println(row)
-//	}
-//}
+func ShowBoard(rows [][]string) {
+	boardString := buildBoardString(rows)
+	fmt.Print(boardString)
+}
+
+func buildBoardString(rows [][]string) string {
+	var boardString string
+	for _, row := range rows {
+		for j, cell := range row {
+			boardString += fmt.Sprintf("%3s", cell)
+			if j < (len(row) -1) {
+				boardString += "  |"
+			}
+		}
+		boardString += "\n"
+	}
+	return boardString
+}

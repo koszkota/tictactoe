@@ -1,36 +1,43 @@
-package clui_test
+package clui
 
 import (
-	"tictactoe/clui"
+	"testing"
+	"tictactoe/testhelper"
 )
 
 func ExampleHelloPlayers() {
-	clui.HelloPlayers()
+	HelloPlayers()
 	// Output: Hello and welcome to tic tac toe
 }
 
 func ExampleInformOfMove() {
-	clui.InformOfMove(1, "X")
-	// Output: "Player X picked position 1"
+	InformOfMove(1, "X")
+	// Output: Player X picked position 1
 }
 
 func ExampleInformOfWinner() {
-	clui.InformOfWinner("X")
-	// Output: "Player X won!"
+	InformOfWinner("X")
+	// Output: Player X won!
 }
 
 func ExampleInformOfTie() {
-	clui.InformOfTie()
-	// Output: "It's a tie!"
+	InformOfTie()
+	// Output: It's a tie!
 }
 
 func ExampleAskForMove() {
-	clui.AskForMove("X")
-	// Output: "Player X, pick a position"
+	AskForMove("X")
+	// Output: Player X, pick a position
 }
 
 func ExampleInformOfInvalidMove() {
-	clui.InformOfInvalidMove()
-	// Output: "This move is not available"
+	InformOfInvalidMove()
+	// Output: This move is not available
 }
 
+func TestBuildBoardString(t *testing.T) {
+	expectedString := "  1  |  2  |  3\n  4  |  X  |  6\n  7  |  8  |  9\n"
+	rows := [][]string{{"1","2","3"}, {"4", "X", "6"}, {"7", "8", "9"}}
+	actualString := buildBoardString(rows)
+	matchers.EqualLiterals(t, actualString, expectedString)
+}
