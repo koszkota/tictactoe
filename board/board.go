@@ -26,8 +26,12 @@ func (board *Board) putMarkOnBoard(mark string, cellIndex int) {
 	board.cells[cellIndex] = mark
 }
 
-func (board *Board) isCellAvailable(cellIndex int) bool {
-	return board.isCellNumeric(cellIndex)
+func (board *Board) isMoveValid(cellIndex int) bool {
+	return board.isCellIndexWithinBoardSize(cellIndex) && board.isCellNumeric(cellIndex)
+}
+
+func (board *Board) isCellIndexWithinBoardSize(cellIndex int) bool {
+	return cellIndex < len(board.cells) && cellIndex > 0
 }
 
 func (board *Board) isCellNumeric(cellIndex int) bool {

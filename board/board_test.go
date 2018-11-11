@@ -32,9 +32,16 @@ func TestPutMarkOnEmptyCell(t *testing.T) {
 	matchers.EqualLiterals(t, aBoard.cells[1], "X")
 }
 
-func TestCheckIfCellIsTakenOrEmpty(t *testing.T) {
-	matchers.IsTrue(t, aBoard.isCellAvailable(1))
-	matchers.IsFalse(t, aBoard.isCellAvailable(2))
+func TestMoveIsValidForNonTakenField(t *testing.T) {
+	matchers.IsTrue(t, aBoard.isMoveValid(1))
+}
+
+func TestMoveIsInValidForTakenField(t *testing.T) {
+	matchers.IsFalse(t, aBoard.isMoveValid(8))
+}
+
+func TestMoveIsInValidForOutOfRangeIndex(t *testing.T) {
+	matchers.IsFalse(t, aBoard.isMoveValid(10))
 }
 
 func TestGetRowsReturnsArrayOfCellsSplitIntoRows(t *testing.T) {
