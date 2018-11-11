@@ -38,13 +38,13 @@ func TestCheckIfCellIsTakenOrEmpty(t *testing.T) {
 }
 
 func TestGetRowsReturnsArrayOfCellsSplitIntoRows(t *testing.T) {
-	expectedRows := [][]string{{"Y"," ","X"}, {" ", "Y", " "}, {" ", " ", "Y"}}
+	expectedRows := [][]string{{"Y","2","X"}, {"4", "Y", "6"}, {"7", "8", "Y"}}
 
 	matchers.DeepEqual(t, expectedRows, aBoard.getRows())
 }
 
 func TestGetColumnsReturnsArrayOfCellsSplitIntoColumns(t *testing.T) {
-	expectedColumns := [][]string{{"Y"," "," "}, {" ", "Y", " "}, {"X", " ", "Y"}}
+	expectedColumns := [][]string{{"Y","4","7"}, {"2", "Y", "8"}, {"X", "6", "Y"}}
 
 	matchers.DeepEqual(t, expectedColumns, aBoard.getColumns())
 }
@@ -56,27 +56,27 @@ func TestGetLeftDiagonal(t *testing.T) {
 }
 
 func TestGetRightDiagonal(t *testing.T) {
-	expectedRightDiagonal := []string{"X","Y"," "}
+	expectedRightDiagonal := []string{"X","Y","7"}
 
 	matchers.DeepEqual(t, expectedRightDiagonal, aBoard.getRightDiagonal())
 }
 
 func TestGetDiagonals(t *testing.T) {
-	expectedDiagonals := [][]string{{"Y","Y","Y"}, {"X", "Y", " "}}
+	expectedDiagonals := [][]string{{"Y","Y","Y"}, {"X", "Y", "7"}}
 
 	matchers.DeepEqual(t, expectedDiagonals, aBoard.getDiagonals())
 }
 
 func TestGetLinesReturnsAllLinesOnBoard(t *testing.T) {
 	expectedAllLines := [][]string{
-		{"Y"," ","X"},
-		{" ", "Y", " "},
-		{" ", " ", "Y"},
-		{"Y", " ", " "},
-		{" ", "Y", " "},
-		{"X", " ", "Y"},
+		{"Y","2","X"},
+		{"4", "Y", "6"},
+		{"7", "8", "Y"},
+		{"Y", "4", "7"},
+		{"2", "Y", "8"},
+		{"X", "6", "Y"},
 		{"Y", "Y", "Y"},
-		{"X", "Y", " "},
+		{"X", "Y", "7"},
 	}
 
 	matchers.DeepEqual(t, expectedAllLines, aBoard.getLines())
