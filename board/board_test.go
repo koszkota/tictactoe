@@ -10,10 +10,10 @@ var aBoard = setupBoard()
 func setupBoard() Board {
 	boardSize := 3
 	aBoard := MakeBoard(boardSize)
-	aBoard.putMarkOnBoard("Y", 0)
-	aBoard.putMarkOnBoard("X", 2)
-	aBoard.putMarkOnBoard("Y", 4)
-	aBoard.putMarkOnBoard("Y", 8)
+	aBoard.PutMarkOnBoard("Y", 0)
+	aBoard.PutMarkOnBoard("X", 2)
+	aBoard.PutMarkOnBoard("Y", 4)
+	aBoard.PutMarkOnBoard("Y", 8)
 	return aBoard
 }
 
@@ -27,7 +27,7 @@ func TestMakeBoardReturnsBoardWithCells(t *testing.T) {
 
 func TestPutMarkOnEmptyCell(t *testing.T) {
 	aBoard := MakeBoard(3)
-	aBoard.putMarkOnBoard("X", 1)
+	aBoard.PutMarkOnBoard("X", 1)
 
 	matchers.EqualLiterals(t, aBoard.cells[1], "X")
 }
@@ -47,7 +47,7 @@ func TestMoveIsInValidForOutOfRangeIndex(t *testing.T) {
 func TestGetRowsReturnsArrayOfCellsSplitIntoRows(t *testing.T) {
 	expectedRows := [][]string{{"Y","2","X"}, {"4", "Y", "6"}, {"7", "8", "Y"}}
 
-	matchers.DeepEqual(t, expectedRows, aBoard.getRows())
+	matchers.DeepEqual(t, expectedRows, aBoard.GetRows())
 }
 
 func TestGetColumnsReturnsArrayOfCellsSplitIntoColumns(t *testing.T) {
