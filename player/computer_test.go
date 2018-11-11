@@ -3,7 +3,7 @@ package player_test
 import (
 	"testing"
 	"tictactoe/board"
-	"tictactoe/testHelper"
+	"tictactoe/testhelper"
 	"tictactoe/player"
 )
 

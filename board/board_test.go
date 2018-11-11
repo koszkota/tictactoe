@@ -2,7 +2,7 @@ package board
 
 import (
 	"testing"
-	"tictactoe/testHelper"
+	"tictactoe/testhelper"
 )
 
 var aBoard = setupBoard()

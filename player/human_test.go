@@ -4,7 +4,7 @@ import (
 	"testing"
 	"tictactoe/board"
 	"tictactoe/player"
-	"tictactoe/testHelper"
+	"tictactoe/testhelper"
 )
 
 var humanPlayer = player.Human{Mark: "X"}
