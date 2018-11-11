@@ -1,5 +1,9 @@
 package board
 
+import (
+	"strconv"
+)
+
 type Board struct {
 	cells []string
 	size int
@@ -14,7 +18,7 @@ func MakeBoard(boardSize int) Board {
 
 func (board *Board) initializeEmptyCells(boardSize int) {
 	for i := 0; i < (boardSize * boardSize); i++ {
-		board.cells = append(board.cells, " ")
+		board.cells = append(board.cells, strconv.Itoa(i + 1))
 	}
 }
 
@@ -22,8 +26,19 @@ func (board *Board) putMarkOnBoard(mark string, cellIndex int) {
 	board.cells[cellIndex] = mark
 }
 
-func (board *Board) isCellAvailable(cellIndex int) bool {
-	return board.cells[cellIndex] == " "
+func (board *Board) isMoveValid(cellIndex int) bool {
+	return board.isCellIndexWithinBoardSize(cellIndex) && board.isCellNumeric(cellIndex)
+}
+
+func (board *Board) isCellIndexWithinBoardSize(cellIndex int) bool {
+	return cellIndex < len(board.cells) && cellIndex > 0
+}
+
+func (board *Board) isCellNumeric(cellIndex int) bool {
+	if _, err := strconv.Atoi(board.cells[cellIndex]); err == nil {
+		return true
+	}
+	return false
 }
 
 func (board *Board) getRows() [][]string {
@@ -98,8 +113,8 @@ func lineIsWon(line []string, mark string) bool{
 }
 
 func (board *Board) hasEmptyCell() bool {
-	for _, cell := range board.cells {
-		if cell == " " {
+	for i := range board.cells {
+		if board.isCellNumeric(i) {
 			return true
 		}
 	}
