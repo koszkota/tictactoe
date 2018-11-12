@@ -6,33 +6,42 @@ import (
 	"tictactoe/testhelper"
 )
 
+var clui = setupClui()
+var hardcodedInput = "testWord"
+
+func setupClui() Clui {
+	writer := MakeWriter()
+	clui := MakeClui(strings.NewReader(hardcodedInput), writer)
+	return clui
+}
+
 func ExampleHelloPlayers() {
-	HelloPlayers()
+	clui.HelloPlayers()
 	// Output: Hello and welcome to tic tac toe
 }
 
 func ExampleInformOfMove() {
-	informOfMove(1, "X")
+	clui.informOfMove(1, "X")
 	// Output: Player X picked position 1
 }
 
 func ExampleInformOfWinner() {
-	informOfWinner("X")
+	clui.informOfWinner("X")
 	// Output: Player X won!
 }
 
 func ExampleInformOfTie() {
-	informOfTie()
+	clui.informOfTie()
 	// Output: It's a tie!
 }
 
 func ExampleAskForMove() {
-	askForMove("X")
+	clui.askForMove("X")
 	// Output: Player X, pick a position
 }
 
 func ExampleInformOfInvalidMove() {
-	informOfInvalidMove()
+	clui.informOfInvalidMove()
 	// Output: This move is not available
 }
 
@@ -44,10 +53,7 @@ func TestBuildBoardString(t *testing.T) {
 }
 
 func TestReadUserInputAndReturnIt(t *testing.T) {
-	hardcodedInput := "testWord"
-	// in real MakeCluiReader pass os.Stdin
-	aClui := MakeCluiReader(strings.NewReader(hardcodedInput))
-	actualString := aClui.ReadUserInput()
+	actualString := clui.ReadUserInput()
 
 	matchers.EqualLiterals(t, hardcodedInput, actualString)
 }

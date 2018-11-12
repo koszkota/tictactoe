@@ -7,45 +7,46 @@ import (
 	"strconv"
 )
 
-type CluiReader struct {
-	reader *bufio.Reader
+type Clui struct {
+	reader  *bufio.Reader
+	printer Writer
 }
 
-func MakeCluiReader(input io.Reader) CluiReader {
+func MakeClui(input io.Reader, printer Writer) Clui {
 	reader := bufio.NewReader(input)
-	return CluiReader{reader: reader}
+	return Clui{reader: reader, printer: printer}
 }
 
-func HelloPlayers() {
-	fmt.Println("Hello and welcome to tic tac toe")
+func (clui Clui) HelloPlayers() {
+	clui.printer.Write("Hello and welcome to tic tac toe")
 }
 
-func informOfMove(positionOnBoard int, mark string)  {
-	fmt.Println("Player " + mark + " picked position " + strconv.Itoa(positionOnBoard))
+func (clui Clui) informOfMove(positionOnBoard int, mark string)  {
+	clui.printer.Write("Player " + mark + " picked position " + strconv.Itoa(positionOnBoard))
 }
 
-func informOfWinner(winnerMark string) {
-	fmt.Println("Player " + winnerMark + " won!")
+func (clui Clui) informOfWinner(winnerMark string) {
+	clui.printer.Write("Player " + winnerMark + " won!")
 }
 
-func informOfTie()  {
-	fmt.Println("It's a tie!")
+func (clui Clui) informOfTie()  {
+	clui.printer.Write("It's a tie!")
 }
 
-func askForMove(mark string) {
-	fmt.Println("Player " + mark + ", pick a position")
+func (clui Clui) askForMove(mark string) {
+	clui.printer.Write("Player " + mark + ", pick a position")
 }
 
-func informOfInvalidMove() {
-	fmt.Println("This move is not available")
+func (clui Clui) informOfInvalidMove() {
+	clui.printer.Write("This move is not available")
 }
 
-func ShowBoard(rows [][]string) {
+func (clui Clui) ShowBoard(rows [][]string) {
 	boardString := buildBoardString(rows)
-	fmt.Print(boardString)
+	clui.printer.Write(boardString)
 }
 
-func (clui CluiReader) ReadUserInput() string {
+func (clui Clui) ReadUserInput() string {
 	text, _ := clui.reader.ReadString('\n')
 	return text
 }
