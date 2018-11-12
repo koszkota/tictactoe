@@ -118,6 +118,13 @@ func TestGameIsFinishedWhenBoardIsWon(t *testing.T) {
 	matchers.IsTrue(t, aBoard.IsGameOver("X", "Y"))
 }
 
+func TestGameIsNotFinishedWHenEmptyPlacesAndNoWinner(t *testing.T) {
+	boardSize := 3
+	aBoard := MakeBoard(boardSize)
+	aBoard.PutMarkOnBoard("Y", 0)
+	matchers.IsFalse(t, aBoard.IsGameOver("X", "Y"))
+}
+
 func TestGameIsFinishedWhenNoMoreFreePlaces(t *testing.T) {
 	boardSize := 3
 	aBoard := MakeBoard(boardSize)
