@@ -36,7 +36,7 @@ func (clui Clui) AskForMove(mark string) {
 	clui.writer.Write("Player " + mark + ", pick a position")
 }
 
-func (clui Clui) informOfInvalidMove() {
+func (clui Clui) InformOfInvalidMove() {
 	clui.writer.Write("This move is not available")
 }
 

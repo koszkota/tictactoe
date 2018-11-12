@@ -41,7 +41,7 @@ func ExampleAskForMove() {
 }
 
 func ExampleInformOfInvalidMove() {
-	clui.informOfInvalidMove()
+	clui.InformOfInvalidMove()
 	// Output: This move is not available
 }
 
