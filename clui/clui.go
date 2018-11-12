@@ -8,42 +8,42 @@ import (
 )
 
 type Clui struct {
-	reader  *bufio.Reader
-	printer Writer
+	reader *bufio.Reader
+	writer Writer
 }
 
-func MakeClui(input io.Reader, printer Writer) Clui {
+func MakeClui(input io.Reader, writer Writer) Clui {
 	reader := bufio.NewReader(input)
-	return Clui{reader: reader, printer: printer}
+	return Clui{reader: reader, writer: writer}
 }
 
 func (clui Clui) HelloPlayers() {
-	clui.printer.Write("Hello and welcome to tic tac toe")
+	clui.writer.Write("Hello and welcome to tic tac toe")
 }
 
 func (clui Clui) informOfMove(positionOnBoard int, mark string)  {
-	clui.printer.Write("Player " + mark + " picked position " + strconv.Itoa(positionOnBoard))
+	clui.writer.Write("Player " + mark + " picked position " + strconv.Itoa(positionOnBoard))
 }
 
 func (clui Clui) informOfWinner(winnerMark string) {
-	clui.printer.Write("Player " + winnerMark + " won!")
+	clui.writer.Write("Player " + winnerMark + " won!")
 }
 
-func (clui Clui) informOfTie()  {
-	clui.printer.Write("It's a tie!")
+func (clui Clui) InformOfTie()  {
+	clui.writer.Write("It's a tie!")
 }
 
 func (clui Clui) askForMove(mark string) {
-	clui.printer.Write("Player " + mark + ", pick a position")
+	clui.writer.Write("Player " + mark + ", pick a position")
 }
 
 func (clui Clui) informOfInvalidMove() {
-	clui.printer.Write("This move is not available")
+	clui.writer.Write("This move is not available")
 }
 
 func (clui Clui) ShowBoard(rows [][]string) {
 	boardString := buildBoardString(rows)
-	clui.printer.Write(boardString)
+	clui.writer.Write(boardString)
 }
 
 func (clui Clui) ReadUserInput() string {

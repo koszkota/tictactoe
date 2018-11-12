@@ -10,7 +10,7 @@ var clui = setupClui()
 var hardcodedInput = "testWord"
 
 func setupClui() Clui {
-	writer := MakeWriter()
+	writer := MakeConsoleWriter()
 	clui := MakeClui(strings.NewReader(hardcodedInput), writer)
 	return clui
 }
@@ -31,7 +31,7 @@ func ExampleInformOfWinner() {
 }
 
 func ExampleInformOfTie() {
-	clui.informOfTie()
+	clui.InformOfTie()
 	// Output: It's a tie!
 }
 
