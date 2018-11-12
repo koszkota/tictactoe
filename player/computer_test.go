@@ -16,7 +16,7 @@ func TestPickMethodReturns3(t *testing.T) {
 	aBoard := board.MakeBoard(3)
 	pickedCell := computerPlayer.PickMove(aBoard)
 
-	matchers.EqualLiterals(t, 3, pickedCell)
+	matchers.EqualLiterals(t, "3", pickedCell)
 }
 
 func TestGetMarkReturnsComputerMark(t *testing.T) {

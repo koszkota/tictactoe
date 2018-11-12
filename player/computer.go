@@ -6,8 +6,8 @@ type Computer struct {
 	Mark string
 }
 
-func (computer Computer) PickMove (board board.Board) int {
-	return 3
+func (computer Computer) PickMove (board board.Board) string {
+	return "3"
 }
 
 func (computer Computer) GetMark() string {
