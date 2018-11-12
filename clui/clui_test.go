@@ -21,7 +21,7 @@ func ExampleHelloPlayers() {
 }
 
 func ExampleInformOfMove() {
-	clui.InformOfMove(1, "X")
+	clui.InformOfMove("1", "X")
 	// Output: Player X picked position 1
 }
 

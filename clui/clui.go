@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"strconv"
 )
 
 type Clui struct {
@@ -21,8 +20,8 @@ func (clui Clui) HelloPlayers() {
 	clui.writer.Write("Hello and welcome to tic tac toe")
 }
 
-func (clui Clui) InformOfMove(positionOnBoard int, mark string)  {
-	clui.writer.Write("Player " + mark + " picked position " + strconv.Itoa(positionOnBoard))
+func (clui Clui) InformOfMove(pickedMove string, mark string)  {
+	clui.writer.Write("Player " + mark + " picked position " + pickedMove)
 }
 
 func (clui Clui) InformOfWinner(winnerMark string) {
