@@ -33,15 +33,15 @@ func TestPutMarkOnEmptyCell(t *testing.T) {
 }
 
 func TestMoveIsValidForNonTakenField(t *testing.T) {
-	matchers.IsTrue(t, aBoard.isMoveValid(1))
+	matchers.IsTrue(t, aBoard.IsMoveValid(1))
 }
 
 func TestMoveIsInValidForTakenField(t *testing.T) {
-	matchers.IsFalse(t, aBoard.isMoveValid(8))
+	matchers.IsFalse(t, aBoard.IsMoveValid(8))
 }
 
 func TestMoveIsInValidForOutOfRangeIndex(t *testing.T) {
-	matchers.IsFalse(t, aBoard.isMoveValid(10))
+	matchers.IsFalse(t, aBoard.IsMoveValid(10))
 }
 
 func TestGetRowsReturnsArrayOfCellsSplitIntoRows(t *testing.T) {

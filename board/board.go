@@ -42,12 +42,12 @@ func (board Board) IsGameOver(mark1 string, mark2 string) bool {
 	 return false
 }
 
-func (board Board) isMoveValid(cellIndex int) bool {
+func (board Board) IsMoveValid(cellIndex int) bool {
 	return board.isCellIndexWithinBoardSize(cellIndex) && board.isCellNumeric(cellIndex)
 }
 
 func (board Board) isCellIndexWithinBoardSize(cellIndex int) bool {
-	return cellIndex < len(board.cells) && cellIndex > 0
+	return cellIndex < len(board.cells) && cellIndex >= 0
 }
 
 func (board Board) isCellNumeric(cellIndex int) bool {
