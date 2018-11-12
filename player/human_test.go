@@ -1,13 +1,12 @@
-package player_test
+package player
 
 import (
 	"testing"
 	"tictactoe/board"
-	"tictactoe/player"
 	"tictactoe/testhelper"
 )
 
-var humanPlayer = player.Human{Mark: "X"}
+var humanPlayer = Human{Mark: "X"}
 
 func TestHumanPlayerHasMark(t *testing.T) {
 	matchers.EqualLiterals(t, humanPlayer.Mark, "X")
