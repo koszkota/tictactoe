@@ -21,7 +21,6 @@ func DeepEqual(tb testing.TB, expected, actual interface{}) {
 }
 
 func IsTrue(tb testing.TB, actualBoolean bool) {
-	fmt.Println(actualBoolean)
 	if actualBoolean != true {
 		fmt.Printf("The statement is not true")
 		tb.FailNow()
