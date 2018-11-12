@@ -21,12 +21,12 @@ func ExampleHelloPlayers() {
 }
 
 func ExampleInformOfMove() {
-	clui.informOfMove(1, "X")
+	clui.InformOfMove(1, "X")
 	// Output: Player X picked position 1
 }
 
 func ExampleInformOfWinner() {
-	clui.informOfWinner("X")
+	clui.InformOfWinner("X")
 	// Output: Player X won!
 }
 
@@ -36,7 +36,7 @@ func ExampleInformOfTie() {
 }
 
 func ExampleAskForMove() {
-	clui.askForMove("X")
+	clui.AskForMove("X")
 	// Output: Player X, pick a position
 }
 

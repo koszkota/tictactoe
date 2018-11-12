@@ -21,11 +21,11 @@ func (clui Clui) HelloPlayers() {
 	clui.writer.Write("Hello and welcome to tic tac toe")
 }
 
-func (clui Clui) informOfMove(positionOnBoard int, mark string)  {
+func (clui Clui) InformOfMove(positionOnBoard int, mark string)  {
 	clui.writer.Write("Player " + mark + " picked position " + strconv.Itoa(positionOnBoard))
 }
 
-func (clui Clui) informOfWinner(winnerMark string) {
+func (clui Clui) InformOfWinner(winnerMark string) {
 	clui.writer.Write("Player " + winnerMark + " won!")
 }
 
@@ -33,7 +33,7 @@ func (clui Clui) InformOfTie()  {
 	clui.writer.Write("It's a tie!")
 }
 
-func (clui Clui) askForMove(mark string) {
+func (clui Clui) AskForMove(mark string) {
 	clui.writer.Write("Player " + mark + ", pick a position")
 }
 
