@@ -6,15 +6,19 @@ import (
 	"tictactoe/testhelper"
 )
 
-var humanPlayer = Human{Mark: "X"}
+var humanPlayer = Human{mark: "X"}
 
 func TestHumanPlayerHasMark(t *testing.T) {
-	matchers.EqualLiterals(t, humanPlayer.Mark, "X")
+	matchers.EqualLiterals(t, "X", humanPlayer.mark)
 }
 
 func TestPickMethodReturns2(t *testing.T) {
 	aBoard := board.MakeBoard(3)
 	pickedCell := humanPlayer.PickMove(aBoard)
 
-	matchers.EqualLiterals(t, pickedCell, 2)
+	matchers.EqualLiterals(t, 2, pickedCell)
+}
+
+func TestGetMarkReturnsHumanMark(t *testing.T) {
+	matchers.EqualLiterals(t, "X", humanPlayer.GetMark())
 }
