@@ -26,6 +26,15 @@ func (board *Board) PutMarkOnBoard (mark string, cellIndex int) {
 	board.cells[cellIndex] = mark
 }
 
+func (board Board) GetRows() [][]string {
+	var cellsSplitIntoRows [][]string
+	for i := 0; i < len(board.cells); i += board.size {
+		end := i + board.size
+		cellsSplitIntoRows = append(cellsSplitIntoRows, board.cells[i:end])
+	}
+	return cellsSplitIntoRows
+}
+
 func (board Board) isMoveValid(cellIndex int) bool {
 	return board.isCellIndexWithinBoardSize(cellIndex) && board.isCellNumeric(cellIndex)
 }
@@ -39,15 +48,6 @@ func (board Board) isCellNumeric(cellIndex int) bool {
 		return true
 	}
 	return false
-}
-
-func (board Board) GetRows() [][]string {
-	var cellsSplitIntoRows [][]string
-	for i := 0; i < len(board.cells); i += board.size {
-		end := i + board.size
-		cellsSplitIntoRows = append(cellsSplitIntoRows, board.cells[i:end])
-	}
-	return cellsSplitIntoRows
 }
 
 func (board Board) getColumns() [][]string {

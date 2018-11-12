@@ -7,32 +7,32 @@ import (
 )
 
 func ExampleHelloPlayers() {
-	HelloPlayers()
+	helloPlayers()
 	// Output: Hello and welcome to tic tac toe
 }
 
 func ExampleInformOfMove() {
-	InformOfMove(1, "X")
+	informOfMove(1, "X")
 	// Output: Player X picked position 1
 }
 
 func ExampleInformOfWinner() {
-	InformOfWinner("X")
+	informOfWinner("X")
 	// Output: Player X won!
 }
 
 func ExampleInformOfTie() {
-	InformOfTie()
+	informOfTie()
 	// Output: It's a tie!
 }
 
 func ExampleAskForMove() {
-	AskForMove("X")
+	askForMove("X")
 	// Output: Player X, pick a position
 }
 
 func ExampleInformOfInvalidMove() {
-	InformOfInvalidMove()
+	informOfInvalidMove()
 	// Output: This move is not available
 }
 
@@ -45,8 +45,8 @@ func TestBuildBoardString(t *testing.T) {
 
 func TestReadUserInputAndReturnIt(t *testing.T) {
 	hardcodedInput := "testWord"
-	// in real MakeClui pass os.Stdin
-	aClui := MakeClui(strings.NewReader(hardcodedInput))
+	// in real MakeCluiReader pass os.Stdin
+	aClui := makeCluiReader(strings.NewReader(hardcodedInput))
 	actualString := aClui.ReadUserInput()
 
 	matchers.EqualLiterals(t, hardcodedInput, actualString)

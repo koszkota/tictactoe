@@ -7,42 +7,47 @@ import (
 	"strconv"
 )
 
-type Clui struct {
+type CluiReader struct {
 	reader *bufio.Reader
 }
 
-func MakeClui(input io.Reader) Clui {
+func makeCluiReader(input io.Reader) CluiReader {
 	reader := bufio.NewReader(input)
-	return Clui{reader: reader}
+	return CluiReader{reader: reader}
 }
 
-func HelloPlayers() {
+func helloPlayers() {
 	fmt.Println("Hello and welcome to tic tac toe")
 }
 
-func InformOfMove(positionOnBoard int, mark string)  {
+func informOfMove(positionOnBoard int, mark string)  {
 	fmt.Println("Player " + mark + " picked position " + strconv.Itoa(positionOnBoard))
 }
 
-func InformOfWinner(winnerMark string) {
+func informOfWinner(winnerMark string) {
 	fmt.Println("Player " + winnerMark + " won!")
 }
 
-func InformOfTie()  {
+func informOfTie()  {
 	fmt.Println("It's a tie!")
 }
 
-func AskForMove(mark string) {
+func askForMove(mark string) {
 	fmt.Println("Player " + mark + ", pick a position")
 }
 
-func InformOfInvalidMove() {
+func informOfInvalidMove() {
 	fmt.Println("This move is not available")
 }
 
 func ShowBoard(rows [][]string) {
 	boardString := buildBoardString(rows)
 	fmt.Print(boardString)
+}
+
+func (clui CluiReader) ReadUserInput() string {
+	text, _ := clui.reader.ReadString('\n')
+	return text
 }
 
 func buildBoardString(rows [][]string) string {
@@ -57,9 +62,4 @@ func buildBoardString(rows [][]string) string {
 		boardString += "\n"
 	}
 	return boardString
-}
-
-func (clui *Clui) ReadUserInput() string {
-	text, _ := clui.reader.ReadString('\n')
-	return text
 }
