@@ -9,11 +9,11 @@ import (
 )
 
 func main() {
-	cluiReader := clui.MakeClui(os.Stdin, clui.MakeConsoleWriter())
+	clui := clui.MakeClui(os.Stdin, clui.MakeConsoleWriter())
 	board := board.MakeBoard(3)
-	playerX := player.Human{"X"}
-	playerY := player.Human{"Y"}
-	aGame := game.MakeGame(cluiReader, &board, playerX, playerY)
+	playerX := player.Human{Mark: "X", Clui: clui}
+	playerY := player.Human{Mark: "Y", Clui: clui}
+	aGame := game.MakeGame(clui, &board, playerX, playerY)
 
 	aGame.Play()
 }

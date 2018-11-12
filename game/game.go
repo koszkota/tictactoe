@@ -2,7 +2,6 @@ package game
 
 import (
 	"strconv"
-	"strings"
 	"tictactoe/board"
 	"tictactoe/clui"
 	"tictactoe/player"
@@ -29,12 +28,11 @@ func (game *Game) Play() {
 }
 
 func (game Game) playTurn() {
-	currentPlayer := game.board.GetCurrentPlayerMark(game.playerOne.GetMark(), game.playerTwo.GetMark())
-	game.clui.AskForMove(currentPlayer)
-	pickedMove := strings.TrimRight(game.clui.ReadUserInput(), "\n\r")
-	moveReadyForBoard := game.transformMoveForTheBoard(pickedMove)
-	game.board.PutMarkOnBoard(currentPlayer, moveReadyForBoard)
-	game.clui.InformOfMove(pickedMove, currentPlayer)
+	currentPlayer := game.getCurrentPlayer()
+	move := currentPlayer.PickMove(*game.board)
+	moveReadyForBoard := game.transformMoveForTheBoard(move)
+	game.board.PutMarkOnBoard(currentPlayer.GetMark(), moveReadyForBoard)
+	game.clui.InformOfMove(move, currentPlayer.GetMark())
 	game.clui.ShowBoard(game.board.GetRows())
 }
 
@@ -51,4 +49,13 @@ func (game Game) announceResult() {
 func (game Game) transformMoveForTheBoard(move string) int {
 	moveAsInteger,_  := strconv.Atoi(move)
 	return moveAsInteger - 1
+}
+
+func (game Game) getCurrentPlayer() player.Player {
+	currentPlayerMark := game.board.GetCurrentPlayerMark(game.playerOne.GetMark(), game.playerTwo.GetMark())
+	if currentPlayerMark == game.playerOne.GetMark() {
+		return game.playerOne
+	} else {
+		return game.playerTwo
+	}
 }
