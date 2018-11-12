@@ -101,17 +101,17 @@ func TestHasEmptyCellReturnsTrueWhenEmptyCellIsAvailable(t *testing.T) {
 	matchers.IsTrue(t, aBoard.HasEmptyCell())
 }
 
-func TestReturnsMarkOfTheNextPlayerAtTheBeginningOfTheGame(t *testing.T) {
+func TestReturnsMarkOfTheCurrentPlayerAtTheBeginningOfTheGame(t *testing.T) {
 	boardSize := 3
 	aBoard := MakeBoard(boardSize)
-	matchers.EqualLiterals(t, aBoard.GetNextPlayerMark("X", "Y"), "X")
+	matchers.EqualLiterals(t, aBoard.GetCurrentPlayerMark("X", "Y"), "X")
 }
 
-func TestReturnsMarkOfTheNextPlayerAfterFirstMove(t *testing.T) {
+func TestReturnsMarkOfTheCurrentPlayerAfterFirstMove(t *testing.T) {
 	boardSize := 3
 	aBoard := MakeBoard(boardSize)
 	aBoard.PutMarkOnBoard("X", 2)
-	matchers.EqualLiterals(t, aBoard.GetNextPlayerMark("X", "Y"), "Y")
+	matchers.EqualLiterals(t, aBoard.GetCurrentPlayerMark("X", "Y"), "Y")
 }
 
 func TestGameIsFinishedWhenBoardIsWon(t *testing.T) {

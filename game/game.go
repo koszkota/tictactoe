@@ -29,7 +29,7 @@ func (game *Game) Play() {
 }
 
 func (game Game) playTurn() {
-	currentPlayer := game.board.GetNextPlayerMark(game.playerOne.GetMark(), game.playerTwo.GetMark())
+	currentPlayer := game.board.GetCurrentPlayerMark(game.playerOne.GetMark(), game.playerTwo.GetMark())
 	game.clui.AskForMove(currentPlayer)
 	var pickedMove = game.clui.ReadUserInput()
 	moveAsInt,_  := strconv.Atoi(strings.TrimRight(pickedMove, "\n\r"))

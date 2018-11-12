@@ -128,7 +128,7 @@ func (board Board) HasEmptyCell() bool {
 	return false
 }
 
-func (board Board) GetNextPlayerMark(markOne string, markTwo string) string {
+func (board Board) GetCurrentPlayerMark(markOne string, markTwo string) string {
 	markOneCount := getCountOfMarksOnBoard(board.cells, markOne)
 	markTwoCount := getCountOfMarksOnBoard(board.cells, markTwo)
 	if markOneCount > markTwoCount {
