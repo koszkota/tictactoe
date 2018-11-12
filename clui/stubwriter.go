@@ -16,3 +16,7 @@ func (stubWriter *StubWriter) CleanOutputs() {
 func (stubWriter *StubWriter) GetOutputs() []string {
 	return stubWriter.arrayOfOutputs
 }
+
+func (stubWriter StubWriter) GetLastMessage() string {
+	return stubWriter.GetOutputs()[len(stubWriter.arrayOfOutputs)-1]
+}

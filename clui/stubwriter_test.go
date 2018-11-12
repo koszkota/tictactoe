@@ -18,14 +18,27 @@ func TestStubWriterCleansOutputs(t *testing.T) {
 	stubWriter := StubWriter{}
 	stubWriter.Write("koteczek")
 	matchers.EqualLiterals(t, "koteczek", stubWriter.arrayOfOutputs[0])
+
 	stubWriter.CleanOutputs()
+
 	matchers.EqualLiterals(t, 0, len(stubWriter.arrayOfOutputs))
 }
 
-func TestStubWriterReturnsOutpurs(t *testing.T) {
+func TestStubWriterReturnsOutput(t *testing.T) {
 	stubWriter := StubWriter{}
 	stubWriter.Write("koteczek")
+
 	matchers.EqualLiterals(t, "koteczek", stubWriter.GetOutputs()[0])
+
 	stubWriter.CleanOutputs()
-	matchers.EqualLiterals(t, 0, len(stubWriter.arrayOfOutputs))
+}
+
+func TestStubWriterReturnsLastMessage(t *testing.T) {
+	stubWriter := StubWriter{}
+	stubWriter.Write("koteczek")
+	stubWriter.Write("testtest")
+
+	matchers.EqualLiterals(t, "testtest", stubWriter.GetLastMessage())
+
+	stubWriter.CleanOutputs()
 }
