@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleHelloPlayers() {
-	helloPlayers()
+	HelloPlayers()
 	// Output: Hello and welcome to tic tac toe
 }
 
@@ -46,7 +46,7 @@ func TestBuildBoardString(t *testing.T) {
 func TestReadUserInputAndReturnIt(t *testing.T) {
 	hardcodedInput := "testWord"
 	// in real MakeCluiReader pass os.Stdin
-	aClui := makeCluiReader(strings.NewReader(hardcodedInput))
+	aClui := MakeCluiReader(strings.NewReader(hardcodedInput))
 	actualString := aClui.ReadUserInput()
 
 	matchers.EqualLiterals(t, hardcodedInput, actualString)

@@ -11,12 +11,12 @@ type CluiReader struct {
 	reader *bufio.Reader
 }
 
-func makeCluiReader(input io.Reader) CluiReader {
+func MakeCluiReader(input io.Reader) CluiReader {
 	reader := bufio.NewReader(input)
 	return CluiReader{reader: reader}
 }
 
-func helloPlayers() {
+func HelloPlayers() {
 	fmt.Println("Hello and welcome to tic tac toe")
 }
 
