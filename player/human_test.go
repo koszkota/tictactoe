@@ -6,10 +6,10 @@ import (
 	"tictactoe/testhelper"
 )
 
-var humanPlayer = Human{mark: "X"}
+var humanPlayer = Human{Mark: "X"}
 
 func TestHumanPlayerHasMark(t *testing.T) {
-	matchers.EqualLiterals(t, "X", humanPlayer.mark)
+	matchers.EqualLiterals(t, "X", humanPlayer.Mark)
 }
 
 func TestPickMethodReturns2(t *testing.T) {

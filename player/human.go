@@ -3,7 +3,7 @@ package player
 import "tictactoe/board"
 
 type Human struct {
-	mark string
+	Mark string
 }
 
 func (human Human) PickMove(board board.Board) int {
@@ -11,5 +11,5 @@ func (human Human) PickMove(board board.Board) int {
 }
 
 func (human Human) GetMark() string {
-	return human.mark
+	return human.Mark
 }

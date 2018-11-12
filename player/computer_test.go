@@ -6,10 +6,10 @@ import (
 	"tictactoe/testhelper"
 )
 
-var computerPlayer = Computer{mark: "Y"}
+var computerPlayer = Computer{Mark: "Y"}
 
 func TestComputerPlayerHasMark(t *testing.T) {
-	matchers.EqualLiterals(t, "Y", computerPlayer.mark)
+	matchers.EqualLiterals(t, "Y", computerPlayer.Mark)
 }
 
 func TestPickMethodReturns3(t *testing.T) {
