@@ -9,11 +9,10 @@ import (
 )
 
 var stubWriter = new(clui.StubWriter)
-var humanPlayer = setupPlayer(stubWriter)
+var humanPlayer = setupPlayer(stubWriter, "1")
 
 
-func setupPlayer(writer *clui.StubWriter) Human {
-	var hardcodedInput = "1"
+func setupPlayer(writer *clui.StubWriter, hardcodedInput string) Human {
 	clui := clui.MakeClui(strings.NewReader(hardcodedInput), writer)
 	return Human{Mark: "X", Clui: clui}
 }
@@ -41,4 +40,22 @@ func TestPickMoveMethodPromptsPlayerFormMove(t *testing.T) {
 
 func TestGetMarkReturnsHumanMark(t *testing.T) {
 	matchers.EqualLiterals(t, "X", humanPlayer.GetMark())
+}
+
+func TestHumanPicksAnInvalidMoveFirstAndValidAfterWards(t *testing.T) {
+	aBoard := board.MakeBoard(3)
+	aBoard.PutMarkOnBoard("X", 5)
+	humanPlayer = setupPlayer(stubWriter, "6\n2\n")
+	move := humanPlayer.PickMove(aBoard)
+
+	matchers.EqualLiterals(t, "2", move)
+}
+
+func TestHumanPlayerIsPrompterForValidMoveAfterPickingInvalid(t *testing.T) {
+	aBoard := board.MakeBoard(3)
+	aBoard.PutMarkOnBoard("X", 5)
+	humanPlayer = setupPlayer(stubWriter, "6\n2\n")
+	humanPlayer.PickMove(aBoard)
+
+	matchers.EqualLiterals(t, "This move is not available", stubWriter.GetOutputs()[1])
 }
