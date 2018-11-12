@@ -100,3 +100,16 @@ func TestIsWinnerAcceptsMarkAndReturnsBool(t *testing.T) {
 func TestHasEmptyCellReturnsTrueWhenEmptyCellIsAvailable(t *testing.T) {
 	matchers.IsTrue(t, aBoard.hasEmptyCell())
 }
+
+func TestReturnsMarkOfTheNextPlayerAtTheBeginningOfTheGame(t *testing.T) {
+	boardSize := 3
+	aBoard := MakeBoard(boardSize)
+	matchers.EqualLiterals(t, aBoard.getNextPlayerMark("X", "Y"), "X")
+}
+
+func TestReturnsMarkOfTheNextPlayerAfterFirstMove(t *testing.T) {
+	boardSize := 3
+	aBoard := MakeBoard(boardSize)
+	aBoard.PutMarkOnBoard("X", 2)
+	matchers.EqualLiterals(t, aBoard.getNextPlayerMark("X", "Y"), "Y")
+}

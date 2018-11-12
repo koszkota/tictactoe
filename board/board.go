@@ -120,3 +120,22 @@ func (board Board) hasEmptyCell() bool {
 	}
 	return false
 }
+
+func (board Board) getNextPlayerMark(markOne string, markTwo string) string {
+	markOneCount := getCountOfMarksOnBoard(board.cells, markOne)
+	markTwoCount := getCountOfMarksOnBoard(board.cells, markTwo)
+	if markOneCount > markTwoCount {
+		return markTwo
+	}
+	return markOne
+}
+
+func getCountOfMarksOnBoard(ss []string, mark string) int {
+	countOfMarksOnBoard := 0
+	for _, s := range ss {
+		if s == mark {
+			*&countOfMarksOnBoard += 1
+		}
+	}
+	return countOfMarksOnBoard
+}
