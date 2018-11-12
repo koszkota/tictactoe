@@ -93,23 +93,36 @@ func TestIsWinnerAcceptsMarkAndReturnsBool(t *testing.T) {
 	expectedWinnerSign := "Y"
 	expectedLoserSign := "X"
 
-	matchers.IsTrue(t, aBoard.isWon(expectedWinnerSign))
-	matchers.IsFalse(t, aBoard.isWon(expectedLoserSign))
+	matchers.IsTrue(t, aBoard.IsWon(expectedWinnerSign))
+	matchers.IsFalse(t, aBoard.IsWon(expectedLoserSign))
 }
 
 func TestHasEmptyCellReturnsTrueWhenEmptyCellIsAvailable(t *testing.T) {
-	matchers.IsTrue(t, aBoard.hasEmptyCell())
+	matchers.IsTrue(t, aBoard.HasEmptyCell())
 }
 
 func TestReturnsMarkOfTheNextPlayerAtTheBeginningOfTheGame(t *testing.T) {
 	boardSize := 3
 	aBoard := MakeBoard(boardSize)
-	matchers.EqualLiterals(t, aBoard.getNextPlayerMark("X", "Y"), "X")
+	matchers.EqualLiterals(t, aBoard.GetNextPlayerMark("X", "Y"), "X")
 }
 
 func TestReturnsMarkOfTheNextPlayerAfterFirstMove(t *testing.T) {
 	boardSize := 3
 	aBoard := MakeBoard(boardSize)
 	aBoard.PutMarkOnBoard("X", 2)
-	matchers.EqualLiterals(t, aBoard.getNextPlayerMark("X", "Y"), "Y")
+	matchers.EqualLiterals(t, aBoard.GetNextPlayerMark("X", "Y"), "Y")
+}
+
+func TestGameIsFinishedWhenBoardIsWon(t *testing.T) {
+	matchers.IsTrue(t, aBoard.IsGameOver("X", "Y"))
+}
+
+func TestGameIsFinishedWhenNoMoreFreePlaces(t *testing.T) {
+	boardSize := 3
+	aBoard := MakeBoard(boardSize)
+	for i := range aBoard.cells {
+		aBoard.PutMarkOnBoard("X", i)
+	}
+	matchers.IsTrue(t, aBoard.IsGameOver("X", "Y"))
 }

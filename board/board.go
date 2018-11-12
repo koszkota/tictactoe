@@ -35,6 +35,13 @@ func (board Board) GetRows() [][]string {
 	return cellsSplitIntoRows
 }
 
+func (board Board) IsGameOver(mark1 string, mark2 string) bool {
+	 if !(board.HasEmptyCell()) || board.IsWon(mark1) || board.IsWon(mark2) {
+	 	return true
+	 }
+	 return false
+}
+
 func (board Board) isMoveValid(cellIndex int) bool {
 	return board.isCellIndexWithinBoardSize(cellIndex) && board.isCellNumeric(cellIndex)
 }
@@ -93,7 +100,7 @@ func (board Board) getLines() [][]string {
 	return append(append(board.GetRows(), board.getColumns()...), board.getDiagonals()...)
 }
 
-func (board Board) isWon(mark string) bool {
+func (board Board) IsWon(mark string) bool {
 	var allLines = board.getLines()
 	for _, line := range allLines {
 		if lineIsWon(line, mark) {
@@ -112,7 +119,7 @@ func lineIsWon(line []string, mark string) bool{
 	return true
 }
 
-func (board Board) hasEmptyCell() bool {
+func (board Board) HasEmptyCell() bool {
 	for i := range board.cells {
 		if board.isCellNumeric(i) {
 			return true
@@ -121,7 +128,7 @@ func (board Board) hasEmptyCell() bool {
 	return false
 }
 
-func (board Board) getNextPlayerMark(markOne string, markTwo string) string {
+func (board Board) GetNextPlayerMark(markOne string, markTwo string) string {
 	markOneCount := getCountOfMarksOnBoard(board.cells, markOne)
 	markTwoCount := getCountOfMarksOnBoard(board.cells, markTwo)
 	if markOneCount > markTwoCount {
