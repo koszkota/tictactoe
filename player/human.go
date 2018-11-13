@@ -2,7 +2,6 @@ package player
 
 import (
 	"strconv"
-	"strings"
 	"tictactoe/board"
 	"tictactoe/clui"
 )
@@ -14,9 +13,9 @@ type Human struct {
 
 func (human Human) PickMove(board board.Board) string {
 	human.Clui.AskForMove(human.Mark)
-	moveAsString := strings.TrimRight(human.Clui.ReadUserInput(), "\n\r")
+	moveAsString :=human.Clui.ReadUserInput()
 	moveAsInt, _ := strconv.Atoi(moveAsString)
-	if board.IsMoveValid(moveAsInt -1) {
+	if board.IsMoveValid(moveAsInt - 1) {
 		return moveAsString
 	} else {
 		human.Clui.InformOfInvalidMove()

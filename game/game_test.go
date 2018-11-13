@@ -11,7 +11,7 @@ import (
 
 func TestGamePlaysWholeHumanVsHumanTieGame(t *testing.T) {
 	movesOfPlayers := "5\n1\n3\n7\n4\n6\n2\n8\n9\n"
-	stubWriter := new(clui.StubWriter)
+	stubWriter := &clui.StubWriter{}
 	clui := clui.MakeClui(strings.NewReader(movesOfPlayers), stubWriter)
 	board := board.MakeBoard(3)
 	playerOne := player.Human{Mark: "X", Clui: clui}
@@ -27,7 +27,7 @@ func TestGamePlaysWholeHumanVsHumanTieGame(t *testing.T) {
 
 func TestGamePlaysWholeHumanVsHumanWonGameForPlayerOne(t *testing.T) {
 	movesOfPlayers := "1\n2\n4\n5\n7\n"
-	stubWriter := new(clui.StubWriter)
+	stubWriter := &clui.StubWriter{}
 	clui := clui.MakeClui(strings.NewReader(movesOfPlayers), stubWriter)
 	board := board.MakeBoard(3)
 	playerOne := player.Human{Mark: "X", Clui: clui}
@@ -43,7 +43,7 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerOne(t *testing.T) {
 
 func TestGamePlaysWholeHumanVsHumanWonGameForPlayerTwo(t *testing.T) {
 	movesOfPlayers := "1\n2\n3\n5\n6\n8\n"
-	stubWriter := new(clui.StubWriter)
+	stubWriter := &clui.StubWriter{}
 	clui := clui.MakeClui(strings.NewReader(movesOfPlayers), stubWriter)
 	board := board.MakeBoard(3)
 	playerOne := player.Human{Mark: "X", Clui: clui}

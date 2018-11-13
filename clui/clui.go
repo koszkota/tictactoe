@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"strings"
 )
 
 type Clui struct {
@@ -47,7 +48,7 @@ func (clui Clui) ShowBoard(rows [][]string) {
 
 func (clui Clui) ReadUserInput() string {
 	text, _ := clui.reader.ReadString('\n')
-	return text
+	return strings.TrimRight(text, "\n\r")
 }
 
 func buildBoardString(rows [][]string) string {
@@ -55,7 +56,7 @@ func buildBoardString(rows [][]string) string {
 	for _, row := range rows {
 		for j, cell := range row {
 			boardString += fmt.Sprintf("%3s", cell)
-			if j < (len(row) -1) {
+			if j < (len(row) - 1) {
 				boardString += "  |"
 			}
 		}
