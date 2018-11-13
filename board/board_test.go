@@ -162,3 +162,20 @@ func TestBoardReturnsFreePlaces(t *testing.T) {
 
 	matchers.DeepEqual(t, actual, expected)
 }
+
+func TestBoardHasTie(t *testing.T) {
+	boardSize := 3
+	marksRepo := MarksRepo{"X", "Y"}
+	aBoard := MakeBoard(boardSize, &marksRepo)
+	aBoard.PutMarkOnBoard("X", 4)
+	aBoard.PutMarkOnBoard("Y", 0)
+	aBoard.PutMarkOnBoard("X", 2)
+	aBoard.PutMarkOnBoard("Y", 6)
+	aBoard.PutMarkOnBoard("X", 3)
+	aBoard.PutMarkOnBoard("Y", 5)
+	aBoard.PutMarkOnBoard("X", 1)
+	aBoard.PutMarkOnBoard("Y", 7)
+	aBoard.PutMarkOnBoard("X", 8)
+
+	matchers.IsTrue(t, aBoard.IsTie())
+}

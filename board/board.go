@@ -156,3 +156,7 @@ func (board Board) GetFreeCells() []string {
 	}
 	return freeCells
 }
+
+func (board Board) IsTie() bool {
+	return !(board.IsWon(board.marksRepo.PlayerOneMark)) && !(board.IsWon(board.marksRepo.PlayerTwoMark)) && !(board.HasEmptyCell())
+}
