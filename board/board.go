@@ -5,8 +5,8 @@ import (
 )
 
 type Board struct {
-	cells []string
-	size int
+	Cells     []string
+	size      int
 	marksRepo *MarksRepo
 }
 
@@ -19,19 +19,19 @@ func MakeBoard(boardSize int, marksRepo *MarksRepo) Board {
 
 func (board *Board) initializeEmptyCells(boardSize int) {
 	for i := 0; i < (boardSize * boardSize); i++ {
-		board.cells = append(board.cells, strconv.Itoa(i + 1))
+		board.Cells = append(board.Cells, strconv.Itoa(i + 1))
 	}
 }
 
 func (board *Board) PutMarkOnBoard (mark string, cellIndex int) {
-	board.cells[cellIndex] = mark
+	board.Cells[cellIndex] = mark
 }
 
 func (board Board) GetRows() [][]string {
 	var cellsSplitIntoRows [][]string
-	for i := 0; i < len(board.cells); i += board.size {
+	for i := 0; i < len(board.Cells); i += board.size {
 		end := i + board.size
-		cellsSplitIntoRows = append(cellsSplitIntoRows, board.cells[i:end])
+		cellsSplitIntoRows = append(cellsSplitIntoRows, board.Cells[i:end])
 	}
 	return cellsSplitIntoRows
 }
@@ -48,11 +48,11 @@ func (board Board) IsMoveValid(cellIndex int) bool {
 }
 
 func (board Board) isCellIndexWithinBoardSize(cellIndex int) bool {
-	return cellIndex < len(board.cells) && cellIndex >= 0
+	return cellIndex < len(board.Cells) && cellIndex >= 0
 }
 
 func (board Board) isCellNumeric(cellIndex int) bool {
-	if _, err := strconv.Atoi(board.cells[cellIndex]); err == nil {
+	if _, err := strconv.Atoi(board.Cells[cellIndex]); err == nil {
 		return true
 	}
 	return false
@@ -121,7 +121,7 @@ func lineIsWon(line []string, mark string) bool{
 }
 
 func (board Board) HasEmptyCell() bool {
-	for i := range board.cells {
+	for i := range board.Cells {
 		if board.isCellNumeric(i) {
 			return true
 		}
@@ -149,9 +149,9 @@ func (board Board) GetPassivePlayerSign() string {
 
 func (board Board) GetFreeCells() []string {
 	var freeCells []string
-	for i := range board.cells {
+	for i := range board.Cells {
 		if board.isCellNumeric(i) {
-			freeCells = append(freeCells, board.cells[i])
+			freeCells = append(freeCells, board.Cells[i])
 		}
 	}
 	return freeCells
