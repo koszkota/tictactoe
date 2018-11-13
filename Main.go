@@ -10,9 +10,9 @@ import (
 
 func main() {
 	clui := clui.MakeClui(os.Stdin, clui.MakeConsoleWriter())
-	board := board.MakeBoard(3)
+	board := board.MakeBoard(3, "X", "Y")
 	playerX := player.Human{Mark: "X", Clui: clui}
-	playerY := player.Human{Mark: "Y", Clui: clui}
+	playerY := player.Computer{Mark: "Y"}
 	aGame := game.MakeGame(clui, &board, playerX, playerY)
 
 	aGame.Play()

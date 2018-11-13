@@ -7,10 +7,12 @@ import (
 type Board struct {
 	cells []string
 	size int
+	firstPlayerMark string
+	secondPlayerMark string
 }
 
-func MakeBoard(boardSize int) Board {
-	aBoard := Board{size: boardSize}
+func MakeBoard(boardSize int, firstPlayerMark string, secondPlayerMark string) Board {
+	aBoard := Board{size: boardSize, firstPlayerMark: firstPlayerMark, secondPlayerMark: secondPlayerMark}
 
 	aBoard.initializeEmptyCells(boardSize)
 	return aBoard
@@ -128,23 +130,22 @@ func (board Board) HasEmptyCell() bool {
 	return false
 }
 
-func (board Board) GetMarkWithLessEntries(markOne string, markTwo string) string {
-	markOneCount := getCountOfMarksOnBoard(board.cells, markOne)
-	markTwoCount := getCountOfMarksOnBoard(board.cells, markTwo)
-	if markOneCount > markTwoCount {
-		return markTwo
+func (board Board) GetActivePlayerSign() string {
+	freeCells := board.GetFreeCells()
+	if len(freeCells)%2 != 0 {
+		return board.firstPlayerMark
+	} else {
+		return board.secondPlayerMark
 	}
-	return markOne
 }
 
-func getCountOfMarksOnBoard(ss []string, mark string) int {
-	countOfMarksOnBoard := 0
-	for _, s := range ss {
-		if s == mark {
-			*&countOfMarksOnBoard += 1
-		}
+func (board Board) GetPassivePlayerSign() string {
+	activePlayerSign := board.GetActivePlayerSign()
+	if activePlayerSign == board.firstPlayerMark {
+		return board.secondPlayerMark
+	} else {
+		return board.firstPlayerMark
 	}
-	return countOfMarksOnBoard
 }
 
 func (board Board) GetFreeCells() []string {

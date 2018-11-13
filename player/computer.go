@@ -7,6 +7,7 @@ type Computer struct {
 }
 
 func (computer Computer) PickMove (board board.Board) string {
+	//return board.GetFreeCells()[0]
 	return "3"
 }
 
