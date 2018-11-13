@@ -22,26 +22,11 @@ func (board *Board) initializeEmptyCells(boardSize int) {
 	}
 }
 
-func (board *Board) putMarkOnBoard(mark string, cellIndex int) {
+func (board *Board) PutMarkOnBoard (mark string, cellIndex int) {
 	board.cells[cellIndex] = mark
 }
 
-func (board *Board) isMoveValid(cellIndex int) bool {
-	return board.isCellIndexWithinBoardSize(cellIndex) && board.isCellNumeric(cellIndex)
-}
-
-func (board *Board) isCellIndexWithinBoardSize(cellIndex int) bool {
-	return cellIndex < len(board.cells) && cellIndex > 0
-}
-
-func (board *Board) isCellNumeric(cellIndex int) bool {
-	if _, err := strconv.Atoi(board.cells[cellIndex]); err == nil {
-		return true
-	}
-	return false
-}
-
-func (board *Board) getRows() [][]string {
+func (board Board) GetRows() [][]string {
 	var cellsSplitIntoRows [][]string
 	for i := 0; i < len(board.cells); i += board.size {
 		end := i + board.size
@@ -50,9 +35,31 @@ func (board *Board) getRows() [][]string {
 	return cellsSplitIntoRows
 }
 
-func (board *Board) getColumns() [][]string {
+func (board Board) IsGameOver(mark1 string, mark2 string) bool {
+	 if !(board.HasEmptyCell()) || board.IsWon(mark1) || board.IsWon(mark2) {
+	 	return true
+	 }
+	 return false
+}
+
+func (board Board) IsMoveValid(cellIndex int) bool {
+	return board.isCellIndexWithinBoardSize(cellIndex) && board.isCellNumeric(cellIndex)
+}
+
+func (board Board) isCellIndexWithinBoardSize(cellIndex int) bool {
+	return cellIndex < len(board.cells) && cellIndex >= 0
+}
+
+func (board Board) isCellNumeric(cellIndex int) bool {
+	if _, err := strconv.Atoi(board.cells[cellIndex]); err == nil {
+		return true
+	}
+	return false
+}
+
+func (board Board) getColumns() [][]string {
 	var cellsSplitIntoColumns [][]string
-	rows := board.getRows()
+	rows := board.GetRows()
 	for i := 0; i < board.size; i++ {
 		var singleColumn []string
 		for j := 0; j < len(rows); j++ {
@@ -63,24 +70,24 @@ func (board *Board) getColumns() [][]string {
 	return cellsSplitIntoColumns
 }
 
-func (board *Board) getDiagonals() [][]string {
+func (board Board) getDiagonals() [][]string {
 	var diagonals [][]string
 	diagonals = append(diagonals, board.getLeftDiagonal())
 	diagonals = append(diagonals, board.getRightDiagonal())
 	return diagonals
 }
 
-func (board *Board) getLeftDiagonal() []string {
+func (board Board) getLeftDiagonal() []string {
 	var leftDiagonal []string
-	rows := board.getRows()
+	rows := board.GetRows()
 	for i := 0; i < board.size; i++ {
 		leftDiagonal = append(leftDiagonal, rows[i][i])
 	}
 	return leftDiagonal
 }
-func (board *Board) getRightDiagonal() []string {
+func (board Board) getRightDiagonal() []string {
 	var rightDiagonal []string
-	rows := board.getRows()
+	rows := board.GetRows()
 	endIndex := board.size - 1
 	for i := 0; i < board.size; i++ {
 		rightDiagonal = append(rightDiagonal, rows[i][endIndex])
@@ -89,11 +96,11 @@ func (board *Board) getRightDiagonal() []string {
 	return rightDiagonal
 }
 
-func (board *Board) getLines() [][]string {
-	return append(append(board.getRows(), board.getColumns()...), board.getDiagonals()...)
+func (board Board) getLines() [][]string {
+	return append(append(board.GetRows(), board.getColumns()...), board.getDiagonals()...)
 }
 
-func (board *Board) isWon(mark string) bool {
+func (board Board) IsWon(mark string) bool {
 	var allLines = board.getLines()
 	for _, line := range allLines {
 		if lineIsWon(line, mark) {
@@ -112,11 +119,30 @@ func lineIsWon(line []string, mark string) bool{
 	return true
 }
 
-func (board *Board) hasEmptyCell() bool {
+func (board Board) HasEmptyCell() bool {
 	for i := range board.cells {
 		if board.isCellNumeric(i) {
 			return true
 		}
 	}
 	return false
+}
+
+func (board Board) GetMarkWithLessEntries(markOne string, markTwo string) string {
+	markOneCount := getCountOfMarksOnBoard(board.cells, markOne)
+	markTwoCount := getCountOfMarksOnBoard(board.cells, markTwo)
+	if markOneCount > markTwoCount {
+		return markTwo
+	}
+	return markOne
+}
+
+func getCountOfMarksOnBoard(ss []string, mark string) int {
+	countOfMarksOnBoard := 0
+	for _, s := range ss {
+		if s == mark {
+			*&countOfMarksOnBoard += 1
+		}
+	}
+	return countOfMarksOnBoard
 }
