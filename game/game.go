@@ -52,7 +52,7 @@ func (game Game) transformMoveForTheBoard(move string) int {
 }
 
 func (game Game) getCurrentPlayer() player.Player {
-	currentPlayerMark := game.board.GetCurrentPlayerMark(game.playerOne.GetMark(), game.playerTwo.GetMark())
+	currentPlayerMark := game.board.GetMarkWithLessEntries(game.playerOne.GetMark(), game.playerTwo.GetMark())
 	if currentPlayerMark == game.playerOne.GetMark() {
 		return game.playerOne
 	} else {
