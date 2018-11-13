@@ -53,6 +53,48 @@ func (board Board) IsMoveValid(cellIndex int) bool {
 	return board.isCellIndexWithinBoardSize(cellIndex) && board.isCellNumeric(cellIndex)
 }
 
+
+func (board Board) HasEmptyCell() bool {
+	for i := range board.cells {
+		if board.isCellNumeric(i) {
+			return true
+		}
+	}
+	return false
+}
+
+func (board Board) GetActivePlayerSign() string {
+	freeCells := board.GetFreeCells()
+	if len(freeCells)%2 != 0 {
+		return board.marksRepo.PlayerOneMark
+	} else {
+		return board.marksRepo.PlayerTwoMark
+	}
+}
+
+func (board Board) GetPassivePlayerSign() string {
+	activePlayerSign := board.GetActivePlayerSign()
+	if activePlayerSign == board.marksRepo.PlayerOneMark {
+		return board.marksRepo.PlayerTwoMark
+	} else {
+		return board.marksRepo.PlayerOneMark
+	}
+}
+
+func (board Board) GetFreeCells() []string {
+	var freeCells []string
+	for i := range board.cells {
+		if board.isCellNumeric(i) {
+			freeCells = append(freeCells, board.cells[i])
+		}
+	}
+	return freeCells
+}
+
+func (board Board) IsTie() bool {
+	return !(board.IsWon(board.marksRepo.PlayerOneMark)) && !(board.IsWon(board.marksRepo.PlayerTwoMark)) && !(board.HasEmptyCell())
+}
+
 func (board Board) isCellIndexWithinBoardSize(cellIndex int) bool {
 	return cellIndex < len(board.cells) && cellIndex >= 0
 }
@@ -124,45 +166,4 @@ func lineIsWon(line []string, mark string) bool{
 		}
 	}
 	return true
-}
-
-func (board Board) HasEmptyCell() bool {
-	for i := range board.cells {
-		if board.isCellNumeric(i) {
-			return true
-		}
-	}
-	return false
-}
-
-func (board Board) GetActivePlayerSign() string {
-	freeCells := board.GetFreeCells()
-	if len(freeCells)%2 != 0 {
-		return board.marksRepo.PlayerOneMark
-	} else {
-		return board.marksRepo.PlayerTwoMark
-	}
-}
-
-func (board Board) GetPassivePlayerSign() string {
-	activePlayerSign := board.GetActivePlayerSign()
-	if activePlayerSign == board.marksRepo.PlayerOneMark {
-		return board.marksRepo.PlayerTwoMark
-	} else {
-		return board.marksRepo.PlayerOneMark
-	}
-}
-
-func (board Board) GetFreeCells() []string {
-	var freeCells []string
-	for i := range board.cells {
-		if board.isCellNumeric(i) {
-			freeCells = append(freeCells, board.cells[i])
-		}
-	}
-	return freeCells
-}
-
-func (board Board) IsTie() bool {
-	return !(board.IsWon(board.marksRepo.PlayerOneMark)) && !(board.IsWon(board.marksRepo.PlayerTwoMark)) && !(board.HasEmptyCell())
 }
