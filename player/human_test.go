@@ -20,7 +20,8 @@ func TestPickMoveMethodReturnsPlayersPick(t *testing.T) {
 	var stubWriter = new(clui.StubWriter)
 	clui := clui.MakeClui(strings.NewReader("1"), stubWriter)
 	humanPlayer := Human{Mark: "X", Clui: clui}
-	aBoard := board.MakeBoard(3, "X", "Y")
+	marksRepo := board.MarksRepo{"X", "Y"}
+	aBoard := board.MakeBoard(3, &marksRepo)
 
 	pickedCell := humanPlayer.PickMove(aBoard)
 
@@ -31,7 +32,8 @@ func TestPickMoveMethodPromptsPlayerFormMove(t *testing.T) {
 	var stubWriter = new(clui.StubWriter)
 	clui := clui.MakeClui(strings.NewReader("1"), stubWriter)
 	humanPlayer := Human{Mark: "X", Clui: clui}
-	aBoard := board.MakeBoard(3, "X", "Y")
+	marksRepo := board.MarksRepo{"X", "Y"}
+	aBoard := board.MakeBoard(3, &marksRepo)
 
 	humanPlayer.PickMove(aBoard)
 
@@ -50,7 +52,8 @@ func TestHumanIsPrompterForValidMoveAndSubmitsIt(t *testing.T) {
 	var stubWriter = new(clui.StubWriter)
 	clui := clui.MakeClui(strings.NewReader("6\n2\n"), stubWriter)
 	humanPlayer := Human{Mark: "X", Clui: clui}
-	aBoard := board.MakeBoard(3, "X", "Y")
+	marksRepo := board.MarksRepo{"X", "Y"}
+	aBoard := board.MakeBoard(3, &marksRepo)
 	aBoard.PutMarkOnBoard("X", 5)
 
 	move := humanPlayer.PickMove(aBoard)

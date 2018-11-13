@@ -7,12 +7,11 @@ import (
 type Board struct {
 	cells []string
 	size int
-	firstPlayerMark string
-	secondPlayerMark string
+	marksRepo *MarksRepo
 }
 
-func MakeBoard(boardSize int, firstPlayerMark string, secondPlayerMark string) Board {
-	aBoard := Board{size: boardSize, firstPlayerMark: firstPlayerMark, secondPlayerMark: secondPlayerMark}
+func MakeBoard(boardSize int, marksRepo *MarksRepo) Board {
+	aBoard := Board{size: boardSize, marksRepo: marksRepo}
 
 	aBoard.initializeEmptyCells(boardSize)
 	return aBoard
@@ -133,18 +132,18 @@ func (board Board) HasEmptyCell() bool {
 func (board Board) GetActivePlayerSign() string {
 	freeCells := board.GetFreeCells()
 	if len(freeCells)%2 != 0 {
-		return board.firstPlayerMark
+		return board.marksRepo.PlayerOneMark
 	} else {
-		return board.secondPlayerMark
+		return board.marksRepo.PlayerTwoMark
 	}
 }
 
 func (board Board) GetPassivePlayerSign() string {
 	activePlayerSign := board.GetActivePlayerSign()
-	if activePlayerSign == board.firstPlayerMark {
-		return board.secondPlayerMark
+	if activePlayerSign == board.marksRepo.PlayerOneMark {
+		return board.marksRepo.PlayerTwoMark
 	} else {
-		return board.firstPlayerMark
+		return board.marksRepo.PlayerOneMark
 	}
 }
 

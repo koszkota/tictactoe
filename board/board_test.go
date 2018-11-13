@@ -9,7 +9,8 @@ var aBoard = setupBoard()
 
 func setupBoard() Board {
 	boardSize := 3
-	aBoard := MakeBoard(boardSize, "X", "Y")
+	marksRepo := MarksRepo{"X", "Y"}
+	aBoard := MakeBoard(boardSize, &marksRepo)
 	aBoard.PutMarkOnBoard("Y", 0)
 	aBoard.PutMarkOnBoard("X", 2)
 	aBoard.PutMarkOnBoard("Y", 4)
@@ -26,7 +27,8 @@ func TestMakeBoardReturnsBoardWithCells(t *testing.T) {
 }
 
 func TestPutMarkOnEmptyCell(t *testing.T) {
-	aBoard := MakeBoard(3, "X", "Y")
+	marksRepo := MarksRepo{"X", "Y"}
+	aBoard := MakeBoard(3, &marksRepo)
 	aBoard.PutMarkOnBoard("X", 1)
 
 	matchers.EqualLiterals(t, aBoard.cells[1], "X")
@@ -103,26 +105,30 @@ func TestHasEmptyCellReturnsTrueWhenEmptyCellIsAvailable(t *testing.T) {
 
 func TestReturnsMarkOfTheActivePlayerAtTheBeginningOfTheGame(t *testing.T) {
 	boardSize := 3
-	aBoard := MakeBoard(boardSize, "X", "Y")
+	marksRepo := MarksRepo{"X", "Y"}
+	aBoard := MakeBoard(boardSize, &marksRepo)
 	matchers.EqualLiterals(t, aBoard.GetActivePlayerSign(), "X")
 }
 
 func TestReturnsMarkOfThePassivePlayerAtTheBeginningOfTheGame(t *testing.T) {
 	boardSize := 3
-	aBoard := MakeBoard(boardSize, "X", "Y")
+	marksRepo := MarksRepo{"X", "Y"}
+	aBoard := MakeBoard(boardSize, &marksRepo)
 	matchers.EqualLiterals(t, aBoard.GetPassivePlayerSign(), "Y")
 }
 
 func TestReturnsMarkOfTheActivePlayerAfterFirstMove(t *testing.T) {
 	boardSize := 3
-	aBoard := MakeBoard(boardSize, "X", "Y")
+	marksRepo := MarksRepo{"X", "Y"}
+	aBoard := MakeBoard(boardSize, &marksRepo)
 	aBoard.PutMarkOnBoard("X", 2)
 	matchers.EqualLiterals(t, aBoard.GetActivePlayerSign(), "Y")
 }
 
 func TestReturnsMarkOfThePassivePlayerAfterFirstMove(t *testing.T) {
 	boardSize := 3
-	aBoard := MakeBoard(boardSize, "X", "Y")
+	marksRepo := MarksRepo{"X", "Y"}
+	aBoard := MakeBoard(boardSize, &marksRepo)
 	aBoard.PutMarkOnBoard("X", 2)
 	matchers.EqualLiterals(t, aBoard.GetPassivePlayerSign(), "X")
 }
@@ -134,14 +140,16 @@ func TestGameIsFinishedWhenBoardIsWon(t *testing.T) {
 
 func TestGameIsNotFinishedWHenEmptyPlacesAndNoWinner(t *testing.T) {
 	boardSize := 3
-	aBoard := MakeBoard(boardSize, "X", "Y")
+	marksRepo := MarksRepo{"X", "Y"}
+	aBoard := MakeBoard(boardSize, &marksRepo)
 	aBoard.PutMarkOnBoard("Y", 0)
 	matchers.IsFalse(t, aBoard.IsGameOver("X", "Y"))
 }
 
 func TestGameIsFinishedWhenNoMoreFreePlaces(t *testing.T) {
 	boardSize := 3
-	aBoard := MakeBoard(boardSize, "X", "Y")
+	marksRepo := MarksRepo{"X", "Y"}
+	aBoard := MakeBoard(boardSize, &marksRepo)
 	for i := range aBoard.cells {
 		aBoard.PutMarkOnBoard("X", i)
 	}

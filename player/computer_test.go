@@ -13,7 +13,8 @@ func TestComputerPlayerHasMark(t *testing.T) {
 }
 
 func TestPickMethodReturns3(t *testing.T) {
-	aBoard := board.MakeBoard(3, "X", "Y")
+	marksRepo := board.MarksRepo{"X", "Y"}
+	aBoard := board.MakeBoard(3, &marksRepo)
 	pickedCell := computerPlayer.PickMove(aBoard)
 
 	matchers.EqualLiterals(t, "3", pickedCell)
