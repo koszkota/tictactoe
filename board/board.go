@@ -146,3 +146,13 @@ func getCountOfMarksOnBoard(ss []string, mark string) int {
 	}
 	return countOfMarksOnBoard
 }
+
+func (board Board) GetFreeCells() []string {
+	var freeCells []string
+	for i := range board.cells {
+		if board.isCellNumeric(i) {
+			freeCells = append(freeCells, board.cells[i])
+		}
+	}
+	return freeCells
+}

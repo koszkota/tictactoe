@@ -133,3 +133,10 @@ func TestGameIsFinishedWhenNoMoreFreePlaces(t *testing.T) {
 	}
 	matchers.IsTrue(t, aBoard.IsGameOver("X", "Y"))
 }
+
+func TestBoardReturnsFreePlaces(t *testing.T) {
+	actual := aBoard.GetFreeCells()
+	expected := []string{"2", "4", "6", "7", "8"}
+
+	matchers.DeepEqual(t, actual, expected)
+}
