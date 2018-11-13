@@ -10,10 +10,10 @@ import (
 
 func main() {
 	clui := clui.MakeClui(os.Stdin, clui.MakeConsoleWriter())
-	marksRepo := board.MarksRepo{"X", "Y"}
+	marksRepo := board.MarksRepo{PlayerOneMark: "X", PlayerTwoMark: "Y"}
 	board := board.MakeBoard(3, &marksRepo)
-	playerX := player.Human{Mark: "X", Clui: clui}
-	playerY := player.Computer{Mark: "Y"}
+	playerY := player.Human{Mark: "X", Clui:clui}
+	playerX := player.Human{Mark: "Y", Clui:clui}
 	aGame := game.MakeGame(clui, &board, playerX, playerY)
 
 	aGame.Play()

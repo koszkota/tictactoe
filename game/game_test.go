@@ -59,3 +59,19 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerTwo(t *testing.T) {
 	matchers.EqualLiterals(t, expectedFinalMessage, stubWriter.GetLastMessage())
 	stubWriter.CleanOutputs()
 }
+
+func TestGamePlaysWholeComputerVsVomputerGameWithTie(t *testing.T) {
+	stubWriter := &clui.StubWriter{}
+	clui := clui.MakeClui(strings.NewReader(""), stubWriter)
+	marksRepo := board.MarksRepo{"X", "Y"}
+	board := board.MakeBoard(3, &marksRepo)
+	playerOne := player.Computer{Mark: "X"}
+	playerTwo := player.Computer{Mark: "Y"}
+	aGame := MakeGame(clui, &board, playerOne, playerTwo)
+
+	aGame.Play()
+
+	expectedFinalMessage :=  "It's a tie!"
+	matchers.EqualLiterals(t, expectedFinalMessage, stubWriter.GetLastMessage())
+	stubWriter.CleanOutputs()
+}
