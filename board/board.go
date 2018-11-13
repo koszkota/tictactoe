@@ -5,33 +5,39 @@ import (
 )
 
 type Board struct {
-	Cells     []string
+	cells     []string
 	size      int
 	marksRepo *MarksRepo
 }
 
 func MakeBoard(boardSize int, marksRepo *MarksRepo) Board {
 	aBoard := Board{size: boardSize, marksRepo: marksRepo}
-
 	aBoard.initializeEmptyCells(boardSize)
 	return aBoard
 }
 
+func (board Board) MakeACloneOfItself() Board {
+	cloneOfBoard := board
+	cloneOfBoard.cells = make([]string, len(board.cells))
+	copy(cloneOfBoard.cells, board.cells)
+	return cloneOfBoard
+}
+
 func (board *Board) initializeEmptyCells(boardSize int) {
 	for i := 0; i < (boardSize * boardSize); i++ {
-		board.Cells = append(board.Cells, strconv.Itoa(i + 1))
+		board.cells = append(board.cells, strconv.Itoa(i + 1))
 	}
 }
 
 func (board *Board) PutMarkOnBoard (mark string, cellIndex int) {
-	board.Cells[cellIndex] = mark
+	board.cells[cellIndex] = mark
 }
 
 func (board Board) GetRows() [][]string {
 	var cellsSplitIntoRows [][]string
-	for i := 0; i < len(board.Cells); i += board.size {
+	for i := 0; i < len(board.cells); i += board.size {
 		end := i + board.size
-		cellsSplitIntoRows = append(cellsSplitIntoRows, board.Cells[i:end])
+		cellsSplitIntoRows = append(cellsSplitIntoRows, board.cells[i:end])
 	}
 	return cellsSplitIntoRows
 }
@@ -48,11 +54,11 @@ func (board Board) IsMoveValid(cellIndex int) bool {
 }
 
 func (board Board) isCellIndexWithinBoardSize(cellIndex int) bool {
-	return cellIndex < len(board.Cells) && cellIndex >= 0
+	return cellIndex < len(board.cells) && cellIndex >= 0
 }
 
 func (board Board) isCellNumeric(cellIndex int) bool {
-	if _, err := strconv.Atoi(board.Cells[cellIndex]); err == nil {
+	if _, err := strconv.Atoi(board.cells[cellIndex]); err == nil {
 		return true
 	}
 	return false
@@ -121,7 +127,7 @@ func lineIsWon(line []string, mark string) bool{
 }
 
 func (board Board) HasEmptyCell() bool {
-	for i := range board.Cells {
+	for i := range board.cells {
 		if board.isCellNumeric(i) {
 			return true
 		}
@@ -149,9 +155,9 @@ func (board Board) GetPassivePlayerSign() string {
 
 func (board Board) GetFreeCells() []string {
 	var freeCells []string
-	for i := range board.Cells {
+	for i := range board.cells {
 		if board.isCellNumeric(i) {
-			freeCells = append(freeCells, board.Cells[i])
+			freeCells = append(freeCells, board.cells[i])
 		}
 	}
 	return freeCells

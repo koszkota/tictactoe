@@ -9,10 +9,10 @@ type Computer struct {
 	Mark string
 }
 
-func (computer Computer) PickMove (aboard board.Board) string {
-	maxPlayerSign := aboard.GetActivePlayerSign()
-	minPlayerSign := aboard.GetPassivePlayerSign()
-	boardClone := computer.cloneBoard(aboard)
+func (computer Computer) PickMove (aBoard board.Board) string {
+	maxPlayerSign := aBoard.GetActivePlayerSign()
+	minPlayerSign := aBoard.GetPassivePlayerSign()
+	boardClone := aBoard.MakeACloneOfItself()
 	return strconv.Itoa(computer.miniMaxAlgorithm(boardClone, 0, maxPlayerSign, minPlayerSign))
 }
 
@@ -20,23 +20,23 @@ func (computer Computer) GetMark() string {
 	return computer.Mark
 }
 
-func (computer Computer) miniMaxAlgorithm(aboard board.Board, depth int, maxPlayerSign string, minPlayerSign string) int {
-	if aboard.IsWon(maxPlayerSign) {
+func (computer Computer) miniMaxAlgorithm(aBoard board.Board, depth int, maxPlayerSign string, minPlayerSign string) int {
+	if aBoard.IsWon(maxPlayerSign) {
 		return 10 - depth
-	} else if aboard.IsWon(minPlayerSign) {
+	} else if aBoard.IsWon(minPlayerSign) {
 		return - (10 - depth)
-	} else if aboard.IsTie() {
+	} else if aBoard.IsTie() {
 		return 0
 	}
 
-	var freeCells = aboard.GetFreeCells()
+	var freeCells = aBoard.GetFreeCells()
 
 	if computer.isMaxPlayerDepth(depth) {
 		var bestScoreMaxPlayer = -1000
 		bestPlace := "temporary"
 		for _, cell := range freeCells {
 			cellValueAsInteger, _ := strconv.Atoi(cell)
-			clonedBoard := computer.cloneBoard(aboard)
+			clonedBoard := aBoard.MakeACloneOfItself()
 			clonedBoard.PutMarkOnBoard(maxPlayerSign, cellValueAsInteger -1)
 			output := computer.miniMaxAlgorithm(clonedBoard, depth + 1, maxPlayerSign, minPlayerSign)
 			if output > bestScoreMaxPlayer {
@@ -54,7 +54,7 @@ func (computer Computer) miniMaxAlgorithm(aboard board.Board, depth int, maxPlay
 		var bestScoreMinPlayer = 1000
 		for _, cell := range freeCells {
 			cellValueAsInteger, _ := strconv.Atoi(cell)
-			clonedBoard := computer.cloneBoard(aboard)
+			clonedBoard := aBoard.MakeACloneOfItself()
 			clonedBoard.PutMarkOnBoard(minPlayerSign, cellValueAsInteger -1)
 			output := computer.miniMaxAlgorithm(clonedBoard, depth +1, maxPlayerSign, minPlayerSign)
 			if output < bestScoreMinPlayer {
@@ -67,11 +67,4 @@ func (computer Computer) miniMaxAlgorithm(aboard board.Board, depth int, maxPlay
 
 func (computer Computer) isMaxPlayerDepth(depth int) bool {
 	return depth % 2 == 0
-}
-
-func (computer Computer) cloneBoard(oldBoard board.Board) board.Board {
-	newBoard := oldBoard
-	newBoard.Cells = make([]string, len(oldBoard.Cells))
-	copy(newBoard.Cells, oldBoard.Cells)
-	return newBoard
 }

@@ -20,7 +20,7 @@ func setupBoard() Board {
 
 func TestMakeBoardReturnsBoardWithCells(t *testing.T) {
 	expectedNumOfCellsInBoard := 9
-	actualNumOfCells := len(aBoard.Cells)
+	actualNumOfCells := len(aBoard.cells)
 
 	matchers.EqualLiterals(t, expectedNumOfCellsInBoard, actualNumOfCells)
 	matchers.EqualLiterals(t, 3, aBoard.size)
@@ -31,7 +31,7 @@ func TestPutMarkOnEmptyCell(t *testing.T) {
 	aBoard := MakeBoard(3, &marksRepo)
 	aBoard.PutMarkOnBoard("X", 1)
 
-	matchers.EqualLiterals(t, aBoard.Cells[1], "X")
+	matchers.EqualLiterals(t, aBoard.cells[1], "X")
 }
 
 func TestMoveIsValidForNonTakenField(t *testing.T) {
@@ -150,7 +150,7 @@ func TestGameIsFinishedWhenNoMoreFreePlaces(t *testing.T) {
 	boardSize := 3
 	marksRepo := MarksRepo{"X", "Y"}
 	aBoard := MakeBoard(boardSize, &marksRepo)
-	for i := range aBoard.Cells {
+	for i := range aBoard.cells {
 		aBoard.PutMarkOnBoard("X", i)
 	}
 	matchers.IsTrue(t, aBoard.IsGameOver("X", "Y"))
