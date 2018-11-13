@@ -12,11 +12,8 @@ type Computer struct {
 func (computer Computer) PickMove (aboard board.Board) string {
 	maxPlayerSign := aboard.GetActivePlayerSign()
 	minPlayerSign := aboard.GetPassivePlayerSign()
-	boardCopy := aboard
-	boardCopy.Cells = make([]string, len(aboard.Cells))
-	copy(boardCopy.Cells, aboard.Cells)
-
-	return strconv.Itoa(computer.miniMaxAlgorithm(boardCopy, 0, maxPlayerSign, minPlayerSign))
+	boardClone := computer.cloneBoard(aboard)
+	return strconv.Itoa(computer.miniMaxAlgorithm(boardClone, 0, maxPlayerSign, minPlayerSign))
 }
 
 func (computer Computer) GetMark() string {
@@ -39,8 +36,9 @@ func (computer Computer) miniMaxAlgorithm(aboard board.Board, depth int, maxPlay
 		bestPlace := "temporary"
 		for _, cell := range freeCells {
 			cellValueAsInteger, _ := strconv.Atoi(cell)
-			newBoard := computer.boardClone(aboard, maxPlayerSign, cellValueAsInteger)
-			output := computer.miniMaxAlgorithm(newBoard, depth + 1, maxPlayerSign, minPlayerSign)
+			clonedBoard := computer.cloneBoard(aboard)
+			clonedBoard.PutMarkOnBoard(maxPlayerSign, cellValueAsInteger -1)
+			output := computer.miniMaxAlgorithm(clonedBoard, depth + 1, maxPlayerSign, minPlayerSign)
 			if output > bestScoreMaxPlayer {
 				bestPlace = cell
 				bestScoreMaxPlayer = output
@@ -56,8 +54,9 @@ func (computer Computer) miniMaxAlgorithm(aboard board.Board, depth int, maxPlay
 		var bestScoreMinPlayer = 1000
 		for _, cell := range freeCells {
 			cellValueAsInteger, _ := strconv.Atoi(cell)
-			newBoard := computer.boardClone(aboard, minPlayerSign, cellValueAsInteger)
-			output := computer.miniMaxAlgorithm(newBoard, depth +1, maxPlayerSign, minPlayerSign)
+			clonedBoard := computer.cloneBoard(aboard)
+			clonedBoard.PutMarkOnBoard(minPlayerSign, cellValueAsInteger -1)
+			output := computer.miniMaxAlgorithm(clonedBoard, depth +1, maxPlayerSign, minPlayerSign)
 			if output < bestScoreMinPlayer {
 				bestScoreMinPlayer = output
 			}
@@ -70,10 +69,9 @@ func (computer Computer) isMaxPlayerDepth(depth int) bool {
 	return depth % 2 == 0
 }
 
-func (computer Computer) boardClone(oldBoard board.Board, mark string, place int) board.Board {
+func (computer Computer) cloneBoard(oldBoard board.Board) board.Board {
 	newBoard := oldBoard
 	newBoard.Cells = make([]string, len(oldBoard.Cells))
 	copy(newBoard.Cells, oldBoard.Cells)
-	newBoard.PutMarkOnBoard(mark, place -1)
 	return newBoard
 }
