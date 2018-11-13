@@ -21,12 +21,15 @@ func (computer Computer) GetMark() string {
 }
 
 func (computer Computer) miniMaxAlgorithm(aBoard board.Board, depth int, maxPlayerSign string, minPlayerSign string) int {
+	var maxValueOfPlace = 10
+	var tieValueOfPlace = 0
+
 	if aBoard.IsWon(maxPlayerSign) {
-		return 10 - depth
+		return maxValueOfPlace - depth
 	} else if aBoard.IsWon(minPlayerSign) {
-		return - (10 - depth)
+		return - (maxValueOfPlace - depth)
 	} else if aBoard.IsTie() {
-		return 0
+		return tieValueOfPlace
 	}
 
 	var freeCells = aBoard.GetFreeCells()
