@@ -30,6 +30,11 @@ func ExampleInformOfWinner() {
 	// Output: Player X won!
 }
 
+func ExampleShowMainMenu() {
+	clui.ShowMainMenu()
+	// Output: To play a game enter YES, to exit enter NO.
+}
+
 func ExampleInformOfTie() {
 	clui.InformOfTie()
 	// Output: It's a tie!

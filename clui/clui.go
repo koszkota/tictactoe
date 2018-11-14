@@ -21,6 +21,10 @@ func (clui Clui) HelloPlayers() {
 	clui.writer.Write("Hello and welcome to tic tac toe")
 }
 
+func (clui Clui) ShowMainMenu() {
+	clui.writer.Write("To play a game enter YES, to exit enter NO.")
+}
+
 func (clui Clui) InformOfMove(pickedMove string, mark string)  {
 	clui.writer.Write("Player " + mark + " picked position " + pickedMove)
 }
