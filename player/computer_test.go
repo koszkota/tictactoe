@@ -12,6 +12,10 @@ func TestComputerPlayerHasMark(t *testing.T) {
 	matchers.EqualLiterals(t, "Y", computerPlayer.Mark)
 }
 
+func TestGetMarkReturnsComputerMark(t *testing.T) {
+	matchers.EqualLiterals(t, "Y", computerPlayer.GetMark())
+}
+
 func TestPickMethodReturnsWinningPosition(t *testing.T) {
 	marksRepo := board.MarksRepo{"X", "Y"}
 	aBoard := board.MakeBoard(3, &marksRepo)
@@ -39,8 +43,4 @@ func TestPicksTopLeftPositionOn2x2Board(t *testing.T) {
 	pickedCell := computerPlayer.PickMove(aBoard)
 
 	matchers.EqualLiterals(t, "1", pickedCell)
-}
-
-func TestGetMarkReturnsComputerMark(t *testing.T) {
-	matchers.EqualLiterals(t, "Y", computerPlayer.GetMark())
 }

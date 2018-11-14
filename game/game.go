@@ -29,10 +29,10 @@ func (game *Game) Play() {
 
 func (game Game) playTurn() {
 	currentPlayer := game.getCurrentPlayer()
-	move := currentPlayer.PickMove(*game.board)
-	moveReadyForBoard := game.transformMoveForTheBoard(move)
+	cellValuePickedByPlayer := currentPlayer.PickMove(*game.board)
+	moveReadyForBoard := game.transformMove(cellValuePickedByPlayer)
 	game.board.PutMarkOnBoard(currentPlayer.GetMark(), moveReadyForBoard)
-	game.clui.InformOfMove(move, currentPlayer.GetMark())
+	game.clui.InformOfMove(cellValuePickedByPlayer, currentPlayer.GetMark())
 	game.clui.ShowBoard(game.board.GetRows())
 }
 
@@ -46,7 +46,7 @@ func (game Game) announceResult() {
 	}
 }
 
-func (game Game) transformMoveForTheBoard(move string) int {
+func (game Game) transformMove(move string) int {
 	moveAsInteger,_  := strconv.Atoi(move)
 	return moveAsInteger - 1
 }

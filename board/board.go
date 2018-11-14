@@ -85,14 +85,24 @@ func (board Board) GetFreeCells() []string {
 	return freeCells
 }
 
+func (board Board) IsTie() bool {
+	return !(board.IsWon(board.marksRepo.PlayerOneMark)) && !(board.IsWon(board.marksRepo.PlayerTwoMark)) && !(board.HasEmptyCell())
+}
+
+func (board Board) IsWon(mark string) bool {
+	var allLines = board.getLines()
+	for _, line := range allLines {
+		if lineIsWon(line, mark) {
+			return true
+		}
+	}
+	return false
+}
+
 func (board *Board) initializeEmptyCells(boardSize int) {
 	for i := 0; i < (boardSize * boardSize); i++ {
 		board.cells = append(board.cells, strconv.Itoa(i + 1))
 	}
-}
-
-func (board Board) IsTie() bool {
-	return !(board.IsWon(board.marksRepo.PlayerOneMark)) && !(board.IsWon(board.marksRepo.PlayerTwoMark)) && !(board.HasEmptyCell())
 }
 
 func (board Board) isCellIndexWithinBoardSize(cellIndex int) bool {
@@ -147,16 +157,6 @@ func (board Board) getRightDiagonal() []string {
 
 func (board Board) getLines() [][]string {
 	return append(append(board.GetRows(), board.getColumns()...), board.getDiagonals()...)
-}
-
-func (board Board) IsWon(mark string) bool {
-	var allLines = board.getLines()
-	for _, line := range allLines {
-		if lineIsWon(line, mark) {
-			return true
-		}
-	}
-	return false
 }
 
 func lineIsWon(line []string, mark string) bool{

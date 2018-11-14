@@ -7,10 +7,10 @@ import (
 
 func TestMakeBoardReturnsBoardWithCells(t *testing.T) {
 	board := setupEmptyBoard()
-	expectedNumOfCellsInBoard := 9
+	expectedNumOfCells := 9
 	actualNumOfCells := len(board.cells)
 
-	matchers.EqualLiterals(t, expectedNumOfCellsInBoard, actualNumOfCells)
+	matchers.EqualLiterals(t, expectedNumOfCells, actualNumOfCells)
 	matchers.EqualLiterals(t, 3, board.size)
 }
 
@@ -144,7 +144,7 @@ func TestGameIsFinishedWhenBoardIsWon(t *testing.T) {
 	matchers.IsTrue(t, board.IsGameOver("X", "Y"))
 }
 
-func TestGameIsNotFinishedWhenEmptyPlacesAndNoWinner(t *testing.T) {
+func TestGameIsNotFinishedWhenEmptyPlacesLeftAndNoWinner(t *testing.T) {
 	board := setupEmptyBoard()
 	board.PutMarkOnBoard("X", 2)
 	board.PutMarkOnBoard("Y", 1)
@@ -153,13 +153,12 @@ func TestGameIsNotFinishedWhenEmptyPlacesAndNoWinner(t *testing.T) {
 }
 
 func TestGameIsFinishedWhenNoMoreFreePlaces(t *testing.T) {
-	boardSize := 3
-	marksRepo := MarksRepo{"X", "Y"}
-	aBoard := MakeBoard(boardSize, &marksRepo)
-	for i := range aBoard.cells {
-		aBoard.PutMarkOnBoard("X", i)
+	board := setupEmptyBoard()
+	for i := range board.cells {
+		board.PutMarkOnBoard("X", i)
 	}
-	matchers.IsTrue(t, aBoard.IsGameOver("X", "Y"))
+
+	matchers.IsTrue(t, board.IsGameOver("X", "Y"))
 }
 
 func TestBoardReturnsFreePlaces(t *testing.T) {
@@ -173,20 +172,18 @@ func TestBoardReturnsFreePlaces(t *testing.T) {
 }
 
 func TestBoardHasTie(t *testing.T) {
-	boardSize := 3
-	marksRepo := MarksRepo{"X", "Y"}
-	aBoard := MakeBoard(boardSize, &marksRepo)
-	aBoard.PutMarkOnBoard("X", 4)
-	aBoard.PutMarkOnBoard("Y", 0)
-	aBoard.PutMarkOnBoard("X", 2)
-	aBoard.PutMarkOnBoard("Y", 6)
-	aBoard.PutMarkOnBoard("X", 3)
-	aBoard.PutMarkOnBoard("Y", 5)
-	aBoard.PutMarkOnBoard("X", 1)
-	aBoard.PutMarkOnBoard("Y", 7)
-	aBoard.PutMarkOnBoard("X", 8)
+	board := setupEmptyBoard()
+	board.PutMarkOnBoard("X", 4)
+	board.PutMarkOnBoard("Y", 0)
+	board.PutMarkOnBoard("X", 2)
+	board.PutMarkOnBoard("Y", 6)
+	board.PutMarkOnBoard("X", 3)
+	board.PutMarkOnBoard("Y", 5)
+	board.PutMarkOnBoard("X", 1)
+	board.PutMarkOnBoard("Y", 7)
+	board.PutMarkOnBoard("X", 8)
 
-	matchers.IsTrue(t, aBoard.IsTie())
+	matchers.IsTrue(t, board.IsTie())
 }
 
 func setupEmptyBoard() Board {
