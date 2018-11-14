@@ -20,6 +20,10 @@ func (computer Computer) GetMark() string {
 	return computer.Mark
 }
 
+func (computer Computer) GetType() string {
+	return "Computer"
+}
+
 func (computer Computer) miniMaxAlgorithm(board board.Board, depth int, maxPlayerMark string, minPlayerMark string) int {
 	var maxValueOfPlace = 10
 	var tieValueOfPlace = 0

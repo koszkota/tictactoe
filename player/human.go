@@ -26,3 +26,7 @@ func (human Human) PickMove(board board.Board) string {
 func (human Human) GetMark() string {
 	return human.Mark
 }
+
+func (human Human) GetType() string {
+	return "Human"
+}

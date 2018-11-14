@@ -12,6 +12,10 @@ func TestComputerPlayerHasMark(t *testing.T) {
 	matchers.EqualLiterals(t, "Y", computerPlayer.Mark)
 }
 
+func TestComputerPlayerHasType(t *testing.T) {
+	matchers.EqualLiterals(t, "Computer", computerPlayer.GetType())
+}
+
 func TestGetMarkReturnsComputerMark(t *testing.T) {
 	matchers.EqualLiterals(t, "Y", computerPlayer.GetMark())
 }
