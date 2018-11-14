@@ -5,21 +5,22 @@ import (
 )
 
 type Board struct {
-	cells []string
-	size int
+	cells     []string
+	size      int
+	marksRepo *MarksRepo
 }
 
-func MakeBoard(boardSize int) Board {
-	aBoard := Board{size: boardSize}
-
-	aBoard.initializeEmptyCells(boardSize)
-	return aBoard
+func MakeBoard(boardSize int, marksRepo *MarksRepo) Board {
+	board := Board{size: boardSize, marksRepo: marksRepo}
+	board.initializeEmptyCells(boardSize)
+	return board
 }
 
-func (board *Board) initializeEmptyCells(boardSize int) {
-	for i := 0; i < (boardSize * boardSize); i++ {
-		board.cells = append(board.cells, strconv.Itoa(i + 1))
-	}
+func (board Board) MakeACloneOfItself() Board {
+	cloneOfBoard := board
+	cloneOfBoard.cells = make([]string, len(board.cells))
+	copy(cloneOfBoard.cells, board.cells)
+	return cloneOfBoard
 }
 
 func (board *Board) PutMarkOnBoard (mark string, cellIndex int) {
@@ -44,6 +45,64 @@ func (board Board) IsGameOver(mark1 string, mark2 string) bool {
 
 func (board Board) IsMoveValid(cellIndex int) bool {
 	return board.isCellIndexWithinBoardSize(cellIndex) && board.isCellNumeric(cellIndex)
+}
+
+
+func (board Board) HasEmptyCell() bool {
+	for i := range board.cells {
+		if board.isCellNumeric(i) {
+			return true
+		}
+	}
+	return false
+}
+
+func (board Board) GetActivePlayerMark() string {
+	freeCells := board.GetFreeCells()
+	if len(freeCells)%2 != 0 {
+		return board.marksRepo.PlayerOneMark
+	} else {
+		return board.marksRepo.PlayerTwoMark
+	}
+}
+
+func (board Board) GetPassivePlayerMark() string {
+	activePlayerMark := board.GetActivePlayerMark()
+	if activePlayerMark == board.marksRepo.PlayerOneMark {
+		return board.marksRepo.PlayerTwoMark
+	} else {
+		return board.marksRepo.PlayerOneMark
+	}
+}
+
+func (board Board) GetFreeCells() []string {
+	var freeCells []string
+	for i := range board.cells {
+		if board.isCellNumeric(i) {
+			freeCells = append(freeCells, board.cells[i])
+		}
+	}
+	return freeCells
+}
+
+func (board Board) IsTie() bool {
+	return !(board.IsWon(board.marksRepo.PlayerOneMark)) && !(board.IsWon(board.marksRepo.PlayerTwoMark)) && !(board.HasEmptyCell())
+}
+
+func (board Board) IsWon(mark string) bool {
+	var allLines = board.getLines()
+	for _, line := range allLines {
+		if lineIsWon(line, mark) {
+			return true
+		}
+	}
+	return false
+}
+
+func (board *Board) initializeEmptyCells(boardSize int) {
+	for i := 0; i < (boardSize * boardSize); i++ {
+		board.cells = append(board.cells, strconv.Itoa(i + 1))
+	}
 }
 
 func (board Board) isCellIndexWithinBoardSize(cellIndex int) bool {
@@ -100,16 +159,6 @@ func (board Board) getLines() [][]string {
 	return append(append(board.GetRows(), board.getColumns()...), board.getDiagonals()...)
 }
 
-func (board Board) IsWon(mark string) bool {
-	var allLines = board.getLines()
-	for _, line := range allLines {
-		if lineIsWon(line, mark) {
-			return true
-		}
-	}
-	return false
-}
-
 func lineIsWon(line []string, mark string) bool{
 	for i := 0; i < len(line); i++ {
 		if line[i] != mark {
@@ -117,32 +166,4 @@ func lineIsWon(line []string, mark string) bool{
 		}
 	}
 	return true
-}
-
-func (board Board) HasEmptyCell() bool {
-	for i := range board.cells {
-		if board.isCellNumeric(i) {
-			return true
-		}
-	}
-	return false
-}
-
-func (board Board) GetMarkWithLessEntries(markOne string, markTwo string) string {
-	markOneCount := getCountOfMarksOnBoard(board.cells, markOne)
-	markTwoCount := getCountOfMarksOnBoard(board.cells, markTwo)
-	if markOneCount > markTwoCount {
-		return markTwo
-	}
-	return markOne
-}
-
-func getCountOfMarksOnBoard(ss []string, mark string) int {
-	countOfMarksOnBoard := 0
-	for _, s := range ss {
-		if s == mark {
-			*&countOfMarksOnBoard += 1
-		}
-	}
-	return countOfMarksOnBoard
 }
