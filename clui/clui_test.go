@@ -124,6 +124,16 @@ func TestInformOfInvalidMove(t *testing.T) {
 	matchers.EqualLiterals(t, "This move is not available", stubWriter.GetLastMessage())
 }
 
+func TestShowBoard(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+	rows := [][]string{{"1","2","3"}, {"4", "X", "6"}, {"7", "8", "9"}}
+
+	clui.ShowBoard(rows)
+
+	matchers.EqualLiterals(t, "  1  |  2  |  3\n  4  |  X  |  6\n  7  |  8  |  9\n", stubWriter.GetOutputs()[0])
+}
+
 func TestBuildBoardString(t *testing.T) {
 	expectedString := "  1  |  2  |  3\n  4  |  X  |  6\n  7  |  8  |  9\n"
 	rows := [][]string{{"1","2","3"}, {"4", "X", "6"}, {"7", "8", "9"}}
