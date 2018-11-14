@@ -19,12 +19,7 @@ func (gameFactory *GameFactory) CreateGame(clui clui.Clui) *Game {
 		aGame := MakeGame(clui, &aBoard, playerTwo, playerOne)
 		return &aGame
 	} else if pick == "2" {
-		playerOne := player.Human{Mark: "X", Clui:clui}
-		playerTwo := player.Computer{Mark: "Y"}
-		marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
-		aBoard := board.MakeBoard(3, &marksRepo)
-		aGame := MakeGame(clui, &aBoard, playerTwo, playerOne)
-		return &aGame
+		return gameFactory.whoGoesFirst(clui)
 	} else if pick == "3" {
 		playerOne := player.Computer{Mark: "X"}
 		playerTwo := player.Computer{Mark: "Y"}
@@ -34,5 +29,27 @@ func (gameFactory *GameFactory) CreateGame(clui clui.Clui) *Game {
 		return &aGame
 	} else {
 		return gameFactory.CreateGame(clui)
+	}
+}
+
+func (gameFactory *GameFactory) whoGoesFirst(clui clui.Clui) *Game {
+	clui.AskWhoGoesFirst()
+	pick := clui.ReadUserInput()
+	if pick == "H" {
+		playerOne := player.Human{Mark: "X", Clui:clui}
+		playerTwo := player.Computer{Mark: "Y"}
+		marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
+		aBoard := board.MakeBoard(3, &marksRepo)
+		aGame := MakeGame(clui, &aBoard, playerTwo, playerOne)
+		return &aGame
+	} else if pick == "C" {
+		playerOne := player.Computer{Mark: "X"}
+		playerTwo := player.Human{Mark: "Y", Clui:clui}
+		marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
+		aBoard := board.MakeBoard(3, &marksRepo)
+		aGame := MakeGame(clui, &aBoard, playerTwo, playerOne)
+		return &aGame
+	} else {
+		return gameFactory.whoGoesFirst(clui)
 	}
 }

@@ -8,7 +8,7 @@ import (
 	"tictactoe/testhelper"
 )
 
-func TestRusAComputerVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
+func TestRunsAComputerVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 	stubWriter := &clui.StubWriter{}
 	aClui := clui.MakeClui(strings.NewReader("YES\n3\nNO"), stubWriter)
 	stubRunStatus := &StubRunStatus{Counter: 0}
@@ -20,9 +20,9 @@ func TestRusAComputerVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 	matchers.EqualLiterals(t, "It's a tie!", stubWriter.GetLastMessage())
 }
 
-func TestRusAHumanVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
+func TestRunsAHumanVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 	stubWriter := &clui.StubWriter{}
-	aClui := clui.MakeClui(strings.NewReader("YES\n2\n1\n2\n6\nNO"), stubWriter)
+	aClui := clui.MakeClui(strings.NewReader("YES\n2\nH\n1\n2\n6\nNO"), stubWriter)
 	stubRunStatus := &StubRunStatus{Counter: 0}
 	gameFactory := &game.GameFactory{}
 	gamesController := GamesController{Clui:aClui, RunStatus: stubRunStatus, GameFactory:gameFactory}
@@ -30,4 +30,16 @@ func TestRusAHumanVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 	gamesController.Run()
 
 	matchers.EqualLiterals(t, "Player Y won!", stubWriter.GetLastMessage())
+}
+
+func TestRunsAHumanVsHumanGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
+	stubWriter := &clui.StubWriter{}
+	aClui := clui.MakeClui(strings.NewReader("YES\n1\n1\n2\n4\n3\n7\nNO"), stubWriter)
+	stubRunStatus := &StubRunStatus{Counter: 0}
+	gameFactory := &game.GameFactory{}
+	gamesController := GamesController{Clui:aClui, RunStatus: stubRunStatus, GameFactory:gameFactory}
+
+	gamesController.Run()
+
+	matchers.EqualLiterals(t, "Player X won!", stubWriter.GetLastMessage())
 }
