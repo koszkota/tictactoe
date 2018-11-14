@@ -9,16 +9,14 @@ import (
 )
 
 func TestHumanPlayerHasMark(t *testing.T) {
-	var stubWriter = new(clui.StubWriter)
-	clui := clui.MakeClui(strings.NewReader("1"), stubWriter)
+	clui := getCluiWithHardcodedInput("1")
 	humanPlayer := Human{Mark: "X", Clui: clui}
 
 	matchers.EqualLiterals(t, "X", humanPlayer.Mark)
 }
 
 func TestPickMoveMethodReturnsPlayersPick(t *testing.T) {
-	var stubWriter = new(clui.StubWriter)
-	clui := clui.MakeClui(strings.NewReader("1"), stubWriter)
+	clui := getCluiWithHardcodedInput("1")
 	humanPlayer := Human{Mark: "X", Clui: clui}
 	marksRepo := board.MarksRepo{"X", "Y"}
 	aBoard := board.MakeBoard(3, &marksRepo)
@@ -60,4 +58,9 @@ func TestHumanIsPrompterForValidMoveAndSubmitsIt(t *testing.T) {
 
 	matchers.EqualLiterals(t, "2", move)
 	matchers.EqualLiterals(t, "This move is not available", stubWriter.GetOutputs()[1])
+}
+
+func getCluiWithHardcodedInput(input string) clui.Clui {
+	var stubWriter = new(clui.StubWriter)
+	return clui.MakeClui(strings.NewReader(input), stubWriter)
 }

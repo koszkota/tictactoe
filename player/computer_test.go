@@ -17,8 +17,7 @@ func TestGetMarkReturnsComputerMark(t *testing.T) {
 }
 
 func TestPickMethodReturnsWinningPosition(t *testing.T) {
-	marksRepo := board.MarksRepo{"X", "Y"}
-	aBoard := board.MakeBoard(3, &marksRepo)
+	aBoard := createBoard(3, "X", "Y")
 	aBoard.PutMarkOnBoard("X", 0)
 	aBoard.PutMarkOnBoard("X", 1)
 	pickedCell := computerPlayer.PickMove(aBoard)
@@ -27,8 +26,7 @@ func TestPickMethodReturnsWinningPosition(t *testing.T) {
 }
 
 func TestPickMethodBlocksAWinningOpponent(t *testing.T) {
-	marksRepo := board.MarksRepo{"X", "Y"}
-	aBoard := board.MakeBoard(3, &marksRepo)
+	aBoard := createBoard(3, "X", "Y")
 	aBoard.PutMarkOnBoard("X", 0)
 	aBoard.PutMarkOnBoard("Y", 1)
 	aBoard.PutMarkOnBoard("X", 3)
@@ -38,9 +36,13 @@ func TestPickMethodBlocksAWinningOpponent(t *testing.T) {
 }
 
 func TestPicksTopLeftPositionOn2x2Board(t *testing.T) {
-	marksRepo := board.MarksRepo{"X", "Y"}
-	aBoard := board.MakeBoard(2, &marksRepo)
+	aBoard := createBoard(2, "X", "Y")
 	pickedCell := computerPlayer.PickMove(aBoard)
 
 	matchers.EqualLiterals(t, "1", pickedCell)
+}
+
+func createBoard(size int, playerOneMark string, playerTwoMark string) board.Board {
+	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwoMark}
+	return board.MakeBoard(size, &marksRepo)
 }
