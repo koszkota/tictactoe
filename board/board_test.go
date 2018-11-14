@@ -186,6 +186,16 @@ func TestBoardHasTie(t *testing.T) {
 	matchers.IsTrue(t, board.IsTie())
 }
 
+func TestBoardClonesItself(t *testing.T) {
+	board := setupEmptyBoard()
+	board.PutMarkOnBoard("X", 4)
+	boardClone := board.MakeACloneOfItself()
+	markOnOriginalBoard := board.cells[4]
+	markOnClonedBoard := boardClone.cells[4]
+
+	matchers.EqualLiterals(t, markOnOriginalBoard, markOnClonedBoard)
+}
+
 func setupEmptyBoard() Board {
 	boardSize := 3
 	marksRepo := MarksRepo{"X", "Y"}
