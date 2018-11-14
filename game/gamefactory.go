@@ -1,6 +1,7 @@
 package game
 
 import (
+	"regexp"
 	"strings"
 	"tictactoe/board"
 	"tictactoe/clui"
@@ -38,9 +39,11 @@ func (gameFactory *GameFactory) getMixedPlayersGame() *Game {
 }
 
 func (gameFactory *GameFactory) getHumanVsHumanGame() *Game {
-	playerOne := player.Human{Mark: "X", Clui:gameFactory.Clui}
-	playerTwo := player.Human{Mark: "Y", Clui:gameFactory.Clui}
-	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
+	playerOneMark := gameFactory.getPlayerOneMark()
+	playerTwoMark := gameFactory.getPlayerTwoMark(playerOneMark)
+	playerOne := player.Human{Mark: playerOneMark, Clui:gameFactory.Clui}
+	playerTwo := player.Human{Mark: playerTwoMark, Clui:gameFactory.Clui}
+	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwoMark}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
 	return &aGame
@@ -56,9 +59,10 @@ func (gameFactory *GameFactory) getComputerVsComputerGame() *Game {
 }
 
 func (gameFactory *GameFactory) getHumanVsComputerGame() *Game {
-	playerOne := player.Human{Mark: "X", Clui: gameFactory.Clui}
+	playerOneMark := gameFactory.getPlayerOneMark()
+	playerOne := player.Human{Mark: playerOneMark, Clui: gameFactory.Clui}
 	playerTwo := player.Computer{Mark: "Y"}
-	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
+	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwo.GetMark()}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
 	return &aGame
@@ -66,9 +70,34 @@ func (gameFactory *GameFactory) getHumanVsComputerGame() *Game {
 
 func (gameFactory *GameFactory) getComputerVsHumanGame() *Game {
 	playerOne := player.Computer{Mark: "X"}
-	playerTwo := player.Human{Mark: "Y", Clui:gameFactory.Clui}
-	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
+	playerTwoMark := gameFactory.getPlayerTwoMark(playerOne.GetMark())
+	playerTwo := player.Human{Mark: playerTwoMark, Clui: gameFactory.Clui}
+	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwoMark}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
 	return &aGame
+}
+
+func (gameFactory *GameFactory) getPlayerOneMark() string {
+	gameFactory.Clui.AskPlayerOneForMark()
+	mark := gameFactory.Clui.ReadUserInput()
+	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
+	if len(mark) == 1 && IsLetter(mark) && !(strings.EqualFold(mark, "y")) {
+		return mark
+	} else {
+		gameFactory.Clui.InformOfNotAvailableMark(mark)
+		return gameFactory.getPlayerOneMark()
+	}
+}
+
+func (gameFactory *GameFactory) getPlayerTwoMark(playerOneMark string) string {
+	gameFactory.Clui.AskPlayerTwoForMark()
+	mark := gameFactory.Clui.ReadUserInput()
+	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
+	if len(mark) == 1 && IsLetter(mark) && !(strings.EqualFold(mark, playerOneMark)) {
+		return mark
+	} else {
+		gameFactory.Clui.InformOfNotAvailableMark(mark)
+		return gameFactory.getPlayerTwoMark(playerOneMark)
+	}
 }

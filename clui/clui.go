@@ -21,6 +21,14 @@ func (clui Clui) HelloPlayers() {
 	clui.writer.Write("Hello and welcome to tic tac toe")
 }
 
+func (clui Clui) AskPlayerOneForMark() {
+	clui.writer.Write("Player one, please pick your mark (one letter, eg. X)")
+}
+
+func (clui Clui) AskPlayerTwoForMark() {
+	clui.writer.Write("Player two, please pick your mark (one letter, eg. O)")
+}
+
 func (clui Clui) ShowMainMenu() {
 	clui.writer.Write("To play a game enter YES, to exit enter NO.")
 }
@@ -31,6 +39,10 @@ func (clui Clui) AskForGameMode() {
 
 func (clui Clui) AskWhoGoesFirst() {
 	clui.writer.Write("If Human player should go first, enter H; if computer, enter C.")
+}
+
+func (clui Clui) InformOfNotAvailableMark(mark string) {
+	clui.writer.Write("Mark " + mark + " is not available, please pick another one.")
 }
 
 func (clui Clui) InformOfMove(pickedMove string, mark string)  {

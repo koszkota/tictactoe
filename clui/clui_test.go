@@ -40,9 +40,24 @@ func ExampleShowGameMode() {
 	// Output: To play Human vs Human enter 1. To play Human vs Computer enter 2. To see two computers playing enter 3.
 }
 
-func ExampleShowWhoGoestFirstMenu() {
+func ExampleShowWhoGoesFirstMenu() {
 	clui.AskWhoGoesFirst()
 	// Output: If Human player should go first, enter H; if computer, enter C.
+}
+
+func ExampleAskPlayerOneForMark() {
+	clui.AskPlayerOneForMark()
+	// Output: Player one, please pick your mark (one letter, eg. X)
+}
+
+func ExampleAskPlayerTwoForMark() {
+	clui.AskPlayerTwoForMark()
+	// Output: Player two, please pick your mark (one letter, eg. O)
+}
+
+func ExampleInformOfNotAvailableMark() {
+	clui.InformOfNotAvailableMark("X")
+	// Output: Mark X is not available, please pick another one.
 }
 
 func ExampleInformOfTie() {
