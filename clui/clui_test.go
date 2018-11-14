@@ -1,6 +1,7 @@
 package clui
 
 import (
+	"os"
 	"strings"
 	"testing"
 	"tictactoe/testhelper"
@@ -15,64 +16,112 @@ func setupClui() Clui {
 	return clui
 }
 
-func ExampleInformOfBeginningOfGame() {
+func TestInformOfBeginningOfGame(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.InformOfBeginningOfGame()
-	// Output: Let's start the game!
+
+	matchers.EqualLiterals(t, "Let's start the game!", stubWriter.GetLastMessage())
 }
 
-func ExampleInformOfMove() {
+func TestInformOfMove(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.InformOfMove("1", "X")
-	// Output: Player X picked position 1
+
+	matchers.EqualLiterals(t, "Player X picked position 1", stubWriter.GetLastMessage())
 }
 
-func ExampleInformOfWinner() {
+func TestInformOfWinner(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.InformOfWinner("X")
-	// Output: Player X won!
+
+	matchers.EqualLiterals(t, "Player X won!", stubWriter.GetLastMessage())
 }
 
-func ExampleShowMainMenu() {
+func TestShowMainMenu(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.ShowMainMenu()
-	// Output: To play a game enter YES, to exit enter NO.
+
+	matchers.EqualLiterals(t, "To play a game enter YES, to exit enter NO.", stubWriter.GetLastMessage())
 }
 
-func ExampleShowGameMode() {
+func TestShowGameMode(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.AskForGameMode()
-	// Output: To play Human vs Human enter 1. To play Human vs Computer enter 2. To see two computers playing enter 3.
+
+	matchers.EqualLiterals(t, "To play Human vs Human enter 1. To play Human vs Computer enter 2. To see two computers playing enter 3.", stubWriter.GetLastMessage())
 }
 
-func ExampleShowWhoGoesFirstMenu() {
+func TestShowWhoGoesFirstMenu(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.AskWhoGoesFirst()
-	// Output: If Human player should go first, enter H; if computer, enter C.
+
+	matchers.EqualLiterals(t, "If Human player should go first, enter H; if computer, enter C.", stubWriter.GetLastMessage())
 }
 
-func ExampleAskPlayerOneForMark() {
+func TestAskPlayerOneForMark(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.AskPlayerOneForMark()
-	// Output: Player one, please pick your mark (one letter, eg. X)
+
+	matchers.EqualLiterals(t, "Player one, please pick your mark (one letter, eg. X)", stubWriter.GetLastMessage())
 }
 
-func ExampleAskPlayerTwoForMark() {
+func TestAskPlayerTwoForMark(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.AskPlayerTwoForMark()
-	// Output: Player two, please pick your mark (one letter, eg. O)
+
+	matchers.EqualLiterals(t, "Player two, please pick your mark (one letter, eg. O)", stubWriter.GetLastMessage())
 }
 
-func ExampleInformOfNotAvailableMark() {
+func TestInformOfNotAvailableMark(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.InformOfNotAvailableMark("X")
-	// Output: Mark X is not available, please pick another one.
+
+	matchers.EqualLiterals(t, "Mark X is not available, please pick another one.", stubWriter.GetLastMessage())
 }
 
-func ExampleInformOfTie() {
+func TestInformOfTie(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.InformOfTie()
-	// Output: It's a tie!
+
+	matchers.EqualLiterals(t, "It's a tie!", stubWriter.GetLastMessage())
 }
 
-func ExampleAskForMove() {
+func TestAskForMove(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.AskForMove("X")
-	// Output: Player X, pick a position
+
+	matchers.EqualLiterals(t, "Player X, pick a position", stubWriter.GetLastMessage())
 }
 
-func ExampleInformOfInvalidMove() {
+func TestInformOfInvalidMove(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
 	clui.InformOfInvalidMove()
-	// Output: This move is not available
+
+	matchers.EqualLiterals(t, "This move is not available", stubWriter.GetLastMessage())
 }
 
 func TestBuildBoardString(t *testing.T) {
