@@ -17,8 +17,8 @@ func MakeClui(input io.Reader, writer Writer) Clui {
 	return Clui{reader: reader, writer: writer}
 }
 
-func (clui Clui) HelloPlayers() {
-	clui.writer.Write("Hello and welcome to tic tac toe")
+func (clui Clui) InformOfBeginningOfGame() {
+	clui.writer.Write("Let's start the game!")
 }
 
 func (clui Clui) AskPlayerOneForMark() {

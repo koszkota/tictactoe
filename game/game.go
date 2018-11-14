@@ -19,7 +19,7 @@ func MakeGame(clui clui.Clui, board *board.Board, playerOne player.Player, playe
 }
 
 func (game *Game) Play() {
-	game.clui.HelloPlayers()
+	game.clui.InformOfBeginningOfGame()
 	game.clui.ShowBoard(game.board.GetRows())
 	for !(game.board.IsGameOver(game.playerOne.GetMark(), game.playerTwo.GetMark())) {
 		game.playTurn()

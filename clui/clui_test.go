@@ -15,9 +15,9 @@ func setupClui() Clui {
 	return clui
 }
 
-func ExampleHelloPlayers() {
-	clui.HelloPlayers()
-	// Output: Hello and welcome to tic tac toe
+func ExampleInformOfBeginningOfGame() {
+	clui.InformOfBeginningOfGame()
+	// Output: Let's start the game!
 }
 
 func ExampleInformOfMove() {
