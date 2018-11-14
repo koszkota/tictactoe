@@ -41,7 +41,7 @@ func TestRunsAHumanVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 
 	gamesController.Run()
 
-	matchers.EqualLiterals(t, "Player Y won!", stubWriter.GetLastMessage())
+	matchers.EqualLiterals(t, "Player O won!", stubWriter.GetLastMessage())
 }
 
 func TestRunsAHumanVsHumanGameAndEndsWhenRunStatusIsFalse(t *testing.T) {

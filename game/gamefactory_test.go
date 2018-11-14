@@ -45,6 +45,19 @@ func TestReturnsHumanVsComputerGame(t *testing.T) {
 	matchers.EqualLiterals(t, game.playerTwo.GetType(), "Computer")
 }
 
+func TestInHumanVsHumanGamePlayerOneCannotPickOAsMark(t *testing.T) {
+	stubWriter := &clui.StubWriter{}
+	clui := clui.MakeClui(strings.NewReader("1\nO\nH\nX\n"), stubWriter)
+	gameFactory := GameFactory{Clui:clui}
+
+	game := gameFactory.CreateGame()
+
+	matchers.EqualLiterals(t, game.playerOne.GetType(), "Human")
+	matchers.EqualLiterals(t, game.playerOne.GetMark(), "H")
+	matchers.EqualLiterals(t, game.playerTwo.GetType(), "Human")
+	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "X")
+}
+
 func TestReturnsComputerVsHumanGame(t *testing.T) {
 	stubWriter := &clui.StubWriter{}
 	clui := clui.MakeClui(strings.NewReader("2\nC\nQ\n"), stubWriter)
@@ -68,7 +81,7 @@ func TestReturnsHumanVsComputerGameAfterInvalidInputInMode(t *testing.T) {
 	matchers.EqualLiterals(t, game.playerOne.GetType(), "Human")
 	matchers.EqualLiterals(t, game.playerOne.GetMark(), "X")
 	matchers.EqualLiterals(t, game.playerTwo.GetType(), "Computer")
-	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "Y")
+	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "O")
 }
 
 func TestReturnsHumanVsComputerGameAfterInvalidInputInSign(t *testing.T) {
@@ -81,7 +94,7 @@ func TestReturnsHumanVsComputerGameAfterInvalidInputInSign(t *testing.T) {
 	matchers.EqualLiterals(t, game.playerOne.GetType(), "Human")
 	matchers.EqualLiterals(t, game.playerOne.GetMark(), "X")
 	matchers.EqualLiterals(t, game.playerTwo.GetType(), "Computer")
-	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "Y")
+	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "O")
 }
 
 func TestReturnsComputerVsComputerGame(t *testing.T) {
@@ -94,6 +107,6 @@ func TestReturnsComputerVsComputerGame(t *testing.T) {
 	matchers.EqualLiterals(t, game.playerOne.GetType(), "Computer")
 	matchers.EqualLiterals(t, game.playerOne.GetMark(), "X")
 	matchers.EqualLiterals(t, game.playerTwo.GetType(), "Computer")
-	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "Y")
+	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "O")
 }
 

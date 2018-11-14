@@ -51,7 +51,7 @@ func (gameFactory *GameFactory) getHumanVsHumanGame() *Game {
 
 func (gameFactory *GameFactory) getComputerVsComputerGame() *Game {
 	playerOne := player.Computer{Mark: "X"}
-	playerTwo := player.Computer{Mark: "Y"}
+	playerTwo := player.Computer{Mark: "O"}
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
@@ -61,7 +61,7 @@ func (gameFactory *GameFactory) getComputerVsComputerGame() *Game {
 func (gameFactory *GameFactory) getHumanVsComputerGame() *Game {
 	playerOneMark := gameFactory.getPlayerOneMark()
 	playerOne := player.Human{Mark: playerOneMark, Clui: gameFactory.Clui}
-	playerTwo := player.Computer{Mark: "Y"}
+	playerTwo := player.Computer{Mark: "O"}
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwo.GetMark()}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
@@ -82,7 +82,7 @@ func (gameFactory *GameFactory) getPlayerOneMark() string {
 	gameFactory.Clui.AskPlayerOneForMark()
 	mark := gameFactory.Clui.ReadUserInput()
 	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
-	if len(mark) == 1 && IsLetter(mark) && !(strings.EqualFold(mark, "y")) {
+	if len(mark) == 1 && IsLetter(mark) && !(strings.EqualFold(mark, "o")) {
 		return mark
 	} else {
 		gameFactory.Clui.InformOfNotAvailableMark(mark)
