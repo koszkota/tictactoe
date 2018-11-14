@@ -11,9 +11,9 @@ type Board struct {
 }
 
 func MakeBoard(boardSize int, marksRepo *MarksRepo) Board {
-	aBoard := Board{size: boardSize, marksRepo: marksRepo}
-	aBoard.initializeEmptyCells(boardSize)
-	return aBoard
+	board := Board{size: boardSize, marksRepo: marksRepo}
+	board.initializeEmptyCells(boardSize)
+	return board
 }
 
 func (board Board) MakeACloneOfItself() Board {
@@ -21,12 +21,6 @@ func (board Board) MakeACloneOfItself() Board {
 	cloneOfBoard.cells = make([]string, len(board.cells))
 	copy(cloneOfBoard.cells, board.cells)
 	return cloneOfBoard
-}
-
-func (board *Board) initializeEmptyCells(boardSize int) {
-	for i := 0; i < (boardSize * boardSize); i++ {
-		board.cells = append(board.cells, strconv.Itoa(i + 1))
-	}
 }
 
 func (board *Board) PutMarkOnBoard (mark string, cellIndex int) {
@@ -63,7 +57,7 @@ func (board Board) HasEmptyCell() bool {
 	return false
 }
 
-func (board Board) GetActivePlayerSign() string {
+func (board Board) GetActivePlayerMark() string {
 	freeCells := board.GetFreeCells()
 	if len(freeCells)%2 != 0 {
 		return board.marksRepo.PlayerOneMark
@@ -72,9 +66,9 @@ func (board Board) GetActivePlayerSign() string {
 	}
 }
 
-func (board Board) GetPassivePlayerSign() string {
-	activePlayerSign := board.GetActivePlayerSign()
-	if activePlayerSign == board.marksRepo.PlayerOneMark {
+func (board Board) GetPassivePlayerMark() string {
+	activePlayerMark := board.GetActivePlayerMark()
+	if activePlayerMark == board.marksRepo.PlayerOneMark {
 		return board.marksRepo.PlayerTwoMark
 	} else {
 		return board.marksRepo.PlayerOneMark
@@ -89,6 +83,12 @@ func (board Board) GetFreeCells() []string {
 		}
 	}
 	return freeCells
+}
+
+func (board *Board) initializeEmptyCells(boardSize int) {
+	for i := 0; i < (boardSize * boardSize); i++ {
+		board.cells = append(board.cells, strconv.Itoa(i + 1))
+	}
 }
 
 func (board Board) IsTie() bool {

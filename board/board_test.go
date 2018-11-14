@@ -95,11 +95,11 @@ func TestGetLinesReturnsAllLinesOnBoard(t *testing.T) {
 
 func TestIsWinnerAcceptsMarkAndReturnsBool(t *testing.T) {
 	board := setupBoardWithPrePickedCells()
-	expectedWinnerSign := "Y"
-	expectedLoserSign := "X"
+	expectedWinnerMark := "Y"
+	expectedLoserMark := "X"
 
-	matchers.IsTrue(t, board.IsWon(expectedWinnerSign))
-	matchers.IsFalse(t, board.IsWon(expectedLoserSign))
+	matchers.IsTrue(t, board.IsWon(expectedWinnerMark))
+	matchers.IsFalse(t, board.IsWon(expectedLoserMark))
 }
 
 func TestHasEmptyCellReturnsTrueWhenEmptyCellIsAvailable(t *testing.T) {
@@ -111,27 +111,27 @@ func TestHasEmptyCellReturnsTrueWhenEmptyCellIsAvailable(t *testing.T) {
 func TestReturnsMarkOfTheActivePlayerAtTheBeginningOfTheGame(t *testing.T) {
 	board := setupEmptyBoard()
 
-	matchers.EqualLiterals(t, board.GetActivePlayerSign(), "X")
+	matchers.EqualLiterals(t, board.GetActivePlayerMark(), "X")
 }
 
 func TestReturnsMarkOfThePassivePlayerAtTheBeginningOfTheGame(t *testing.T) {
 	board := setupEmptyBoard()
 
-	matchers.EqualLiterals(t, board.GetPassivePlayerSign(), "Y")
+	matchers.EqualLiterals(t, board.GetPassivePlayerMark(), "Y")
 }
 
 func TestReturnsMarkOfTheActivePlayerAfterFirstMove(t *testing.T) {
 	board := setupEmptyBoard()
 	board.PutMarkOnBoard("X", 2)
 
-	matchers.EqualLiterals(t, board.GetActivePlayerSign(), "Y")
+	matchers.EqualLiterals(t, board.GetActivePlayerMark(), "Y")
 }
 
 func TestReturnsMarkOfThePassivePlayerAfterFirstMove(t *testing.T) {
 	board := setupEmptyBoard()
 	board.PutMarkOnBoard("X", 2)
 
-	matchers.EqualLiterals(t, board.GetPassivePlayerSign(), "X")
+	matchers.EqualLiterals(t, board.GetPassivePlayerMark(), "X")
 }
 
 
