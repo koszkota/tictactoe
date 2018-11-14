@@ -40,6 +40,11 @@ func ExampleShowGameMode() {
 	// Output: To play Human vs Human enter 1. To play Human vs Computer enter 2. To see two computers playing enter 3.
 }
 
+func ExampleShowWhoGoestFirstMenu() {
+	clui.AskWhoGoesFirst()
+	// Output: If Human player should go first, enter H; if computer, enter C.
+}
+
 func ExampleInformOfTie() {
 	clui.InformOfTie()
 	// Output: It's a tie!
