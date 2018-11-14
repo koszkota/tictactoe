@@ -42,7 +42,7 @@ func (clui Clui) AskWhoGoesFirst() {
 }
 
 func (clui Clui) InformOfNotAvailableMark(mark string) {
-	clui.writer.Write("Mark " + mark + " is not available, please pick another one.")
+	clui.writer.WriteWarning("Mark " + mark + " is not available, please pick another one.")
 }
 
 func (clui Clui) InformOfMove(pickedMove string, mark string)  {
@@ -62,7 +62,7 @@ func (clui Clui) AskForMove(mark string) {
 }
 
 func (clui Clui) InformOfInvalidMove() {
-	clui.writer.Write("This move is not available")
+	clui.writer.WriteWarning("This move is not available")
 }
 
 func (clui Clui) ShowBoard(rows [][]string) {

@@ -9,6 +9,10 @@ func (stubWriter *StubWriter) Write(text string) {
 	stubWriter.arrayOfOutputs = append(stubWriter.arrayOfOutputs, text)
 }
 
+func (stubWriter *StubWriter) WriteWarning(text string) {
+	stubWriter.arrayOfOutputs = append(stubWriter.arrayOfOutputs, text)
+}
+
 func (stubWriter *StubWriter) CleanOutputs() {
 	stubWriter.arrayOfOutputs = []string{}
 }
