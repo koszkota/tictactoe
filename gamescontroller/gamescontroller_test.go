@@ -12,7 +12,7 @@ func TestRunsAComputerVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 	stubWriter := &clui.StubWriter{}
 	aClui := clui.MakeClui(strings.NewReader("YES\n3\nNO"), stubWriter)
 	stubRunStatus := &StubRunStatus{Counter: 0}
-	gameFactory := &game.GameFactory{}
+	gameFactory := &game.GameFactory{Clui:aClui}
 	gamesController := GamesController{Clui:aClui, RunStatus: stubRunStatus, GameFactory:gameFactory}
 
 	gamesController.Run()
@@ -24,7 +24,7 @@ func TestRunsAHumanVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 	stubWriter := &clui.StubWriter{}
 	aClui := clui.MakeClui(strings.NewReader("YES\n2\nH\n1\n2\n6\nNO"), stubWriter)
 	stubRunStatus := &StubRunStatus{Counter: 0}
-	gameFactory := &game.GameFactory{}
+	gameFactory := &game.GameFactory{Clui:aClui}
 	gamesController := GamesController{Clui:aClui, RunStatus: stubRunStatus, GameFactory:gameFactory}
 
 	gamesController.Run()
@@ -36,7 +36,7 @@ func TestRunsAHumanVsHumanGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 	stubWriter := &clui.StubWriter{}
 	aClui := clui.MakeClui(strings.NewReader("YES\n1\n1\n2\n4\n3\n7\nNO"), stubWriter)
 	stubRunStatus := &StubRunStatus{Counter: 0}
-	gameFactory := &game.GameFactory{}
+	gameFactory := &game.GameFactory{Clui:aClui}
 	gamesController := GamesController{Clui:aClui, RunStatus: stubRunStatus, GameFactory:gameFactory}
 
 	gamesController.Run()

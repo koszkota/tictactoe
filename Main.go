@@ -10,7 +10,7 @@ import (
 func main() {
 	aClui := clui.MakeClui(os.Stdin, clui.MakeConsoleWriter())
 	runStatus := &gamescontroller.RunStatus{}
-	gameFactory := &game.GameFactory{}
+	gameFactory := &game.GameFactory{Clui: aClui}
 	gamesController := &gamescontroller.GamesController{Clui: aClui, RunStatus: runStatus, GameFactory: gameFactory}
 	gamesController.Run()
 }

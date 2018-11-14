@@ -32,6 +32,6 @@ func (gamesController *GamesController) runMainMenu() {
 }
 
 func (gamesController *GamesController) playGame() {
-	game := gamesController.GameFactory.CreateGame(gamesController.Clui)
+	game := gamesController.GameFactory.CreateGame()
 	game.Play()
 }
