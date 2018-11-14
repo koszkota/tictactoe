@@ -35,6 +35,11 @@ func ExampleShowMainMenu() {
 	// Output: To play a game enter YES, to exit enter NO.
 }
 
+func ExampleShowGameMode() {
+	clui.AskForGameMode()
+	// Output: To play Human vs Human enter 1. To play Human vs Computer enter 2. To see two computers playing enter 3.
+}
+
 func ExampleInformOfTie() {
 	clui.InformOfTie()
 	// Output: It's a tie!

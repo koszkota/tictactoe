@@ -25,6 +25,10 @@ func (clui Clui) ShowMainMenu() {
 	clui.writer.Write("To play a game enter YES, to exit enter NO.")
 }
 
+func (clui Clui) AskForGameMode() {
+	clui.writer.Write("To play Human vs Human enter 1. To play Human vs Computer enter 2. To see two computers playing enter 3.")
+}
+
 func (clui Clui) InformOfMove(pickedMove string, mark string)  {
 	clui.writer.Write("Player " + mark + " picked position " + pickedMove)
 }
