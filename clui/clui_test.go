@@ -10,15 +10,15 @@ import (
 var clui = setupClui()
 var hardcodedInput = "testWord"
 
-func setupClui() Clui {
+func setupClui() *Clui {
 	writer := MakeConsoleWriter()
-	clui := MakeClui(strings.NewReader(hardcodedInput), writer)
+	clui := NewClui(strings.NewReader(hardcodedInput), writer)
 	return clui
 }
 
 func TestInformOfBeginningOfGame(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.InformOfBeginningOfGame()
 
@@ -27,7 +27,7 @@ func TestInformOfBeginningOfGame(t *testing.T) {
 
 func TestInformOfMove(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.InformOfMove("1", "X")
 
@@ -36,7 +36,7 @@ func TestInformOfMove(t *testing.T) {
 
 func TestInformOfWinner(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.InformOfWinner("X")
 
@@ -45,7 +45,7 @@ func TestInformOfWinner(t *testing.T) {
 
 func TestShowMainMenu(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.ShowMainMenu()
 
@@ -54,7 +54,7 @@ func TestShowMainMenu(t *testing.T) {
 
 func TestShowGameMode(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.AskForGameMode()
 
@@ -63,7 +63,7 @@ func TestShowGameMode(t *testing.T) {
 
 func TestShowWhoGoesFirstMenu(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.AskWhoGoesFirst()
 
@@ -72,7 +72,7 @@ func TestShowWhoGoesFirstMenu(t *testing.T) {
 
 func TestAskPlayerOneForMark(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.AskPlayerForMark("one")
 
@@ -81,7 +81,7 @@ func TestAskPlayerOneForMark(t *testing.T) {
 
 func TestInformOfNotAvailableMark(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.InformOfNotAvailableMark("X")
 
@@ -90,7 +90,7 @@ func TestInformOfNotAvailableMark(t *testing.T) {
 
 func TestInformOfTie(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.InformOfTie()
 
@@ -99,7 +99,7 @@ func TestInformOfTie(t *testing.T) {
 
 func TestAskForMove(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.AskForMove("X")
 
@@ -108,7 +108,7 @@ func TestAskForMove(t *testing.T) {
 
 func TestInformOfInvalidMove(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.InformOfInvalidMove()
 
@@ -117,7 +117,7 @@ func TestInformOfInvalidMove(t *testing.T) {
 
 func TestInformOfInvalidInput(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 
 	clui.InformOfInvalidInput("test")
 
@@ -126,7 +126,7 @@ func TestInformOfInvalidInput(t *testing.T) {
 
 func TestShowBoard(t *testing.T) {
 	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
+	clui := NewClui(os.Stdin, stubWriter)
 	rows := [][]string{{"1","2","3"}, {"4", "X", "6"}, {"7", "8", "9"}}
 
 	clui.ShowBoard(rows)

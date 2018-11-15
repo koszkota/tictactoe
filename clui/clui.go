@@ -12,9 +12,9 @@ type Clui struct {
 	writer Writer
 }
 
-func MakeClui(input io.Reader, writer Writer) Clui {
+func NewClui(input io.Reader, writer Writer) *Clui {
 	reader := bufio.NewReader(input)
-	return Clui{reader: reader, writer: writer}
+	return &Clui{reader: reader, writer: writer}
 }
 
 func (clui Clui) InformOfBeginningOfGame() {

@@ -5,7 +5,7 @@ import (
 )
 
 type Factory struct {
-	Clui clui.Clui
+	Clui *clui.Clui
 }
 
 func (factory *Factory) Create(player int, mark string) Player {

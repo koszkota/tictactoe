@@ -8,7 +8,7 @@ import (
 
 type Human struct {
 	Mark string
-	Clui clui.Clui
+	Clui *clui.Clui
 }
 
 func (human Human) PickMove(board board.Board) string {

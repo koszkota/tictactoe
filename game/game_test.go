@@ -15,7 +15,7 @@ func TestGamePlaysWholeHumanVsHumanTieGame(t *testing.T) {
 	playerOne := player.Human{Mark: "X", Clui: aClui}
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
-	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
+	aGame := Game{*aClui, &aBoard, playerOne, playerTwo}
 
 	aGame.Play()
 
@@ -30,7 +30,7 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerOne(t *testing.T) {
 	playerOne := player.Human{Mark: "X", Clui: aClui}
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
-	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
+	aGame := Game{*aClui, &aBoard, playerOne, playerTwo}
 
 	aGame.Play()
 
@@ -45,7 +45,7 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerTwo(t *testing.T) {
 	playerOne := player.Human{Mark: "X", Clui: aClui}
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
-	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
+	aGame := Game{*aClui, &aBoard, playerOne, playerTwo}
 
 	aGame.Play()
 
@@ -56,11 +56,11 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerTwo(t *testing.T) {
 
 func TestGamePlaysWholeComputerVsComputerGameWithTie(t *testing.T) {
 	stubWriter := &clui.StubWriter{}
-	aClui := clui.MakeClui(strings.NewReader(""), stubWriter)
+	aClui := clui.NewClui(strings.NewReader(""), stubWriter)
 	playerOne := player.Computer{Mark: "X"}
 	playerTwo := player.Computer{Mark: "O"}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
-	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
+	aGame := Game{*aClui, &aBoard, playerOne, playerTwo}
 
 	aGame.Play()
 
@@ -69,8 +69,8 @@ func TestGamePlaysWholeComputerVsComputerGameWithTie(t *testing.T) {
 	stubWriter.CleanOutputs()
 }
 
-func makeCluiWithInput(hardcodedMovesOfPlayers string, stubWriter *clui.StubWriter) clui.Clui {
-	return clui.MakeClui(strings.NewReader(hardcodedMovesOfPlayers), stubWriter)
+func makeCluiWithInput(hardcodedMovesOfPlayers string, stubWriter *clui.StubWriter) *clui.Clui {
+	return clui.NewClui(strings.NewReader(hardcodedMovesOfPlayers), stubWriter)
 }
 
 func makeBoard(size int, playerOneMark string, playerTwoMark string) board.Board {
