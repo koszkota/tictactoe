@@ -21,13 +21,13 @@ func (gamesController *GamesController) Run() {
 
 func (gamesController *GamesController) runMainMenu() {
 	gamesController.Clui.ShowMainMenu()
-	mainMenuAnswer := gamesController.Clui.ReadUserInput()
-	if strings.EqualFold("yes", mainMenuAnswer) {
+	userInput := gamesController.Clui.ReadUserInput()
+	if strings.EqualFold("yes", userInput) {
 		gamesController.playGame()
-	} else if strings.EqualFold("no", mainMenuAnswer)  {
+	} else if strings.EqualFold("no", userInput)  {
 		os.Exit(1)
 	} else {
-		gamesController.Clui.InformOfInvalidInput(mainMenuAnswer)
+		gamesController.Clui.InformOfInvalidInput(userInput)
 		gamesController.runMainMenu()
 	}
 }

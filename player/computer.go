@@ -9,6 +9,11 @@ type Computer struct {
 	Mark string
 }
 
+const(
+	maxValueOfPlaceOnBoard = 10
+	tieValueOfPlaceOnBoard = 0
+)
+
 func (computer Computer) PickMove (board board.Board) string {
 	maxPlayerMark := board.GetActivePlayerMark()
 	minPlayerMark := board.GetPassivePlayerMark()
@@ -25,15 +30,13 @@ func (computer Computer) GetType() string {
 }
 
 func (computer Computer) miniMaxAlgorithm(board board.Board, depth int, maxPlayerMark string, minPlayerMark string) int {
-	var maxValueOfPlace = 10
-	var tieValueOfPlace = 0
 
 	if board.IsWon(maxPlayerMark) {
-		return maxValueOfPlace - depth
+		return maxValueOfPlaceOnBoard - depth
 	} else if board.IsWon(minPlayerMark) {
-		return - (maxValueOfPlace - depth)
+		return - (maxValueOfPlaceOnBoard - depth)
 	} else if board.IsTie() {
-		return tieValueOfPlace
+		return tieValueOfPlaceOnBoard
 	}
 
 	var freeCells = board.GetFreeCells()

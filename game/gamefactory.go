@@ -12,30 +12,39 @@ type GameFactory struct {
 	Clui clui.Clui
 }
 
+const(
+	humanHumanGame       = "1"
+	humanComputerGame    = "2"
+	computerComputerGame = "3"
+	humanGoesFirst       = "h"
+	computeGoesFirst     = "c"
+)
+
 func (gameFactory *GameFactory) CreateGame() *Game {
 	gameFactory.Clui.AskForGameMode()
-	pick := gameFactory.Clui.ReadUserInput()
-	if pick == "1" {
+	userInput := gameFactory.Clui.ReadUserInput()
+	switch userInput {
+	case humanHumanGame:
 		return gameFactory.getHumanVsHumanGame()
-	} else if pick == "2" {
+	case humanComputerGame:
 		return gameFactory.getMixedPlayersGame()
-	} else if pick == "3" {
+	case computerComputerGame:
 		return gameFactory.getComputerVsComputerGame()
-	} else {
-		gameFactory.Clui.InformOfInvalidInput(pick)
+	default:
+		gameFactory.Clui.InformOfInvalidInput(userInput)
 		return gameFactory.CreateGame()
 	}
 }
 
 func (gameFactory *GameFactory) getMixedPlayersGame() *Game {
 	gameFactory.Clui.AskWhoGoesFirst()
-	pick := gameFactory.Clui.ReadUserInput()
-	if strings.EqualFold(pick, "h") {
+	userInput := gameFactory.Clui.ReadUserInput()
+	if strings.EqualFold(userInput, humanGoesFirst) {
 		return gameFactory.getHumanVsComputerGame()
-	} else if strings.EqualFold(pick, "c") {
+	} else if strings.EqualFold(userInput, computeGoesFirst) {
 	return gameFactory.getComputerVsHumanGame()
 	} else {
-		gameFactory.Clui.InformOfInvalidInput(pick)
+		gameFactory.Clui.InformOfInvalidInput(userInput)
 		return gameFactory.getMixedPlayersGame()
 	}
 }
@@ -82,24 +91,24 @@ func (gameFactory *GameFactory) getComputerVsHumanGame() *Game {
 
 func (gameFactory *GameFactory) getPlayerOneMark() string {
 	gameFactory.Clui.AskPlayerOneForMark()
-	mark := gameFactory.Clui.ReadUserInput()
+	userInput := gameFactory.Clui.ReadUserInput()
 	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
-	if len(mark) == 1 && IsLetter(mark) && !(strings.EqualFold(mark, "o")) {
-		return mark
+	if len(userInput) == 1 && IsLetter(userInput) && !(strings.EqualFold(userInput, "o")) {
+		return userInput
 	} else {
-		gameFactory.Clui.InformOfNotAvailableMark(mark)
+		gameFactory.Clui.InformOfNotAvailableMark(userInput)
 		return gameFactory.getPlayerOneMark()
 	}
 }
 
 func (gameFactory *GameFactory) getPlayerTwoMark(playerOneMark string) string {
 	gameFactory.Clui.AskPlayerTwoForMark()
-	mark := gameFactory.Clui.ReadUserInput()
+	userInput := gameFactory.Clui.ReadUserInput()
 	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
-	if len(mark) == 1 && IsLetter(mark) && !(strings.EqualFold(mark, playerOneMark)) {
-		return mark
+	if len(userInput) == 1 && IsLetter(userInput) && !(strings.EqualFold(userInput, playerOneMark)) {
+		return userInput
 	} else {
-		gameFactory.Clui.InformOfNotAvailableMark(mark)
+		gameFactory.Clui.InformOfNotAvailableMark(userInput)
 		return gameFactory.getPlayerTwoMark(playerOneMark)
 	}
 }
