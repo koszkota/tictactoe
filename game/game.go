@@ -8,7 +8,7 @@ import (
 )
 
 type Game struct {
-	clui      clui.Clui
+	clui      *clui.Clui
 	board     *board.Board
 	playerOne player.Player
 	playerTwo player.Player

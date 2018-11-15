@@ -9,7 +9,7 @@ import (
 )
 
 type Factory struct {
-	Clui clui.Clui
+	Clui *clui.Clui
 	PlayerFactory *player.Factory
 }
 

@@ -15,7 +15,7 @@ func TestGamePlaysWholeHumanVsHumanTieGame(t *testing.T) {
 	playerOne := player.Human{Mark: "X", Clui: aClui}
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
-	aGame := Game{*aClui, &aBoard, playerOne, playerTwo}
+	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
 
 	aGame.Play()
 
@@ -30,7 +30,7 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerOne(t *testing.T) {
 	playerOne := player.Human{Mark: "X", Clui: aClui}
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
-	aGame := Game{*aClui, &aBoard, playerOne, playerTwo}
+	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
 
 	aGame.Play()
 
@@ -45,7 +45,7 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerTwo(t *testing.T) {
 	playerOne := player.Human{Mark: "X", Clui: aClui}
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
-	aGame := Game{*aClui, &aBoard, playerOne, playerTwo}
+	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
 
 	aGame.Play()
 
@@ -60,7 +60,7 @@ func TestGamePlaysWholeComputerVsComputerGameWithTie(t *testing.T) {
 	playerOne := player.Computer{Mark: "X"}
 	playerTwo := player.Computer{Mark: "O"}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
-	aGame := Game{*aClui, &aBoard, playerOne, playerTwo}
+	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
 
 	aGame.Play()
 

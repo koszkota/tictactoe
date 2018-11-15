@@ -8,7 +8,7 @@ import (
 )
 
 type GamesController struct {
-	Clui      clui.Clui
+	Clui      *clui.Clui
 	RunStatus ControllerStatus
 	GameFactory *game.Factory
 }

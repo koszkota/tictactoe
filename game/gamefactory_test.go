@@ -98,6 +98,6 @@ func TestReturnsComputerVsComputerGame(t *testing.T) {
 func getGameFactory(input string) Factory {
 	stubWriter := &clui.StubWriter{}
 	clui := clui.NewClui(strings.NewReader(input), stubWriter)
-	playersFactory := &player.Factory{*clui}
-	return Factory{Clui: *clui, PlayerFactory:playersFactory}
+	playersFactory := &player.Factory{clui}
+	return Factory{Clui: clui, PlayerFactory:playersFactory}
 }
