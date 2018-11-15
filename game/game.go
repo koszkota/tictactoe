@@ -4,14 +4,14 @@ import (
 	"strconv"
 	. "tictactoe/board"
 	. "tictactoe/clui"
-	. "tictactoe/player"
+	"tictactoe/player"
 )
 
 type Game struct {
 	clui      *Clui
 	board     *Board
-	playerOne Player
-	playerTwo Player
+	playerOne player.Player
+	playerTwo player.Player
 }
 
 func (game *Game) Play() {
@@ -47,7 +47,7 @@ func (game Game) transformMove(move string) int {
 	return moveAsInteger - 1
 }
 
-func (game Game) getCurrentPlayer() Player {
+func (game Game) getCurrentPlayer() player.Player {
 	currentPlayerMark := game.board.GetActivePlayerMark()
 	if currentPlayerMark == game.playerOne.GetMark() {
 		return game.playerOne

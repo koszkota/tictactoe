@@ -8,9 +8,9 @@ import (
 	"tictactoe/player"
 )
 
-type Runner struct {}
+//type Runner struct {}
 
-func (runner *Runner) Start() {
+func Start() {
 	aClui := NewClui(os.Stdin, MakeConsoleWriter())
 	runStatus := &RunStatus{}
 	playersFactory := &player.Factory{Clui: aClui}

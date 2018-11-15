@@ -25,7 +25,7 @@ func (gamesController *GamesController) runMainMenu() {
 	if strings.EqualFold("yes", userInput) {
 		gamesController.playGame()
 	} else if strings.EqualFold("no", userInput)  {
-		os.Exit(1)
+		os.Exit(0)
 	} else {
 		gamesController.Clui.InformOfInvalidInput(userInput)
 		gamesController.runMainMenu()

@@ -3,13 +3,13 @@ package game
 import (
 	"regexp"
 	"strings"
-	. "tictactoe/board"
-	. "tictactoe/clui"
+	"tictactoe/board"
+	"tictactoe/clui"
 	"tictactoe/player"
 )
 
 type Factory struct {
-	Clui *Clui
+	Clui *clui.Clui
 	PlayerFactory *player.Factory
 }
 
@@ -35,7 +35,7 @@ func (factory *Factory) getMixedPlayersGame() *Game {
 	if strings.EqualFold(userInput, humanGoesFirst) {
 		return factory.getHumanVsComputerGame()
 	} else if strings.EqualFold(userInput, computeGoesFirst) {
-	return factory.getComputerVsHumanGame()
+		return factory.getComputerVsHumanGame()
 	} else {
 		factory.Clui.InformOfInvalidInput(userInput)
 		return factory.getMixedPlayersGame()
@@ -45,35 +45,27 @@ func (factory *Factory) getMixedPlayersGame() *Game {
 func (factory *Factory) getHumanVsHumanGame() *Game {
 	playerOneMark := factory.getPlayerMark("one", "")
 	playerTwoMark := factory.getPlayerMark("two", playerOneMark)
-	playerOne, playerTwo := factory.createPlayers(player.HumanType, player.HumanType, playerOneMark, playerTwoMark )
-	aBoard := factory.createBoard(playerOne.GetMark(), playerTwo.GetMark())
-	return &Game{factory.Clui, &aBoard, playerOne, playerTwo}
+	return factory.getGame(player.HumanType, player.HumanType, playerOneMark, playerTwoMark)
 }
 
 func (factory *Factory) getComputerVsComputerGame() *Game {
-	playerOne, playerTwo := factory.createPlayers(player.ComputerType, player.ComputerType, defaultPlayerOneMark, defaultPlayerTwoMark)
-	aBoard := factory.createBoard(playerOne.GetMark(), playerTwo.GetMark())
-	return &Game{factory.Clui, &aBoard, playerOne, playerTwo}
+	return factory.getGame(player.ComputerType, player.ComputerType, defaultPlayerOneMark, defaultPlayerTwoMark)
 }
 
 func (factory *Factory) getHumanVsComputerGame() *Game {
 	playerOneMark := factory.getPlayerMark("one", defaultPlayerTwoMark)
-	playerOne, playerTwo := factory.createPlayers(player.HumanType, player.ComputerType, playerOneMark, defaultPlayerTwoMark)
-	aBoard := factory.createBoard(playerOne.GetMark(), playerTwo.GetMark())
-	return &Game{factory.Clui, &aBoard, playerOne, playerTwo}
+	return factory.getGame(player.HumanType, player.ComputerType, playerOneMark, defaultPlayerTwoMark)
 }
 
 func (factory *Factory) getComputerVsHumanGame() *Game {
 	playerTwoMark := factory.getPlayerMark("two", defaultPlayerOneMark)
-	playerOne, playerTwo := factory.createPlayers(player.ComputerType, player.HumanType, defaultPlayerOneMark, playerTwoMark)
-	aBoard := factory.createBoard(playerOne.GetMark(), playerTwo.GetMark())
-	return &Game{factory.Clui, &aBoard, playerOne, playerTwo}
+	return factory.getGame(player.ComputerType, player.HumanType, defaultPlayerOneMark, playerTwoMark)
 }
 
 func (factory *Factory) getPlayerMark(playerOrder, forbiddenMark string) string {
 	factory.Clui.AskPlayerForMark(playerOrder)
 	userInput := factory.Clui.ReadUserInput()
-	if len(userInput) == 1 && stringIsLiteral(userInput) && !(strings.EqualFold(userInput, forbiddenMark)) {
+	if markIsValid(userInput, forbiddenMark) {
 		return userInput
 	} else {
 		factory.Clui.InformOfNotAvailableMark(userInput)
@@ -87,12 +79,22 @@ func (factory *Factory) createPlayers(playerOneType, playerTwoType int, playerOn
 	return playerOne, playerTwo
 }
 
-func (factory *Factory) createBoard(playerOneMark, playerTwoMark string) Board {
-	marksRepo := MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwoMark}
-	aBoard := MakeBoard(3, &marksRepo)
+func (factory *Factory) createBoard(playerOneMark, playerTwoMark string) board.Board {
+	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwoMark}
+	aBoard := board.MakeBoard(3, &marksRepo)
 	return aBoard
+}
+
+func markIsValid(userMark, forbiddenMark string) bool {
+	return len(userMark) == 1 && stringIsLiteral(userMark) && !(strings.EqualFold(userMark, forbiddenMark))
 }
 
 func stringIsLiteral(input string) bool {
 	return regexp.MustCompile(`^[a-zA-Z]+$`).MatchString(input)
+}
+
+func (factory *Factory) getGame(playerOneType, playerTwoType int, playerOneMark, playerTwoMark string) *Game {
+	playerOne, playerTwo := factory.createPlayers(playerOneType, playerTwoType, playerOneMark, playerTwoMark )
+	aBoard := factory.createBoard(playerOne.GetMark(), playerTwo.GetMark())
+	return &Game{factory.Clui, &aBoard, playerOne, playerTwo}
 }
