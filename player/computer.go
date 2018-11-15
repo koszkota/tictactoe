@@ -2,14 +2,14 @@ package player
 
 import (
 	"strconv"
-	"tictactoe/board"
+	. "tictactoe/board"
 )
 
 type Computer struct {
 	Mark string
 }
 
-func (computer Computer) PickMove (board board.Board) string {
+func (computer Computer) PickMove (board Board) string {
 	maxPlayerMark := board.GetActivePlayerMark()
 	minPlayerMark := board.GetPassivePlayerMark()
 	boardClone := board.MakeACloneOfItself()
@@ -24,7 +24,7 @@ func (computer Computer) GetType() int {
 	return ComputerType
 }
 
-func (computer Computer) miniMaxAlgorithm(board board.Board, depth int, maxPlayerMark string, minPlayerMark string) int {
+func (computer Computer) miniMaxAlgorithm(board Board, depth int, maxPlayerMark string, minPlayerMark string) int {
 
 	const(
 		maxValueOfPlaceOnBoard = 10

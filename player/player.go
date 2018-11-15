@@ -1,9 +1,9 @@
 package player
 
-import "tictactoe/board"
+import . "tictactoe/board"
 
 type Player interface {
-	PickMove(board board.Board) string
+	PickMove(board Board) string
 	GetMark() string
 	GetType() int
 }

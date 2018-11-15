@@ -2,16 +2,16 @@ package game
 
 import (
 	"strconv"
-	"tictactoe/board"
-	"tictactoe/clui"
-	"tictactoe/player"
+	. "tictactoe/board"
+	. "tictactoe/clui"
+	. "tictactoe/player"
 )
 
 type Game struct {
-	clui      *clui.Clui
-	board     *board.Board
-	playerOne player.Player
-	playerTwo player.Player
+	clui      *Clui
+	board     *Board
+	playerOne Player
+	playerTwo Player
 }
 
 func (game *Game) Play() {
@@ -47,7 +47,7 @@ func (game Game) transformMove(move string) int {
 	return moveAsInteger - 1
 }
 
-func (game Game) getCurrentPlayer() player.Player {
+func (game Game) getCurrentPlayer() Player {
 	currentPlayerMark := game.board.GetActivePlayerMark()
 	if currentPlayerMark == game.playerOne.GetMark() {
 		return game.playerOne
@@ -55,3 +55,4 @@ func (game Game) getCurrentPlayer() player.Player {
 		return game.playerTwo
 	}
 }
+

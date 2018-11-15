@@ -3,14 +3,14 @@ package gamescontroller
 import (
 	"os"
 	"strings"
-	"tictactoe/clui"
-	"tictactoe/game"
+	. "tictactoe/clui"
+	. "tictactoe/game"
 )
 
 type GamesController struct {
-	Clui      *clui.Clui
+	Clui      *Clui
 	RunStatus ControllerStatus
-	GameFactory *game.Factory
+	GameFactory *Factory
 }
 
 func (gamesController *GamesController) Run() {

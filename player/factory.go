@@ -1,11 +1,11 @@
 package player
 
 import (
-	"tictactoe/clui"
+	. "tictactoe/clui"
 )
 
 type Factory struct {
-	Clui *clui.Clui
+	Clui *Clui
 }
 
 func (factory *Factory) Create(player int, mark string) Player {
