@@ -55,7 +55,7 @@ func (gameFactory *Factory) getMixedPlayersGame() *Game {
 func (gameFactory *Factory) getHumanVsHumanGame() *Game {
 	playerOneMark := gameFactory.getPlayerMark("one", "")
 	playerTwoMark := gameFactory.getPlayerMark("two", playerOneMark)
-	playerOne, playerTwo := gameFactory.createPlayers("Human", "Human", playerOneMark, playerTwoMark )
+	playerOne, playerTwo := gameFactory.createPlayers(player.HumanType, player.HumanType, playerOneMark, playerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwoMark}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
@@ -63,7 +63,7 @@ func (gameFactory *Factory) getHumanVsHumanGame() *Game {
 }
 
 func (gameFactory *Factory) getComputerVsComputerGame() *Game {
-	playerOne, playerTwo := gameFactory.createPlayers("Computer", "Computer", defaultPlayerOneMark, defaultPlayerTwoMark )
+	playerOne, playerTwo := gameFactory.createPlayers(player.ComputerType, player.ComputerType, defaultPlayerOneMark, defaultPlayerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
@@ -72,7 +72,7 @@ func (gameFactory *Factory) getComputerVsComputerGame() *Game {
 
 func (gameFactory *Factory) getHumanVsComputerGame() *Game {
 	playerOneMark := gameFactory.getPlayerMark("one", defaultPlayerTwoMark)
-	playerOne, playerTwo := gameFactory.createPlayers("Human", "Computer", playerOneMark, defaultPlayerTwoMark )
+	playerOne, playerTwo := gameFactory.createPlayers(player.HumanType, player.ComputerType, playerOneMark, defaultPlayerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwo.GetMark()}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
@@ -81,7 +81,7 @@ func (gameFactory *Factory) getHumanVsComputerGame() *Game {
 
 func (gameFactory *Factory) getComputerVsHumanGame() *Game {
 	playerTwoMark := gameFactory.getPlayerMark("two", defaultPlayerOneMark)
-	playerOne, playerTwo := gameFactory.createPlayers("Computer", "Human", defaultPlayerOneMark, playerTwoMark )
+	playerOne, playerTwo := gameFactory.createPlayers(player.ComputerType, player.HumanType, defaultPlayerOneMark, playerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwoMark}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
@@ -100,7 +100,7 @@ func (gameFactory *Factory) getPlayerMark(playerOrder string, forbiddenMark stri
 	}
 }
 
-func (gameFactory *Factory) createPlayers(playerOneType , playerTwoType, playerOneMark, playerTwoMark string) (player.Player, player.Player) {
+func (gameFactory *Factory) createPlayers(playerOneType , playerTwoType int, playerOneMark, playerTwoMark string) (player.Player, player.Player) {
 	playerOne := gameFactory.PlayerFactory.Create(playerOneType, playerOneMark)
 	playerTwo := gameFactory.PlayerFactory.Create(playerTwoType, playerTwoMark)
 	return playerOne, playerTwo
