@@ -5,12 +5,12 @@ import (
 )
 
 type Factory struct {
-	Clui *clui.Clui
+	Clui clui.Clui
 }
 
 func (factory *Factory) Create(player int, mark string) Player {
 	if player == HumanType {
-		return Human{mark, factory.Clui}
+		return Human{mark, &factory.Clui}
 	} else {
 		return Computer{mark}
 	}
