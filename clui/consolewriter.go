@@ -5,7 +5,6 @@ import (
 	. "github.com/logrusorgru/aurora"
 )
 
-
 type ConsoleWriter struct{}
 
 func MakeConsoleWriter() ConsoleWriter {
