@@ -18,6 +18,8 @@ const(
 	computerComputerGame = "3"
 	humanGoesFirst       = "h"
 	computeGoesFirst     = "c"
+	defaultPlayerOneMark = "X"
+	defaultPlayerTwoMark = "O"
 )
 
 func (gameFactory *GameFactory) CreateGame() *Game {
@@ -61,8 +63,8 @@ func (gameFactory *GameFactory) getHumanVsHumanGame() *Game {
 }
 
 func (gameFactory *GameFactory) getComputerVsComputerGame() *Game {
-	playerOne := player.Computer{Mark: "X"}
-	playerTwo := player.Computer{Mark: "O"}
+	playerOne := player.Computer{Mark: defaultPlayerOneMark}
+	playerTwo := player.Computer{Mark: defaultPlayerTwoMark}
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
@@ -72,7 +74,7 @@ func (gameFactory *GameFactory) getComputerVsComputerGame() *Game {
 func (gameFactory *GameFactory) getHumanVsComputerGame() *Game {
 	playerOneMark := gameFactory.getPlayerOneMark()
 	playerOne := player.Human{Mark: playerOneMark, Clui: gameFactory.Clui}
-	playerTwo := player.Computer{Mark: "O"}
+	playerTwo := player.Computer{Mark: defaultPlayerTwoMark}
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwo.GetMark()}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
@@ -80,7 +82,7 @@ func (gameFactory *GameFactory) getHumanVsComputerGame() *Game {
 }
 
 func (gameFactory *GameFactory) getComputerVsHumanGame() *Game {
-	playerOne := player.Computer{Mark: "X"}
+	playerOne := player.Computer{Mark: defaultPlayerOneMark}
 	playerTwoMark := gameFactory.getPlayerTwoMark(playerOne.GetMark())
 	playerTwo := player.Human{Mark: playerTwoMark, Clui: gameFactory.Clui}
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwoMark}
@@ -93,7 +95,7 @@ func (gameFactory *GameFactory) getPlayerOneMark() string {
 	gameFactory.Clui.AskPlayerOneForMark()
 	userInput := gameFactory.Clui.ReadUserInput()
 	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
-	if len(userInput) == 1 && IsLetter(userInput) && !(strings.EqualFold(userInput, "o")) {
+	if len(userInput) == 1 && IsLetter(userInput) && !(strings.EqualFold(userInput, defaultPlayerTwoMark)) {
 		return userInput
 	} else {
 		gameFactory.Clui.InformOfNotAvailableMark(userInput)
