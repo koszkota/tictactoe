@@ -14,10 +14,6 @@ type Game struct {
 	playerTwo player.Player
 }
 
-func MakeGame(clui clui.Clui, board *board.Board, playerOne player.Player, playerTwo player.Player) Game {
-	return Game{clui: clui, board: board, playerOne: playerOne, playerTwo: playerTwo}
-}
-
 func (game *Game) Play() {
 	game.clui.InformOfBeginningOfGame()
 	game.clui.ShowBoard(game.board.GetRows())
