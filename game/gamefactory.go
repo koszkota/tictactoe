@@ -22,6 +22,7 @@ func (gameFactory *GameFactory) CreateGame() *Game {
 	} else if pick == "3" {
 		return gameFactory.getComputerVsComputerGame()
 	} else {
+		gameFactory.Clui.InformOfInvalidInput(pick)
 		return gameFactory.CreateGame()
 	}
 }
@@ -34,6 +35,7 @@ func (gameFactory *GameFactory) getMixedPlayersGame() *Game {
 	} else if strings.EqualFold(pick, "c") {
 	return gameFactory.getComputerVsHumanGame()
 	} else {
+		gameFactory.Clui.InformOfInvalidInput(pick)
 		return gameFactory.getMixedPlayersGame()
 	}
 }

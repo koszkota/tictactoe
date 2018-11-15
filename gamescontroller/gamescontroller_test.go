@@ -20,18 +20,6 @@ func TestRunsAComputerVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 	matchers.EqualLiterals(t, "It's a tie!", stubWriter.GetLastMessage())
 }
 
-func TestOnInvalidInputInMainMenuNeedsToSubmitAgain(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
-	aClui := clui.MakeClui(strings.NewReader("invalid\nYES\n3\nNO"), stubWriter)
-	stubRunStatus := &StubRunStatus{Counter: 0}
-	gameFactory := &game.GameFactory{Clui:aClui}
-	gamesController := GamesController{Clui:aClui, RunStatus: stubRunStatus, GameFactory:gameFactory}
-
-	gamesController.Run()
-
-	matchers.EqualLiterals(t, "It's a tie!", stubWriter.GetLastMessage())
-}
-
 func TestRunsAHumanVsComputerGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 	stubWriter := &clui.StubWriter{}
 	aClui := clui.MakeClui(strings.NewReader("YES\n2\nH\nX\n1\n2\n6\nNO"), stubWriter)
@@ -54,4 +42,40 @@ func TestRunsAHumanVsHumanGameAndEndsWhenRunStatusIsFalse(t *testing.T) {
 	gamesController.Run()
 
 	matchers.EqualLiterals(t, "Player X won!", stubWriter.GetLastMessage())
+}
+
+func TestOnInvalidInputInMainMenuNeedsToSubmitAgain(t *testing.T) {
+	stubWriter := &clui.StubWriter{}
+	aClui := clui.MakeClui(strings.NewReader("invalidGameOption\nYES\n2\nh\nQ\n1\n2\n6\nNO"), stubWriter)
+	stubRunStatus := &StubRunStatus{Counter: 0}
+	gameFactory := &game.GameFactory{Clui:aClui}
+	gamesController := GamesController{Clui:aClui, RunStatus: stubRunStatus, GameFactory:gameFactory}
+
+	gamesController.Run()
+
+	matchers.EqualLiterals(t, "Option invalidGameOption is not allowed.", stubWriter.GetOutputs()[1])
+}
+
+func TestOnInvalidInputInGameTypesMenuNeedsToSubmitAgain(t *testing.T) {
+	stubWriter := &clui.StubWriter{}
+	aClui := clui.MakeClui(strings.NewReader("YES\nInvalidGameType\n2\nh\nQ\n1\n2\n6\nNO"), stubWriter)
+	stubRunStatus := &StubRunStatus{Counter: 0}
+	gameFactory := &game.GameFactory{Clui:aClui}
+	gamesController := GamesController{Clui:aClui, RunStatus: stubRunStatus, GameFactory:gameFactory}
+
+	gamesController.Run()
+
+	matchers.EqualLiterals(t, "Option InvalidGameType is not allowed.", stubWriter.GetOutputs()[2])
+}
+
+func TestOnInvalidInputInWhoGoesFirstMenuNeedsToSubmitAgain(t *testing.T) {
+	stubWriter := &clui.StubWriter{}
+	aClui := clui.MakeClui(strings.NewReader("YES\n2\nInvalidOrder\nh\nQ\n1\n2\n6\nNO"), stubWriter)
+	stubRunStatus := &StubRunStatus{Counter: 0}
+	gameFactory := &game.GameFactory{Clui:aClui}
+	gamesController := GamesController{Clui:aClui, RunStatus: stubRunStatus, GameFactory:gameFactory}
+
+	gamesController.Run()
+
+	matchers.EqualLiterals(t, "Option InvalidOrder is not allowed.", stubWriter.GetOutputs()[3])
 }

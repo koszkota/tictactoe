@@ -124,6 +124,15 @@ func TestInformOfInvalidMove(t *testing.T) {
 	matchers.EqualLiterals(t, "This move is not available", stubWriter.GetLastMessage())
 }
 
+func TestInformOfInvalidInput(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := MakeClui(os.Stdin, stubWriter)
+
+	clui.InformOfInvalidInput("test")
+
+	matchers.EqualLiterals(t, "Option test is not allowed.", stubWriter.GetLastMessage())
+}
+
 func TestShowBoard(t *testing.T) {
 	stubWriter := &StubWriter{}
 	clui := MakeClui(os.Stdin, stubWriter)

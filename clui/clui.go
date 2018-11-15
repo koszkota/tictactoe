@@ -25,6 +25,10 @@ func (clui Clui) AskPlayerOneForMark() {
 	clui.writer.Write("Player one, please pick your mark (one letter, eg. X)")
 }
 
+func (clui Clui) InformOfInvalidInput(input string) {
+	clui.writer.WriteWarning("Option " + input + " is not allowed.")
+}
+
 func (clui Clui) AskPlayerTwoForMark() {
 	clui.writer.Write("Player two, please pick your mark (one letter, eg. O)")
 }
