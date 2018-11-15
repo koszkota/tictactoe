@@ -5,12 +5,14 @@ import (
 	"tictactoe/clui"
 	"tictactoe/game"
 	"tictactoe/gamescontroller"
+	"tictactoe/player"
 )
 
 func main() {
 	aClui := clui.MakeClui(os.Stdin, clui.MakeConsoleWriter())
 	runStatus := &gamescontroller.RunStatus{}
-	gameFactory := &game.GameFactory{Clui: aClui}
+	playersFactory := &player.Factory{aClui}
+	gameFactory := &game.Factory{Clui: aClui, PlayerFactory: playersFactory}
 	gamesController := &gamescontroller.GamesController{Clui: aClui, RunStatus: runStatus, GameFactory: gameFactory}
 	gamesController.Run()
 }

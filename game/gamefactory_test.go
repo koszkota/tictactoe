@@ -4,13 +4,12 @@ import (
 	"strings"
 	"testing"
 	"tictactoe/clui"
+	"tictactoe/player"
 	"tictactoe/testhelper"
 )
 
 func TestReturnsHumanVsHumanGame(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
-	clui := clui.MakeClui(strings.NewReader("1\nX\nO\n"), stubWriter)
-	gameFactory := GameFactory{Clui:clui}
+	gameFactory := getGameFactory("1\nX\nO\n")
 
 	game := gameFactory.CreateGame()
 
@@ -21,9 +20,7 @@ func TestReturnsHumanVsHumanGame(t *testing.T) {
 }
 
 func TestReturnsHumanVsHumanGameAfterInvalidModeInput(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
-	clui := clui.MakeClui(strings.NewReader("invalid\n1\nX\nO\n"), stubWriter)
-	gameFactory := GameFactory{Clui:clui}
+	gameFactory := getGameFactory("invalid\n1\nX\nO\n")
 
 	game := gameFactory.CreateGame()
 
@@ -34,9 +31,7 @@ func TestReturnsHumanVsHumanGameAfterInvalidModeInput(t *testing.T) {
 }
 
 func TestReturnsHumanVsComputerGame(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
-	clui := clui.MakeClui(strings.NewReader("2\nH\nX\n"), stubWriter)
-	gameFactory := GameFactory{Clui:clui}
+	gameFactory := getGameFactory("2\nH\nX\n")
 
 	game := gameFactory.CreateGame()
 
@@ -46,9 +41,7 @@ func TestReturnsHumanVsComputerGame(t *testing.T) {
 }
 
 func TestInHumanVsHumanGamePlayerOneCannotPickOAsMark(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
-	clui := clui.MakeClui(strings.NewReader("1\nO\nH\nX\n"), stubWriter)
-	gameFactory := GameFactory{Clui:clui}
+	gameFactory := getGameFactory("1\nO\nH\nX\n")
 
 	game := gameFactory.CreateGame()
 
@@ -59,9 +52,7 @@ func TestInHumanVsHumanGamePlayerOneCannotPickOAsMark(t *testing.T) {
 }
 
 func TestReturnsComputerVsHumanGame(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
-	clui := clui.MakeClui(strings.NewReader("2\nC\nQ\n"), stubWriter)
-	gameFactory := GameFactory{Clui:clui}
+	gameFactory := getGameFactory("2\nC\nQ\n")
 
 	game := gameFactory.CreateGame()
 
@@ -72,9 +63,7 @@ func TestReturnsComputerVsHumanGame(t *testing.T) {
 }
 
 func TestReturnsHumanVsComputerGameAfterInvalidInputInMode(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
-	clui := clui.MakeClui(strings.NewReader("2\ninvalid\nH\nX\n"), stubWriter)
-	gameFactory := GameFactory{Clui:clui}
+	gameFactory := getGameFactory("2\ninvalid\nH\nX\n")
 
 	game := gameFactory.CreateGame()
 
@@ -85,9 +74,7 @@ func TestReturnsHumanVsComputerGameAfterInvalidInputInMode(t *testing.T) {
 }
 
 func TestReturnsHumanVsComputerGameAfterInvalidInputInSign(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
-	clui := clui.MakeClui(strings.NewReader("2\nH\ninvalid\nX\n"), stubWriter)
-	gameFactory := GameFactory{Clui:clui}
+	gameFactory := getGameFactory("2\nH\ninvalid\nX\n")
 
 	game := gameFactory.CreateGame()
 
@@ -98,9 +85,7 @@ func TestReturnsHumanVsComputerGameAfterInvalidInputInSign(t *testing.T) {
 }
 
 func TestReturnsComputerVsComputerGame(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
-	clui := clui.MakeClui(strings.NewReader("3\n"), stubWriter)
-	gameFactory := GameFactory{Clui:clui}
+	gameFactory := getGameFactory("3\n")
 
 	game := gameFactory.CreateGame()
 
@@ -110,3 +95,9 @@ func TestReturnsComputerVsComputerGame(t *testing.T) {
 	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "O")
 }
 
+func getGameFactory(input string) Factory {
+	stubWriter := &clui.StubWriter{}
+	clui := clui.MakeClui(strings.NewReader(input), stubWriter)
+	playersFactory := &player.Factory{clui}
+	return Factory{Clui: clui, PlayerFactory:playersFactory}
+}

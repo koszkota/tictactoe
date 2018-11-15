@@ -8,8 +8,9 @@ import (
 	"tictactoe/player"
 )
 
-type GameFactory struct {
+type Factory struct {
 	Clui clui.Clui
+	PlayerFactory *player.Factory
 }
 
 const(
@@ -22,7 +23,7 @@ const(
 	defaultPlayerTwoMark = "O"
 )
 
-func (gameFactory *GameFactory) CreateGame() *Game {
+func (gameFactory *Factory) CreateGame() *Game {
 	gameFactory.Clui.AskForGameMode()
 	userInput := gameFactory.Clui.ReadUserInput()
 	switch userInput {
@@ -38,7 +39,7 @@ func (gameFactory *GameFactory) CreateGame() *Game {
 	}
 }
 
-func (gameFactory *GameFactory) getMixedPlayersGame() *Game {
+func (gameFactory *Factory) getMixedPlayersGame() *Game {
 	gameFactory.Clui.AskWhoGoesFirst()
 	userInput := gameFactory.Clui.ReadUserInput()
 	if strings.EqualFold(userInput, humanGoesFirst) {
@@ -51,47 +52,43 @@ func (gameFactory *GameFactory) getMixedPlayersGame() *Game {
 	}
 }
 
-func (gameFactory *GameFactory) getHumanVsHumanGame() *Game {
+func (gameFactory *Factory) getHumanVsHumanGame() *Game {
 	playerOneMark := gameFactory.getPlayerOneMark()
 	playerTwoMark := gameFactory.getPlayerTwoMark(playerOneMark)
-	playerOne := player.Human{Mark: playerOneMark, Clui:gameFactory.Clui}
-	playerTwo := player.Human{Mark: playerTwoMark, Clui:gameFactory.Clui}
+	playerOne, playerTwo := gameFactory.createPlayers("Human", "Human", playerOneMark, playerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwoMark}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
 	return &aGame
 }
 
-func (gameFactory *GameFactory) getComputerVsComputerGame() *Game {
-	playerOne := player.Computer{Mark: defaultPlayerOneMark}
-	playerTwo := player.Computer{Mark: defaultPlayerTwoMark}
+func (gameFactory *Factory) getComputerVsComputerGame() *Game {
+	playerOne, playerTwo := gameFactory.createPlayers("Computer", "Computer", defaultPlayerOneMark, defaultPlayerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
 	return &aGame
 }
 
-func (gameFactory *GameFactory) getHumanVsComputerGame() *Game {
+func (gameFactory *Factory) getHumanVsComputerGame() *Game {
 	playerOneMark := gameFactory.getPlayerOneMark()
-	playerOne := player.Human{Mark: playerOneMark, Clui: gameFactory.Clui}
-	playerTwo := player.Computer{Mark: defaultPlayerTwoMark}
+	playerOne, playerTwo := gameFactory.createPlayers("Human", "Computer", playerOneMark, defaultPlayerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwo.GetMark()}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
 	return &aGame
 }
 
-func (gameFactory *GameFactory) getComputerVsHumanGame() *Game {
-	playerOne := player.Computer{Mark: defaultPlayerOneMark}
-	playerTwoMark := gameFactory.getPlayerTwoMark(playerOne.GetMark())
-	playerTwo := player.Human{Mark: playerTwoMark, Clui: gameFactory.Clui}
+func (gameFactory *Factory) getComputerVsHumanGame() *Game {
+	playerTwoMark := gameFactory.getPlayerTwoMark(defaultPlayerOneMark)
+	playerOne, playerTwo := gameFactory.createPlayers("Computer", "Human", defaultPlayerOneMark, playerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwoMark}
 	aBoard := board.MakeBoard(3, &marksRepo)
 	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
 	return &aGame
 }
 
-func (gameFactory *GameFactory) getPlayerOneMark() string {
+func (gameFactory *Factory) getPlayerOneMark() string {
 	gameFactory.Clui.AskPlayerOneForMark()
 	userInput := gameFactory.Clui.ReadUserInput()
 	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
@@ -103,7 +100,7 @@ func (gameFactory *GameFactory) getPlayerOneMark() string {
 	}
 }
 
-func (gameFactory *GameFactory) getPlayerTwoMark(playerOneMark string) string {
+func (gameFactory *Factory) getPlayerTwoMark(playerOneMark string) string {
 	gameFactory.Clui.AskPlayerTwoForMark()
 	userInput := gameFactory.Clui.ReadUserInput()
 	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
@@ -113,4 +110,10 @@ func (gameFactory *GameFactory) getPlayerTwoMark(playerOneMark string) string {
 		gameFactory.Clui.InformOfNotAvailableMark(userInput)
 		return gameFactory.getPlayerTwoMark(playerOneMark)
 	}
+}
+
+func (gameFactory *Factory) createPlayers(playerOneType , playerTwoType, playerOneMark, playerTwoMark string) (player.Player, player.Player) {
+	playerOne := gameFactory.PlayerFactory.Create(playerOneType, playerOneMark)
+	playerTwo := gameFactory.PlayerFactory.Create(playerTwoType, playerTwoMark)
+	return playerOne, playerTwo
 }

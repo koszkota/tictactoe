@@ -10,7 +10,7 @@ import (
 type GamesController struct {
 	Clui      clui.Clui
 	RunStatus ControllerStatus
-	GameFactory *game.GameFactory
+	GameFactory *game.Factory
 }
 
 func (gamesController *GamesController) Run() {
