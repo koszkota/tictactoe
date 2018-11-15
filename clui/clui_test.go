@@ -74,18 +74,9 @@ func TestAskPlayerOneForMark(t *testing.T) {
 	stubWriter := &StubWriter{}
 	clui := MakeClui(os.Stdin, stubWriter)
 
-	clui.AskPlayerOneForMark()
+	clui.AskPlayerForMark("one")
 
-	matchers.EqualLiterals(t, "Player one, please pick your mark (one letter, eg. X)", stubWriter.GetLastMessage())
-}
-
-func TestAskPlayerTwoForMark(t *testing.T) {
-	stubWriter := &StubWriter{}
-	clui := MakeClui(os.Stdin, stubWriter)
-
-	clui.AskPlayerTwoForMark()
-
-	matchers.EqualLiterals(t, "Player two, please pick your mark (one letter, eg. O)", stubWriter.GetLastMessage())
+	matchers.EqualLiterals(t, "Player one, please pick one-letter mark", stubWriter.GetLastMessage())
 }
 
 func TestInformOfNotAvailableMark(t *testing.T) {

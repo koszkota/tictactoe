@@ -53,8 +53,8 @@ func (gameFactory *Factory) getMixedPlayersGame() *Game {
 }
 
 func (gameFactory *Factory) getHumanVsHumanGame() *Game {
-	playerOneMark := gameFactory.getPlayerOneMark()
-	playerTwoMark := gameFactory.getPlayerTwoMark(playerOneMark)
+	playerOneMark := gameFactory.getPlayerMark("one", "")
+	playerTwoMark := gameFactory.getPlayerMark("two", playerOneMark)
 	playerOne, playerTwo := gameFactory.createPlayers("Human", "Human", playerOneMark, playerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwoMark}
 	aBoard := board.MakeBoard(3, &marksRepo)
@@ -71,7 +71,7 @@ func (gameFactory *Factory) getComputerVsComputerGame() *Game {
 }
 
 func (gameFactory *Factory) getHumanVsComputerGame() *Game {
-	playerOneMark := gameFactory.getPlayerOneMark()
+	playerOneMark := gameFactory.getPlayerMark("one", defaultPlayerTwoMark)
 	playerOne, playerTwo := gameFactory.createPlayers("Human", "Computer", playerOneMark, defaultPlayerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwo.GetMark()}
 	aBoard := board.MakeBoard(3, &marksRepo)
@@ -80,7 +80,7 @@ func (gameFactory *Factory) getHumanVsComputerGame() *Game {
 }
 
 func (gameFactory *Factory) getComputerVsHumanGame() *Game {
-	playerTwoMark := gameFactory.getPlayerTwoMark(defaultPlayerOneMark)
+	playerTwoMark := gameFactory.getPlayerMark("two", defaultPlayerOneMark)
 	playerOne, playerTwo := gameFactory.createPlayers("Computer", "Human", defaultPlayerOneMark, playerTwoMark )
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwoMark}
 	aBoard := board.MakeBoard(3, &marksRepo)
@@ -88,27 +88,15 @@ func (gameFactory *Factory) getComputerVsHumanGame() *Game {
 	return &aGame
 }
 
-func (gameFactory *Factory) getPlayerOneMark() string {
-	gameFactory.Clui.AskPlayerOneForMark()
+func (gameFactory *Factory) getPlayerMark(playerOrder string, forbiddenMark string) string {
+	gameFactory.Clui.AskPlayerForMark(playerOrder)
 	userInput := gameFactory.Clui.ReadUserInput()
 	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
-	if len(userInput) == 1 && IsLetter(userInput) && !(strings.EqualFold(userInput, defaultPlayerTwoMark)) {
+	if len(userInput) == 1 && IsLetter(userInput) && !(strings.EqualFold(userInput, forbiddenMark)) {
 		return userInput
 	} else {
 		gameFactory.Clui.InformOfNotAvailableMark(userInput)
-		return gameFactory.getPlayerOneMark()
-	}
-}
-
-func (gameFactory *Factory) getPlayerTwoMark(playerOneMark string) string {
-	gameFactory.Clui.AskPlayerTwoForMark()
-	userInput := gameFactory.Clui.ReadUserInput()
-	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
-	if len(userInput) == 1 && IsLetter(userInput) && !(strings.EqualFold(userInput, playerOneMark)) {
-		return userInput
-	} else {
-		gameFactory.Clui.InformOfNotAvailableMark(userInput)
-		return gameFactory.getPlayerTwoMark(playerOneMark)
+		return gameFactory.getPlayerMark(playerOrder, forbiddenMark)
 	}
 }
 

@@ -41,7 +41,7 @@ func TestReturnsHumanVsComputerGame(t *testing.T) {
 }
 
 func TestInHumanVsHumanGamePlayerOneCannotPickOAsMark(t *testing.T) {
-	gameFactory := getGameFactory("1\nO\nH\nX\n")
+	gameFactory := getGameFactory("1\n0\nH\nX\n")
 
 	game := gameFactory.CreateGame()
 
