@@ -13,7 +13,7 @@ type Factory struct {
 	PlayerFactory *player.Factory
 }
 
-const(
+const (
 	humanHumanGame       = "1"
 	humanComputerGame    = "2"
 	computerComputerGame = "3"
@@ -56,43 +56,34 @@ func (gameFactory *Factory) getHumanVsHumanGame() *Game {
 	playerOneMark := gameFactory.getPlayerMark("one", "")
 	playerTwoMark := gameFactory.getPlayerMark("two", playerOneMark)
 	playerOne, playerTwo := gameFactory.createPlayers(player.HumanType, player.HumanType, playerOneMark, playerTwoMark )
-	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwoMark}
-	aBoard := board.MakeBoard(3, &marksRepo)
-	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
-	return &aGame
+	aBoard := gameFactory.createBoard(playerOne.GetMark(), playerTwo.GetMark())
+	return &Game{gameFactory.Clui, &aBoard, playerOne, playerTwo}
 }
 
 func (gameFactory *Factory) getComputerVsComputerGame() *Game {
 	playerOne, playerTwo := gameFactory.createPlayers(player.ComputerType, player.ComputerType, defaultPlayerOneMark, defaultPlayerTwoMark )
-	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwo.GetMark()}
-	aBoard := board.MakeBoard(3, &marksRepo)
-	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
-	return &aGame
+	aBoard := gameFactory.createBoard(playerOne.GetMark(), playerTwo.GetMark())
+	return &Game{gameFactory.Clui, &aBoard, playerOne, playerTwo}
 }
 
 func (gameFactory *Factory) getHumanVsComputerGame() *Game {
 	playerOneMark := gameFactory.getPlayerMark("one", defaultPlayerTwoMark)
 	playerOne, playerTwo := gameFactory.createPlayers(player.HumanType, player.ComputerType, playerOneMark, defaultPlayerTwoMark )
-	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwo.GetMark()}
-	aBoard := board.MakeBoard(3, &marksRepo)
-	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
-	return &aGame
+	aBoard := gameFactory.createBoard(playerOne.GetMark(), playerTwo.GetMark())
+	return &Game{gameFactory.Clui, &aBoard, playerOne, playerTwo}
 }
 
 func (gameFactory *Factory) getComputerVsHumanGame() *Game {
 	playerTwoMark := gameFactory.getPlayerMark("two", defaultPlayerOneMark)
 	playerOne, playerTwo := gameFactory.createPlayers(player.ComputerType, player.HumanType, defaultPlayerOneMark, playerTwoMark )
-	marksRepo := board.MarksRepo{PlayerOneMark: playerOne.GetMark(), PlayerTwoMark: playerTwoMark}
-	aBoard := board.MakeBoard(3, &marksRepo)
-	aGame := MakeGame(gameFactory.Clui, &aBoard, playerOne, playerTwo)
-	return &aGame
+	aBoard := gameFactory.createBoard(playerOne.GetMark(), playerTwo.GetMark())
+	return &Game{gameFactory.Clui, &aBoard, playerOne, playerTwo}
 }
 
 func (gameFactory *Factory) getPlayerMark(playerOrder string, forbiddenMark string) string {
 	gameFactory.Clui.AskPlayerForMark(playerOrder)
 	userInput := gameFactory.Clui.ReadUserInput()
-	var IsLetter = regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
-	if len(userInput) == 1 && IsLetter(userInput) && !(strings.EqualFold(userInput, forbiddenMark)) {
+	if len(userInput) == 1 && stringIsLiteral(userInput) && !(strings.EqualFold(userInput, forbiddenMark)) {
 		return userInput
 	} else {
 		gameFactory.Clui.InformOfNotAvailableMark(userInput)
@@ -104,4 +95,14 @@ func (gameFactory *Factory) createPlayers(playerOneType , playerTwoType int, pla
 	playerOne := gameFactory.PlayerFactory.Create(playerOneType, playerOneMark)
 	playerTwo := gameFactory.PlayerFactory.Create(playerTwoType, playerTwoMark)
 	return playerOne, playerTwo
+}
+
+func (gameFactory *Factory) createBoard(playerOneMark, playerTwoMark string) board.Board {
+	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwoMark}
+	aBoard := board.MakeBoard(3, &marksRepo)
+	return aBoard
+}
+
+func stringIsLiteral(input string) bool {
+	return regexp.MustCompile(`^[a-zA-Z]+$`).MatchString(input)
 }
