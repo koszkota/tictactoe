@@ -18,7 +18,7 @@ func TestHumanPlayerHasMark(t *testing.T) {
 func TestHumanPlayerHasType(t *testing.T) {
 	clui := getCluiWithHardcodedInput("1")
 	humanPlayer := Human{Mark: "X", Clui: clui}
-	matchers.EqualLiterals(t, "Human", humanPlayer.GetType())
+	matchers.EqualLiterals(t, HumanType, humanPlayer.GetType())
 }
 
 func TestPickMoveMethodReturnsPlayersPick(t *testing.T) {
