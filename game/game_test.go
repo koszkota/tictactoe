@@ -57,8 +57,8 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerTwo(t *testing.T) {
 func TestGamePlaysWholeComputerVsComputerGameWithTie(t *testing.T) {
 	stubWriter := &clui.StubWriter{}
 	aClui := clui.NewClui(strings.NewReader(""), stubWriter)
-	playerOne := player.Computer{Mark: "X"}
-	playerTwo := player.Computer{Mark: "O"}
+	playerOne := player.Computer{Mark: "X", Clui: aClui}
+	playerTwo := player.Computer{Mark: "O", Clui: aClui}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
 	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
 

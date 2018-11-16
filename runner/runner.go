@@ -8,8 +8,6 @@ import (
 	"tictactoe/player"
 )
 
-//type Runner struct {}
-
 func Start() {
 	aClui := NewClui(os.Stdin, MakeConsoleWriter())
 	runStatus := &RunStatus{}

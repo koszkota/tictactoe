@@ -1,12 +1,14 @@
 package player
 
 import (
+	"strings"
 	"testing"
 	"tictactoe/board"
+	"tictactoe/clui"
 	"tictactoe/testhelper"
 )
 
-var computerPlayer = Computer{Mark: "Y"}
+var computerPlayer = getComputerPlayer()
 
 func TestComputerPlayerHasMark(t *testing.T) {
 	matchers.EqualLiterals(t, "Y", computerPlayer.Mark)
@@ -49,4 +51,10 @@ func TestPicksTopLeftPositionOn2x2Board(t *testing.T) {
 func createBoard(size int, playerOneMark string, playerTwoMark string) board.Board {
 	marksRepo := board.MarksRepo{PlayerOneMark: playerOneMark, PlayerTwoMark: playerTwoMark}
 	return board.MakeBoard(size, &marksRepo)
+}
+
+func getComputerPlayer() Computer {
+	var stubWriter = new(clui.StubWriter)
+	clui := clui.NewClui(strings.NewReader(""), stubWriter)
+	return Computer{Mark: "Y", Clui: clui}
 }

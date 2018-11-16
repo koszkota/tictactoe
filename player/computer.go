@@ -3,10 +3,12 @@ package player
 import (
 	"strconv"
 	. "tictactoe/board"
+	. "tictactoe/clui"
 )
 
 type Computer struct {
 	Mark string
+	Clui *Clui
 }
 
 func (computer Computer) PickMove (board Board) string {

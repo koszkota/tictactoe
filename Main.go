@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-	//aRunner := &runner.Runner{}
 	runner.Start()
 }
