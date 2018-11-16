@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"strings"
+	"time"
 )
 
 type Clui struct {
@@ -12,13 +13,37 @@ type Clui struct {
 	writer Writer
 }
 
-func MakeClui(input io.Reader, writer Writer) Clui {
+func NewClui(input io.Reader, writer Writer) *Clui {
 	reader := bufio.NewReader(input)
-	return Clui{reader: reader, writer: writer}
+	return &Clui{reader: reader, writer: writer}
 }
 
-func (clui Clui) HelloPlayers() {
-	clui.writer.Write("Hello and welcome to tic tac toe")
+func (clui Clui) InformOfBeginningOfGame() {
+	clui.writer.Write("Let's start the game!")
+}
+
+func (clui Clui) AskPlayerForMark(player string) {
+	clui.writer.Write("Player " + player + ", please pick one-letter mark")
+}
+
+func (clui Clui) InformOfInvalidInput(input string) {
+	clui.writer.WriteWarning("Option " + input + " is not allowed.")
+}
+
+func (clui Clui) ShowMainMenu() {
+	clui.writer.Write("To play a game enter YES, to exit enter NO.")
+}
+
+func (clui Clui) AskForGameMode() {
+	clui.writer.Write("To play Human vs Human enter 1. To play Human vs Computer enter 2. To see two computers playing enter 3.")
+}
+
+func (clui Clui) AskWhoGoesFirst() {
+	clui.writer.Write("If Human player should go first, enter H; if computer, enter C.")
+}
+
+func (clui Clui) InformOfNotAvailableMark(mark string) {
+	clui.writer.WriteWarning("Mark " + mark + " is not available, please pick another one.")
 }
 
 func (clui Clui) InformOfMove(pickedMove string, mark string)  {
@@ -38,7 +63,12 @@ func (clui Clui) AskForMove(mark string) {
 }
 
 func (clui Clui) InformOfInvalidMove() {
-	clui.writer.Write("This move is not available")
+	clui.writer.WriteWarning("This move is not available")
+}
+
+func (clui Clui) InformOfThinkingComputer(thinkingTime time.Duration) {
+	clui.writer.Write("Computer is thinking...")
+	time.Sleep(thinkingTime * time.Second)
 }
 
 func (clui Clui) ShowBoard(rows [][]string) {

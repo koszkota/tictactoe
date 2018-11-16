@@ -2,14 +2,18 @@ package player
 
 import (
 	"strconv"
-	"tictactoe/board"
+	. "tictactoe/board"
+	. "tictactoe/clui"
 )
 
 type Computer struct {
 	Mark string
+	Clui *Clui
+	ThinkingTimer *ThinkingTimer
 }
 
-func (computer Computer) PickMove (board board.Board) string {
+func (computer Computer) PickMove (board Board) string {
+	computer.Clui.InformOfThinkingComputer(computer.ThinkingTimer.ThinkingTime)
 	maxPlayerMark := board.GetActivePlayerMark()
 	minPlayerMark := board.GetPassivePlayerMark()
 	boardClone := board.MakeACloneOfItself()
@@ -20,16 +24,23 @@ func (computer Computer) GetMark() string {
 	return computer.Mark
 }
 
-func (computer Computer) miniMaxAlgorithm(board board.Board, depth int, maxPlayerMark string, minPlayerMark string) int {
-	var maxValueOfPlace = 10
-	var tieValueOfPlace = 0
+func (computer Computer) GetType() int {
+	return ComputerType
+}
+
+func (computer Computer) miniMaxAlgorithm(board Board, depth int, maxPlayerMark string, minPlayerMark string) int {
+
+	const(
+		maxValueOfPlaceOnBoard = 10
+		tieValueOfPlaceOnBoard = 0
+	)
 
 	if board.IsWon(maxPlayerMark) {
-		return maxValueOfPlace - depth
+		return maxValueOfPlaceOnBoard - depth
 	} else if board.IsWon(minPlayerMark) {
-		return - (maxValueOfPlace - depth)
+		return - (maxValueOfPlaceOnBoard - depth)
 	} else if board.IsTie() {
-		return tieValueOfPlace
+		return tieValueOfPlaceOnBoard
 	}
 
 	var freeCells = board.GetFreeCells()

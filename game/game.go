@@ -2,24 +2,20 @@ package game
 
 import (
 	"strconv"
-	"tictactoe/board"
-	"tictactoe/clui"
+	. "tictactoe/board"
+	. "tictactoe/clui"
 	"tictactoe/player"
 )
 
 type Game struct {
-	clui      clui.Clui
-	board     *board.Board
+	clui      *Clui
+	board     *Board
 	playerOne player.Player
 	playerTwo player.Player
 }
 
-func MakeGame(clui clui.Clui, board *board.Board, playerOne player.Player, playerTwo player.Player) Game {
-	return Game{clui: clui, board: board, playerOne: playerOne, playerTwo: playerTwo}
-}
-
 func (game *Game) Play() {
-	game.clui.HelloPlayers()
+	game.clui.InformOfBeginningOfGame()
 	game.clui.ShowBoard(game.board.GetRows())
 	for !(game.board.IsGameOver(game.playerOne.GetMark(), game.playerTwo.GetMark())) {
 		game.playTurn()
@@ -59,3 +55,4 @@ func (game Game) getCurrentPlayer() player.Player {
 		return game.playerTwo
 	}
 }
+

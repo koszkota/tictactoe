@@ -2,16 +2,16 @@ package player
 
 import (
 	"strconv"
-	"tictactoe/board"
-	"tictactoe/clui"
+	. "tictactoe/board"
+	. "tictactoe/clui"
 )
 
 type Human struct {
 	Mark string
-	Clui clui.Clui
+	Clui *Clui
 }
 
-func (human Human) PickMove(board board.Board) string {
+func (human Human) PickMove(board Board) string {
 	human.Clui.AskForMove(human.Mark)
 	moveAsString :=human.Clui.ReadUserInput()
 	moveAsInt, _ := strconv.Atoi(moveAsString)
@@ -25,4 +25,8 @@ func (human Human) PickMove(board board.Board) string {
 
 func (human Human) GetMark() string {
 	return human.Mark
+}
+
+func (human Human) GetType() int {
+	return HumanType
 }
