@@ -5,12 +5,13 @@ import (
 	"testing"
 	"tictactoe/board"
 	"tictactoe/clui"
+	"tictactoe/clui/writer"
 	"tictactoe/player"
 	"tictactoe/testhelper"
 )
 
 func TestGamePlaysWholeHumanVsHumanTieGame(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
+	stubWriter := &writer.StubWriter{}
 	aClui := makeCluiWithInput("5\n1\n3\n7\n4\n6\n2\n8\n9\n", stubWriter)
 	playerOne := player.Human{Mark: "X", Clui: aClui}
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
@@ -25,7 +26,7 @@ func TestGamePlaysWholeHumanVsHumanTieGame(t *testing.T) {
 }
 
 func TestGamePlaysWholeHumanVsHumanWonGameForPlayerOne(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
+	stubWriter := &writer.StubWriter{}
 	aClui := makeCluiWithInput("1\n2\n4\n5\n7\n", stubWriter)
 	playerOne := player.Human{Mark: "X", Clui: aClui}
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
@@ -40,7 +41,7 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerOne(t *testing.T) {
 }
 
 func TestGamePlaysWholeHumanVsHumanWonGameForPlayerTwo(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
+	stubWriter := &writer.StubWriter{}
 	aClui := makeCluiWithInput("1\n2\n3\n5\n6\n8\n", stubWriter)
 	playerOne := player.Human{Mark: "X", Clui: aClui}
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
@@ -55,7 +56,7 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerTwo(t *testing.T) {
 }
 
 func TestGamePlaysWholeComputerVsComputerGameWithTie(t *testing.T) {
-	stubWriter := &clui.StubWriter{}
+	stubWriter := &writer.StubWriter{}
 	aClui := clui.NewClui(strings.NewReader(""), stubWriter)
 	thinkingTimer := &player.ThinkingTimer{0}
 	playerOne := player.Computer{Mark: "X", Clui: aClui, ThinkingTimer: thinkingTimer}
@@ -70,7 +71,7 @@ func TestGamePlaysWholeComputerVsComputerGameWithTie(t *testing.T) {
 	stubWriter.CleanOutputs()
 }
 
-func makeCluiWithInput(hardcodedMovesOfPlayers string, stubWriter *clui.StubWriter) *clui.Clui {
+func makeCluiWithInput(hardcodedMovesOfPlayers string, stubWriter *writer.StubWriter) *clui.Clui {
 	return clui.NewClui(strings.NewReader(hardcodedMovesOfPlayers), stubWriter)
 }
 

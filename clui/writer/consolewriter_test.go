@@ -1,4 +1,4 @@
-package clui
+package writer
 
 func ExampleWritesToConsole() {
 	consoleWriter := new (ConsoleWriter)

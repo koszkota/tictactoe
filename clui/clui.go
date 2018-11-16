@@ -6,6 +6,7 @@ import (
 	"io"
 	"strings"
 	"time"
+	. "tictactoe/clui/writer"
 )
 
 type Clui struct {

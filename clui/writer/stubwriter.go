@@ -1,4 +1,4 @@
-package clui
+package writer
 
 
 type StubWriter struct{

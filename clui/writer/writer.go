@@ -1,4 +1,4 @@
-package clui
+package writer
 
 type Writer interface {
 	Write(text string)

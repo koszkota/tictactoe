@@ -3,14 +3,16 @@ package runner
 import (
 	"os"
 	. "tictactoe/clui"
+	. "tictactoe/clui/writer"
 	"tictactoe/game"
 	. "tictactoe/gamescontroller"
+	"tictactoe/gamescontroller/controllerstatus"
 	"tictactoe/player"
 )
 
 func Start() {
 	aClui := NewClui(os.Stdin, MakeConsoleWriter())
-	runStatus := &RunStatus{}
+	runStatus := &controllerstatus.RunStatus{}
 	thinkingTimer := &player.ThinkingTimer{3}
 	playersFactory := &player.Factory{Clui: aClui, ThinkingTimer: thinkingTimer}
 	gameFactory := &game.Factory{Clui: aClui, PlayerFactory: playersFactory}

@@ -5,11 +5,12 @@ import (
 	"strings"
 	. "tictactoe/clui"
 	. "tictactoe/game"
+	"tictactoe/gamescontroller/controllerstatus"
 )
 
 type GamesController struct {
 	Clui      *Clui
-	RunStatus ControllerStatus
+	RunStatus controllerstatus.ControllerStatus
 	GameFactory *Factory
 }
 

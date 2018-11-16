@@ -1,4 +1,4 @@
-package gamescontroller
+package controllerstatus
 
 type StubRunStatus struct {
 	Counter int

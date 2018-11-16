@@ -4,6 +4,7 @@ import (
 	"strings"
 	"testing"
 	"tictactoe/clui"
+	"tictactoe/clui/writer"
 	"tictactoe/testhelper"
 )
 
@@ -24,7 +25,7 @@ func TestFactoryCreatesComputerPlayer(t *testing.T) {
 }
 
 func getFactory() *Factory {
-	stubWriter := &clui.StubWriter{}
+	stubWriter := &writer.StubWriter{}
 	clui := clui.NewClui(strings.NewReader(""), stubWriter)
 	return &Factory{Clui: clui}
 }

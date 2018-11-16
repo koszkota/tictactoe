@@ -5,6 +5,7 @@ import (
 	"testing"
 	"tictactoe/board"
 	"tictactoe/clui"
+	"tictactoe/clui/writer"
 	"tictactoe/testhelper"
 )
 
@@ -33,7 +34,7 @@ func TestPickMoveMethodReturnsPlayersPick(t *testing.T) {
 }
 
 func TestPickMoveMethodPromptsPlayerFormMove(t *testing.T) {
-	var stubWriter = new(clui.StubWriter)
+	var stubWriter = new(writer.StubWriter)
 	clui := clui.NewClui(strings.NewReader("1"), stubWriter)
 	humanPlayer := Human{Mark: "X", Clui: clui}
 	marksRepo := board.MarksRepo{"X", "Y"}
@@ -45,7 +46,7 @@ func TestPickMoveMethodPromptsPlayerFormMove(t *testing.T) {
 }
 
 func TestGetMarkReturnsHumanMark(t *testing.T) {
-	var stubWriter = new(clui.StubWriter)
+	var stubWriter = new(writer.StubWriter)
 	clui := clui.NewClui(strings.NewReader("1"), stubWriter)
 	humanPlayer := Human{Mark: "X", Clui: clui}
 
@@ -53,7 +54,7 @@ func TestGetMarkReturnsHumanMark(t *testing.T) {
 }
 
 func TestHumanIsPrompterForValidMoveAndSubmitsIt(t *testing.T) {
-	var stubWriter = new(clui.StubWriter)
+	var stubWriter = new(writer.StubWriter)
 	clui := clui.NewClui(strings.NewReader("6\n2\n"), stubWriter)
 	humanPlayer := Human{Mark: "X", Clui: clui}
 	marksRepo := board.MarksRepo{"X", "Y"}
@@ -67,6 +68,6 @@ func TestHumanIsPrompterForValidMoveAndSubmitsIt(t *testing.T) {
 }
 
 func getCluiWithHardcodedInput(input string) *clui.Clui {
-	var stubWriter = new(clui.StubWriter)
+	var stubWriter = new(writer.StubWriter)
 	return clui.NewClui(strings.NewReader(input), stubWriter)
 }

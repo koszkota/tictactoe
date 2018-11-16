@@ -5,6 +5,7 @@ import (
 	"strings"
 	"testing"
 	"tictactoe/testhelper"
+	. "tictactoe/clui/writer"
 )
 
 var clui = setupClui()

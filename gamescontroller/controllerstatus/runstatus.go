@@ -1,4 +1,4 @@
-package gamescontroller
+package controllerstatus
 
 type RunStatus struct {}
 
