@@ -124,6 +124,15 @@ func TestInformOfInvalidInput(t *testing.T) {
 	matchers.EqualLiterals(t, "Option test is not allowed.", stubWriter.GetLastMessage())
 }
 
+func TestInformOfThinkingComputer(t *testing.T) {
+	stubWriter := &StubWriter{}
+	clui := NewClui(os.Stdin, stubWriter)
+
+	clui.InformOfThinkingComputer(0)
+
+	matchers.EqualLiterals(t, "Computer is thinking...", stubWriter.GetLastMessage())
+}
+
 func TestShowBoard(t *testing.T) {
 	stubWriter := &StubWriter{}
 	clui := NewClui(os.Stdin, stubWriter)

@@ -9,9 +9,11 @@ import (
 type Computer struct {
 	Mark string
 	Clui *Clui
+	ThinkingTimer *ThinkingTimer
 }
 
 func (computer Computer) PickMove (board Board) string {
+	computer.Clui.InformOfThinkingComputer(computer.ThinkingTimer.ThinkingTime)
 	maxPlayerMark := board.GetActivePlayerMark()
 	minPlayerMark := board.GetPassivePlayerMark()
 	boardClone := board.MakeACloneOfItself()

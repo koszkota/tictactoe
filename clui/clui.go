@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"strings"
+	"time"
 )
 
 type Clui struct {
@@ -63,6 +64,11 @@ func (clui Clui) AskForMove(mark string) {
 
 func (clui Clui) InformOfInvalidMove() {
 	clui.writer.WriteWarning("This move is not available")
+}
+
+func (clui Clui) InformOfThinkingComputer(thinkingTime time.Duration) {
+	clui.writer.Write("Computer is thinking...")
+	time.Sleep(thinkingTime * time.Second)
 }
 
 func (clui Clui) ShowBoard(rows [][]string) {

@@ -11,7 +11,8 @@ import (
 func Start() {
 	aClui := NewClui(os.Stdin, MakeConsoleWriter())
 	runStatus := &RunStatus{}
-	playersFactory := &player.Factory{Clui: aClui}
+	thinkingTimer := &player.ThinkingTimer{3}
+	playersFactory := &player.Factory{Clui: aClui, ThinkingTimer: thinkingTimer}
 	gameFactory := &game.Factory{Clui: aClui, PlayerFactory: playersFactory}
 	gamesController := &GamesController{Clui: aClui, RunStatus: runStatus, GameFactory: gameFactory}
 	gamesController.Run()
