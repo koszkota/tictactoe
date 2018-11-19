@@ -2,12 +2,12 @@ package runner
 
 import (
 	"os"
-	. "tictactoe/src/clui"
-	. "tictactoe/src/clui/writer"
-	"tictactoe/src/game"
-	. "tictactoe/src/gamescontroller"
-	"tictactoe/src/gamescontroller/controllerstatus"
-	"tictactoe/src/player"
+	. "tictactoe/src/tictactoe/clui"
+	. "tictactoe/src/tictactoe/clui/writer"
+	"tictactoe/src/tictactoe/game"
+	. "tictactoe/src/tictactoe/gamescontroller"
+	"tictactoe/src/tictactoe/gamescontroller/controllerstatus"
+	"tictactoe/src/tictactoe/player"
 )
 
 func Start() {

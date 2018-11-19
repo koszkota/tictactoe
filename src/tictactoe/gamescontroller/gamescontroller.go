@@ -3,9 +3,9 @@ package gamescontroller
 import (
 	"os"
 	"strings"
-	. "tictactoe/src/clui"
-	. "tictactoe/src/game"
-	. "tictactoe/src/gamescontroller/controllerstatus"
+	. "tictactoe/src/tictactoe/clui"
+	. "tictactoe/src/tictactoe/game"
+	. "tictactoe/src/tictactoe/gamescontroller/controllerstatus"
 )
 
 type GamesController struct {

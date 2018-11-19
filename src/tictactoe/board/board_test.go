@@ -2,7 +2,7 @@ package board
 
 import (
 	"testing"
-	"tictactoe/src/testhelper"
+	"tictactoe/src/tictactoe/testhelper"
 )
 
 func TestMakeBoardReturnsBoardWithCells(t *testing.T) {

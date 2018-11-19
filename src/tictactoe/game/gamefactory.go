@@ -3,9 +3,9 @@ package game
 import (
 	"regexp"
 	"strings"
-	"tictactoe/src/board"
-	"tictactoe/src/clui"
-	"tictactoe/src/player"
+	"tictactoe/src/tictactoe/board"
+	"tictactoe/src/tictactoe/clui"
+	"tictactoe/src/tictactoe/player"
 )
 
 type Factory struct {

@@ -2,8 +2,8 @@ package player
 
 import (
 	"strconv"
-	. "tictactoe/src/board"
-	. "tictactoe/src/clui"
+	. "tictactoe/src/tictactoe/board"
+	. "tictactoe/src/tictactoe/clui"
 )
 
 type Human struct {
