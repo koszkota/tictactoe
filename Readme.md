@@ -7,7 +7,7 @@
 - clone this repository `git clone https://github.com/koszkota/tictactoe`
 - `cd tictactoe`
 - `export GOPATH=$HOME/path/to-tictactoe`
-- run `echo $GOPATH` to check if the path is correct. I places the directory in root, and so the path for me was: `Users/<my_name>/tictactoe`
+- run `echo $GOPATH` to check if the path is correct. I placed the directory on root, and so the path for me was: `Users/<my_name>/tictactoe`
 - run `go get github.com/logrunorgru/aurora` to get the dependency
 - `go run Main.go`
 
