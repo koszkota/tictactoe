@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./src/tictactoe/runner"
+	"tictactoe/runner"
 )
 
 func main() {
