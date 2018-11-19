@@ -1,7 +1,7 @@
 package writer
 
 func ExampleWritesToConsole() {
-	consoleWriter := new (ConsoleWriter)
+	consoleWriter := ConsoleWriter{}
 	consoleWriter.Write("test")
 
 	// Output: test

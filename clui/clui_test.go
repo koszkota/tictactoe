@@ -143,7 +143,7 @@ func TestBuildBoardString(t *testing.T) {
 }
 
 func TestReadUserInputAndReturnIt(t *testing.T) {
-	writer := MakeConsoleWriter()
+	writer := ConsoleWriter{}
 	hardcodedInput := "testWord"
 	clui := NewClui(strings.NewReader(hardcodedInput), writer)
 
