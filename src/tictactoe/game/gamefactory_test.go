@@ -3,10 +3,10 @@ package game
 import (
 	"strings"
 	"testing"
-	"../clui"
-	"../clui/writer"
-	"../player"
-	"../testhelper"
+	"tictactoe/clui"
+	"tictactoe/clui/writer"
+	"tictactoe/player"
+	"tictactoe/testhelper"
 )
 
 func TestReturnsHumanVsHumanGame(t *testing.T) {

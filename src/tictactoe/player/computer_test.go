@@ -3,10 +3,10 @@ package player
 import (
 	"strings"
 	"testing"
-	"../board"
-	"../clui"
-	"../clui/writer"
-	"../testhelper"
+	"tictactoe/board"
+	"tictactoe/clui"
+	"tictactoe/clui/writer"
+	"tictactoe/testhelper"
 )
 
 var computerPlayer = getComputerPlayer()
