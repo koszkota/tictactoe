@@ -56,7 +56,7 @@ func createBoard(size int, playerOneMark string, playerTwoMark string) board.Boa
 
 func getComputerPlayer() Computer {
 	var stubWriter = new(writer.StubWriter)
-	clui := clui.NewClui(strings.NewReader(""), stubWriter)
+	aClui := clui.NewClui(strings.NewReader(""), stubWriter)
 	thinkingTimer := &ThinkingTimer{ThinkingTime: 0}
-	return Computer{Mark: "Y", Clui: clui, ThinkingTimer: thinkingTimer}
+	return Computer{Mark: "Y", Clui: aClui, ThinkingTimer: thinkingTimer}
 }

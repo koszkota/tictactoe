@@ -26,6 +26,6 @@ func TestFactoryCreatesComputerPlayer(t *testing.T) {
 
 func getFactory() *Factory {
 	stubWriter := &writer.StubWriter{}
-	clui := clui.NewClui(strings.NewReader(""), stubWriter)
-	return &Factory{Clui: clui}
+	aClui := clui.NewClui(strings.NewReader(""), stubWriter)
+	return &Factory{Clui: aClui}
 }
