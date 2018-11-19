@@ -3,9 +3,9 @@ package player
 import (
 	"strings"
 	"testing"
-	"tictactoe/src/tictactoe/clui"
-	"tictactoe/src/tictactoe/clui/writer"
-	"tictactoe/src/tictactoe/testhelper"
+	"../clui"
+	"../clui/writer"
+	"../testhelper"
 )
 
 func TestFactoryCreatesHumanPlayer(t *testing.T) {

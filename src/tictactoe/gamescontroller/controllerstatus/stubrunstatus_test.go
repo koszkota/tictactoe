@@ -2,7 +2,7 @@ package controllerstatus
 
 import (
 	"testing"
-	"tictactoe/src/tictactoe/testhelper"
+	"../../testhelper"
 )
 
 func TestReturnsTrueAsTheFirstValueAndFalseAsSecond(t *testing.T) {

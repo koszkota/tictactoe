@@ -4,8 +4,8 @@ import (
 	"os"
 	"strings"
 	"testing"
-	. "tictactoe/src/tictactoe/clui/writer"
-	"tictactoe/src/tictactoe/testhelper"
+	. "../clui/writer"
+	"../testhelper"
 )
 
 func TestInformOfBeginningOfGame(t *testing.T) {

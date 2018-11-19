@@ -2,9 +2,9 @@ package game
 
 import (
 	"strconv"
-	. "tictactoe/src/tictactoe/board"
-	. "tictactoe/src/tictactoe/clui"
-	"tictactoe/src/tictactoe/player"
+	. "../board"
+	. "../clui"
+	"../player"
 )
 
 type Game struct {

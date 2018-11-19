@@ -1,6 +1,6 @@
 package player
 
-import . "tictactoe/src/tictactoe/board"
+import . "../board"
 
 type Player interface {
 	PickMove(board Board) string
