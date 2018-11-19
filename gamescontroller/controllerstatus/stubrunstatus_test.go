@@ -5,7 +5,7 @@ import (
 	"tictactoe/testhelper"
 )
 
-func TestReturnsTrueAsTheFirstValueAndFalsAsSecojd(t *testing.T) {
+func TestReturnsTrueAsTheFirstValueAndFalseAsSecond(t *testing.T) {
 	stubRunStatus := StubRunStatus{0}
 	booleanOne := stubRunStatus.GetRunStatus()
 

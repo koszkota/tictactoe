@@ -5,14 +5,19 @@ import (
 	"strings"
 	. "tictactoe/clui"
 	. "tictactoe/game"
-	"tictactoe/gamescontroller/controllerstatus"
+	. "tictactoe/gamescontroller/controllerstatus"
 )
 
 type GamesController struct {
 	Clui      *Clui
-	RunStatus controllerstatus.ControllerStatus
+	RunStatus ControllerStatus
 	GameFactory *Factory
 }
+
+const(
+	playGameOption = "yes"
+	exitGameOption = "no"
+)
 
 func (gamesController *GamesController) Run() {
 	for gamesController.RunStatus.GetRunStatus() {
@@ -23,9 +28,9 @@ func (gamesController *GamesController) Run() {
 func (gamesController *GamesController) runMainMenu() {
 	gamesController.Clui.ShowMainMenu()
 	userInput := gamesController.Clui.ReadUserInput()
-	if strings.EqualFold("yes", userInput) {
+	if strings.EqualFold(playGameOption, userInput) {
 		gamesController.playGame()
-	} else if strings.EqualFold("no", userInput)  {
+	} else if strings.EqualFold(exitGameOption, userInput)  {
 		os.Exit(0)
 	} else {
 		gamesController.Clui.InformOfInvalidInput(userInput)
