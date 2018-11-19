@@ -14,10 +14,10 @@ func TestReturnsHumanVsHumanGame(t *testing.T) {
 
 	game := gameFactory.CreateGame()
 
-	matchers.EqualLiterals(t, game.playerOne.GetType(), player.HumanType)
-	matchers.EqualLiterals(t, game.playerOne.GetMark(), "X")
-	matchers.EqualLiterals(t, game.playerTwo.GetType(), player.HumanType)
-	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "O")
+	matchers.EqualLiterals(t, player.HumanType, game.playerOne.GetType())
+	matchers.EqualLiterals(t, "X", game.playerOne.GetMark())
+	matchers.EqualLiterals(t, player.HumanType, game.playerTwo.GetType())
+	matchers.EqualLiterals(t, "O", game.playerTwo.GetMark())
 }
 
 func TestReturnsHumanVsHumanGameAfterInvalidModeInput(t *testing.T) {
@@ -25,10 +25,10 @@ func TestReturnsHumanVsHumanGameAfterInvalidModeInput(t *testing.T) {
 
 	game := gameFactory.CreateGame()
 
-	matchers.EqualLiterals(t, game.playerOne.GetType(), player.HumanType)
-	matchers.EqualLiterals(t, game.playerOne.GetMark(), "X")
-	matchers.EqualLiterals(t, game.playerTwo.GetType(), player.HumanType)
-	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "O")
+	matchers.EqualLiterals(t, player.HumanType, game.playerOne.GetType())
+	matchers.EqualLiterals(t, "X", game.playerOne.GetMark())
+	matchers.EqualLiterals(t, player.HumanType, game.playerTwo.GetType())
+	matchers.EqualLiterals(t, "O", game.playerTwo.GetMark())
 }
 
 func TestReturnsHumanVsComputerGame(t *testing.T) {
@@ -36,9 +36,9 @@ func TestReturnsHumanVsComputerGame(t *testing.T) {
 
 	game := gameFactory.CreateGame()
 
-	matchers.EqualLiterals(t, game.playerOne.GetType(), player.HumanType)
-	matchers.EqualLiterals(t, game.playerOne.GetMark(), "X")
-	matchers.EqualLiterals(t, game.playerTwo.GetType(), player.ComputerType)
+	matchers.EqualLiterals(t, player.HumanType, game.playerOne.GetType())
+	matchers.EqualLiterals(t, "X", game.playerOne.GetMark())
+	matchers.EqualLiterals(t, player.ComputerType, game.playerTwo.GetType())
 }
 
 func TestInHumanVsHumanGamePlayerOneCannotPickOAsMark(t *testing.T) {
@@ -46,10 +46,10 @@ func TestInHumanVsHumanGamePlayerOneCannotPickOAsMark(t *testing.T) {
 
 	game := gameFactory.CreateGame()
 
-	matchers.EqualLiterals(t, game.playerOne.GetType(), player.HumanType)
-	matchers.EqualLiterals(t, game.playerOne.GetMark(), "H")
-	matchers.EqualLiterals(t, game.playerTwo.GetType(), player.HumanType)
-	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "X")
+	matchers.EqualLiterals(t, player.HumanType, game.playerOne.GetType())
+	matchers.EqualLiterals(t, "H", game.playerOne.GetMark())
+	matchers.EqualLiterals(t, player.HumanType, game.playerOne.GetType())
+	matchers.EqualLiterals(t, "X", game.playerTwo.GetMark())
 }
 
 func TestReturnsComputerVsHumanGame(t *testing.T) {
@@ -57,10 +57,10 @@ func TestReturnsComputerVsHumanGame(t *testing.T) {
 
 	game := gameFactory.CreateGame()
 
-	matchers.EqualLiterals(t, game.playerOne.GetType(), player.ComputerType)
-	matchers.EqualLiterals(t, game.playerOne.GetMark(), "X")
-	matchers.EqualLiterals(t, game.playerTwo.GetType(), player.HumanType)
-	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "Q")
+	matchers.EqualLiterals(t, player.ComputerType, game.playerOne.GetType())
+	matchers.EqualLiterals(t, "X", game.playerOne.GetMark())
+	matchers.EqualLiterals(t, player.HumanType, game.playerTwo.GetType())
+	matchers.EqualLiterals(t, "Q", game.playerTwo.GetMark())
 }
 
 func TestReturnsHumanVsComputerGameAfterInvalidInputInMode(t *testing.T) {
@@ -68,10 +68,10 @@ func TestReturnsHumanVsComputerGameAfterInvalidInputInMode(t *testing.T) {
 
 	game := gameFactory.CreateGame()
 
-	matchers.EqualLiterals(t, game.playerOne.GetType(), player.HumanType)
-	matchers.EqualLiterals(t, game.playerOne.GetMark(), "X")
-	matchers.EqualLiterals(t, game.playerTwo.GetType(), player.ComputerType)
-	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "O")
+	matchers.EqualLiterals(t, player.HumanType, game.playerOne.GetType())
+	matchers.EqualLiterals(t, "X", game.playerOne.GetMark(), )
+	matchers.EqualLiterals(t, player.ComputerType, game.playerTwo.GetType())
+	matchers.EqualLiterals(t, "O", game.playerTwo.GetMark())
 }
 
 func TestReturnsHumanVsComputerGameAfterInvalidInputInSign(t *testing.T) {
@@ -79,10 +79,10 @@ func TestReturnsHumanVsComputerGameAfterInvalidInputInSign(t *testing.T) {
 
 	game := gameFactory.CreateGame()
 
-	matchers.EqualLiterals(t, game.playerOne.GetType(), player.HumanType)
-	matchers.EqualLiterals(t, game.playerOne.GetMark(), "X")
-	matchers.EqualLiterals(t, game.playerTwo.GetType(), player.ComputerType)
-	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "O")
+	matchers.EqualLiterals(t,  player.HumanType, game.playerOne.GetType())
+	matchers.EqualLiterals(t, "X", game.playerOne.GetMark())
+	matchers.EqualLiterals(t, player.ComputerType, game.playerTwo.GetType())
+	matchers.EqualLiterals(t, "O", game.playerTwo.GetMark())
 }
 
 func TestReturnsComputerVsComputerGame(t *testing.T) {
@@ -90,16 +90,16 @@ func TestReturnsComputerVsComputerGame(t *testing.T) {
 
 	game := gameFactory.CreateGame()
 
-	matchers.EqualLiterals(t, game.playerOne.GetType(), player.ComputerType)
-	matchers.EqualLiterals(t, game.playerOne.GetMark(), "X")
-	matchers.EqualLiterals(t, game.playerTwo.GetType(), player.ComputerType)
-	matchers.EqualLiterals(t, game.playerTwo.GetMark(), "O")
+	matchers.EqualLiterals(t, player.ComputerType, game.playerOne.GetType())
+	matchers.EqualLiterals(t, "X", game.playerOne.GetMark())
+	matchers.EqualLiterals(t, player.ComputerType, game.playerTwo.GetType())
+	matchers.EqualLiterals(t, "O", game.playerTwo.GetMark())
 }
 
 func getGameFactory(input string) Factory {
 	stubWriter := &writer.StubWriter{}
-	clui := clui.NewClui(strings.NewReader(input), stubWriter)
-	thinkingTimer := &player.ThinkingTimer{0}
-	playersFactory := &player.Factory{clui, thinkingTimer}
-	return Factory{Clui: clui, PlayerFactory:playersFactory}
+	aClui := clui.NewClui(strings.NewReader(input), stubWriter)
+	thinkingTimer := &player.ThinkingTimer{ThinkingTime:0}
+	playersFactory := &player.Factory{Clui:aClui, ThinkingTimer:thinkingTimer}
+	return Factory{Clui: aClui, PlayerFactory:playersFactory}
 }

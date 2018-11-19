@@ -5,5 +5,5 @@ const (
 	humanComputerGame    = "2"
 	computerComputerGame = "3"
 	humanGoesFirst       = "h"
-	computeGoesFirst     = "c"
+	computerGoesFirst    = "c"
 )

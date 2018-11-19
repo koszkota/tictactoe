@@ -34,7 +34,7 @@ func (factory *Factory) getMixedPlayersGame() *Game {
 	userInput := factory.Clui.ReadUserInput()
 	if strings.EqualFold(userInput, humanGoesFirst) {
 		return factory.getHumanVsComputerGame()
-	} else if strings.EqualFold(userInput, computeGoesFirst) {
+	} else if strings.EqualFold(userInput, computerGoesFirst) {
 		return factory.getComputerVsHumanGame()
 	} else {
 		factory.Clui.InformOfInvalidInput(userInput)

@@ -17,12 +17,11 @@ func TestGamePlaysWholeHumanVsHumanTieGame(t *testing.T) {
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
 	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
+	expectedFinalMessage :=  "It's a tie!"
 
 	aGame.Play()
 
-	expectedFinalMessage :=  "It's a tie!"
 	matchers.EqualLiterals(t, expectedFinalMessage, stubWriter.GetLastMessage())
-	stubWriter.CleanOutputs()
 }
 
 func TestGamePlaysWholeHumanVsHumanWonGameForPlayerOne(t *testing.T) {
@@ -32,12 +31,11 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerOne(t *testing.T) {
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
 	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
+	expectedFinalMessage :=  "Player X won!"
 
 	aGame.Play()
 
-	expectedFinalMessage :=  "Player X won!"
 	matchers.EqualLiterals(t, expectedFinalMessage, stubWriter.GetLastMessage())
-	stubWriter.CleanOutputs()
 }
 
 func TestGamePlaysWholeHumanVsHumanWonGameForPlayerTwo(t *testing.T) {
@@ -47,12 +45,11 @@ func TestGamePlaysWholeHumanVsHumanWonGameForPlayerTwo(t *testing.T) {
 	playerTwo := player.Human{Mark: "O", Clui: aClui}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
 	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
+	expectedFinalMessage :=  "Player O won!"
 
 	aGame.Play()
 
-	expectedFinalMessage :=  "Player O won!"
 	matchers.EqualLiterals(t, expectedFinalMessage, stubWriter.GetLastMessage())
-	stubWriter.CleanOutputs()
 }
 
 func TestGamePlaysWholeComputerVsComputerGameWithTie(t *testing.T) {
@@ -63,12 +60,11 @@ func TestGamePlaysWholeComputerVsComputerGameWithTie(t *testing.T) {
 	playerTwo := player.Computer{Mark: "O", Clui: aClui, ThinkingTimer: thinkingTimer}
 	aBoard := makeBoard(3, playerOne.GetMark(), playerTwo.GetMark())
 	aGame := Game{aClui, &aBoard, playerOne, playerTwo}
+	expectedFinalMessage :=  "It's a tie!"
 
 	aGame.Play()
 
-	expectedFinalMessage :=  "It's a tie!"
 	matchers.EqualLiterals(t, expectedFinalMessage, stubWriter.GetLastMessage())
-	stubWriter.CleanOutputs()
 }
 
 func makeCluiWithInput(hardcodedMovesOfPlayers string, stubWriter *writer.StubWriter) *clui.Clui {
