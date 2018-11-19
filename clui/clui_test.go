@@ -4,18 +4,9 @@ import (
 	"os"
 	"strings"
 	"testing"
-	"tictactoe/testhelper"
 	. "tictactoe/clui/writer"
+	"tictactoe/testhelper"
 )
-
-var clui = setupClui()
-var hardcodedInput = "testWord"
-
-func setupClui() *Clui {
-	writer := MakeConsoleWriter()
-	clui := NewClui(strings.NewReader(hardcodedInput), writer)
-	return clui
-}
 
 func TestInformOfBeginningOfGame(t *testing.T) {
 	stubWriter := &StubWriter{}
@@ -148,10 +139,14 @@ func TestBuildBoardString(t *testing.T) {
 	expectedString := "  1  |  2  |  3\n  4  |  X  |  6\n  7  |  8  |  9\n"
 	rows := [][]string{{"1","2","3"}, {"4", "X", "6"}, {"7", "8", "9"}}
 	actualString := buildBoardString(rows)
-	matchers.EqualLiterals(t, actualString, expectedString)
+	matchers.EqualLiterals(t, expectedString, actualString)
 }
 
 func TestReadUserInputAndReturnIt(t *testing.T) {
+	writer := MakeConsoleWriter()
+	hardcodedInput := "testWord"
+	clui := NewClui(strings.NewReader(hardcodedInput), writer)
+
 	actualString := clui.ReadUserInput()
 
 	matchers.EqualLiterals(t, hardcodedInput, actualString)

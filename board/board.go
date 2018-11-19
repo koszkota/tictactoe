@@ -10,9 +10,9 @@ type Board struct {
 	marksRepo *MarksRepo
 }
 
-func MakeBoard(boardSize int, marksRepo *MarksRepo) Board {
-	board := Board{size: boardSize, marksRepo: marksRepo}
-	board.initializeEmptyCells(boardSize)
+func MakeBoard(size int, marksRepo *MarksRepo) Board {
+	board := Board{size: size, marksRepo: marksRepo}
+	board.initializeEmptyCells(size)
 	return board
 }
 
@@ -23,7 +23,7 @@ func (board Board) MakeACloneOfItself() Board {
 	return cloneOfBoard
 }
 
-func (board *Board) PutMarkOnBoard (mark string, cellIndex int) {
+func (board *Board) PutMarkOnBoard(mark string, cellIndex int) {
 	board.cells[cellIndex] = mark
 }
 
@@ -36,17 +36,16 @@ func (board Board) GetRows() [][]string {
 	return cellsSplitIntoRows
 }
 
-func (board Board) IsGameOver(mark1 string, mark2 string) bool {
-	 if !(board.HasEmptyCell()) || board.IsWon(mark1) || board.IsWon(mark2) {
-	 	return true
-	 }
-	 return false
+func (board Board) IsGameOver(mark1, mark2 string) bool {
+	if !(board.HasEmptyCell()) || board.IsWon(mark1) || board.IsWon(mark2) {
+		return true
+	}
+	return false
 }
 
 func (board Board) IsMoveValid(cellIndex int) bool {
 	return board.isCellIndexWithinBoardSize(cellIndex) && board.isCellNumeric(cellIndex)
 }
-
 
 func (board Board) HasEmptyCell() bool {
 	for i := range board.cells {
@@ -101,7 +100,7 @@ func (board Board) IsWon(mark string) bool {
 
 func (board *Board) initializeEmptyCells(boardSize int) {
 	for i := 0; i < (boardSize * boardSize); i++ {
-		board.cells = append(board.cells, strconv.Itoa(i + 1))
+		board.cells = append(board.cells, strconv.Itoa(i+1))
 	}
 }
 
@@ -144,6 +143,7 @@ func (board Board) getLeftDiagonal() []string {
 	}
 	return leftDiagonal
 }
+
 func (board Board) getRightDiagonal() []string {
 	var rightDiagonal []string
 	rows := board.GetRows()
@@ -159,7 +159,7 @@ func (board Board) getLines() [][]string {
 	return append(append(board.GetRows(), board.getColumns()...), board.getDiagonals()...)
 }
 
-func lineIsWon(line []string, mark string) bool{
+func lineIsWon(line []string, mark string) bool {
 	for i := 0; i < len(line); i++ {
 		if line[i] != mark {
 			return false

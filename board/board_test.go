@@ -14,11 +14,11 @@ func TestMakeBoardReturnsBoardWithCells(t *testing.T) {
 	matchers.EqualLiterals(t, 3, board.size)
 }
 
-func TestPutMarkOnEmptyCell(t *testing.T) {
+func TestPutMarkOnEmptyCellMarksCell(t *testing.T) {
 	board := setupEmptyBoard()
 	board.PutMarkOnBoard("X", 1)
 
-	matchers.EqualLiterals(t, board.cells[1], "X")
+	matchers.EqualLiterals(t, "X", board.cells[1])
 }
 
 func TestMoveIsValidForNonTakenField(t *testing.T) {
@@ -37,42 +37,41 @@ func TestMoveIsInvalidForTakenField(t *testing.T) {
 
 func TestMoveIsInValidForOutOfRangeIndex(t *testing.T) {
 	board := setupEmptyBoard()
-	board.PutMarkOnBoard("X", 2)
 
 	matchers.IsFalse(t, board.IsMoveValid(10))
 }
 
 func TestGetRowsReturnsArrayOfCellsSplitIntoRows(t *testing.T) {
 	board := setupBoardWithPrePickedCells()
-	expectedRows := [][]string{{"Y","2","X"}, {"4", "Y", "6"}, {"7", "8", "Y"}}
+	expectedRows := [][]string{{"Y", "2", "X"}, {"4", "Y", "6"}, {"7", "8", "Y"}}
 
 	matchers.DeepEqual(t, expectedRows, board.GetRows())
 }
 
 func TestGetColumnsReturnsArrayOfCellsSplitIntoColumns(t *testing.T) {
 	board := setupBoardWithPrePickedCells()
-	expectedColumns := [][]string{{"Y","4","7"}, {"2", "Y", "8"}, {"X", "6", "Y"}}
+	expectedColumns := [][]string{{"Y", "4", "7"}, {"2", "Y", "8"}, {"X", "6", "Y"}}
 
 	matchers.DeepEqual(t, expectedColumns, board.getColumns())
 }
 
-func TestGetLeftDiagonal(t *testing.T) {
+func TestGetLeftDiagonalReturnsLeftDiagonal(t *testing.T) {
 	board := setupBoardWithPrePickedCells()
-	expectedLeftDiagonal := []string{"Y","Y","Y"}
+	expectedLeftDiagonal := []string{"Y", "Y", "Y"}
 
 	matchers.DeepEqual(t, expectedLeftDiagonal, board.getLeftDiagonal())
 }
 
-func TestGetRightDiagonal(t *testing.T) {
+func TestGetRightDiagonalReturnsRightDiagonal(t *testing.T) {
 	board := setupBoardWithPrePickedCells()
-	expectedRightDiagonal := []string{"X","Y","7"}
+	expectedRightDiagonal := []string{"X", "Y", "7"}
 
 	matchers.DeepEqual(t, expectedRightDiagonal, board.getRightDiagonal())
 }
 
-func TestGetDiagonals(t *testing.T) {
+func TestGetDiagonalsReturnsBothDiagonals(t *testing.T) {
 	board := setupBoardWithPrePickedCells()
-	expectedDiagonals := [][]string{{"Y","Y","Y"}, {"X", "Y", "7"}}
+	expectedDiagonals := [][]string{{"Y", "Y", "Y"}, {"X", "Y", "7"}}
 
 	matchers.DeepEqual(t, expectedDiagonals, board.getDiagonals())
 }
@@ -80,7 +79,7 @@ func TestGetDiagonals(t *testing.T) {
 func TestGetLinesReturnsAllLinesOnBoard(t *testing.T) {
 	board := setupBoardWithPrePickedCells()
 	expectedAllLines := [][]string{
-		{"Y","2","X"},
+		{"Y", "2", "X"},
 		{"4", "Y", "6"},
 		{"7", "8", "Y"},
 		{"Y", "4", "7"},
@@ -93,7 +92,7 @@ func TestGetLinesReturnsAllLinesOnBoard(t *testing.T) {
 	matchers.DeepEqual(t, expectedAllLines, board.getLines())
 }
 
-func TestIsWinnerAcceptsMarkAndReturnsBool(t *testing.T) {
+func TestIsWinnerAcceptsMarkAndReturnsTrueIfGameWon(t *testing.T) {
 	board := setupBoardWithPrePickedCells()
 	expectedWinnerMark := "Y"
 	expectedLoserMark := "X"
@@ -111,29 +110,28 @@ func TestHasEmptyCellReturnsTrueWhenEmptyCellIsAvailable(t *testing.T) {
 func TestReturnsMarkOfTheActivePlayerAtTheBeginningOfTheGame(t *testing.T) {
 	board := setupEmptyBoard()
 
-	matchers.EqualLiterals(t, board.GetActivePlayerMark(), "X")
+	matchers.EqualLiterals(t, "X", board.GetActivePlayerMark())
 }
 
 func TestReturnsMarkOfThePassivePlayerAtTheBeginningOfTheGame(t *testing.T) {
 	board := setupEmptyBoard()
 
-	matchers.EqualLiterals(t, board.GetPassivePlayerMark(), "Y")
+	matchers.EqualLiterals(t, "Y", board.GetPassivePlayerMark())
 }
 
 func TestReturnsMarkOfTheActivePlayerAfterFirstMove(t *testing.T) {
 	board := setupEmptyBoard()
 	board.PutMarkOnBoard("X", 2)
 
-	matchers.EqualLiterals(t, board.GetActivePlayerMark(), "Y")
+	matchers.EqualLiterals(t, "Y", board.GetActivePlayerMark())
 }
 
 func TestReturnsMarkOfThePassivePlayerAfterFirstMove(t *testing.T) {
 	board := setupEmptyBoard()
 	board.PutMarkOnBoard("X", 2)
 
-	matchers.EqualLiterals(t, board.GetPassivePlayerMark(), "X")
+	matchers.EqualLiterals(t, "X", board.GetPassivePlayerMark())
 }
-
 
 func TestGameIsFinishedWhenBoardIsWon(t *testing.T) {
 	board := setupEmptyBoard()
@@ -168,7 +166,7 @@ func TestBoardReturnsFreePlaces(t *testing.T) {
 	actual := board.GetFreeCells()
 	expected := []string{"1", "4", "5", "6", "7", "8", "9"}
 
-	matchers.DeepEqual(t, actual, expected)
+	matchers.DeepEqual(t, expected, actual)
 }
 
 func TestBoardHasTie(t *testing.T) {
@@ -190,10 +188,8 @@ func TestBoardClonesItself(t *testing.T) {
 	board := setupEmptyBoard()
 	board.PutMarkOnBoard("X", 4)
 	boardClone := board.MakeACloneOfItself()
-	markOnOriginalBoard := board.cells[4]
-	markOnClonedBoard := boardClone.cells[4]
 
-	matchers.EqualLiterals(t, markOnOriginalBoard, markOnClonedBoard)
+	matchers.DeepEqual(t, board.cells, boardClone.cells)
 }
 
 func setupEmptyBoard() Board {
