@@ -2,7 +2,7 @@ package writer
 
 import (
 	"testing"
-	"tictactoe/testhelper"
+	"tictactoe/src/testhelper"
 )
 
 func TestStubWriterCollectsOutputs(t *testing.T) {

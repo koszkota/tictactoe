@@ -1,7 +1,7 @@
 package player
 
 import (
-	. "tictactoe/clui"
+	. "tictactoe/src/clui"
 )
 
 type Factory struct {

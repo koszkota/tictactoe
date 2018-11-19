@@ -3,10 +3,10 @@ package player
 import (
 	"strings"
 	"testing"
-	"tictactoe/board"
-	"tictactoe/clui"
-	"tictactoe/clui/writer"
-	"tictactoe/testhelper"
+	"tictactoe/src/board"
+	"tictactoe/src/clui"
+	"tictactoe/src/clui/writer"
+	"tictactoe/src/testhelper"
 )
 
 func TestHumanPlayerHasMark(t *testing.T) {

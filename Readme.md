@@ -1,9 +1,9 @@
 ## Unbeatable Tic Tac Toe game in Go.
 
 ## Requirements
-- golang version 1.11
+- golang version 1.11 (you can download go from here(https://golang.org/dl/))
 
-## How to run in 
+## How to run in
 
 ## How to test it
 In order to run all tests, go to the root directory and run: `$ go test ./...`
