@@ -3,12 +3,12 @@ package gamescontroller
 import (
 	"strings"
 	"testing"
-	"../clui"
-	"../clui/writer"
-	"../game"
-	"../gamescontroller/controllerstatus"
-	"../player"
-	"../testhelper"
+	"tictactoe/clui"
+	"tictactoe/clui/writer"
+	"tictactoe/game"
+	"tictactoe/gamescontroller/controllerstatus"
+	"tictactoe/player"
+	"tictactoe/testhelper"
 )
 
 func TestRunsAComputerVsComputerGameThatEndsWithTie(t *testing.T) {

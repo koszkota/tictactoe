@@ -3,11 +3,11 @@ package game
 import (
 	"strings"
 	"testing"
-	"../board"
-	"../clui"
-	"../clui/writer"
-	"../player"
-	"../testhelper"
+	"tictactoe/board"
+	"tictactoe/clui"
+	"tictactoe/clui/writer"
+	"tictactoe/player"
+	"tictactoe/testhelper"
 )
 
 func TestGamePlaysWholeHumanVsHumanTieGame(t *testing.T) {

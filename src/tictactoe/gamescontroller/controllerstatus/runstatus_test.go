@@ -2,7 +2,7 @@ package controllerstatus
 
 import (
 	"testing"
-	"../../testhelper"
+	"tictactoe/testhelper"
 )
 
 func TestGetRunStatusReturnsTrue(t *testing.T) {
