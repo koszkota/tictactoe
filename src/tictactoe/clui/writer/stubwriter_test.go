@@ -39,3 +39,10 @@ func TestStubWriterReturnsLastMessage(t *testing.T) {
 
 	matchers.EqualLiterals(t, "anotherTestWord", stubWriter.GetLastMessage())
 }
+
+func TestStubWriterReturnsLastSpinnerMessage(t *testing.T) {
+	stubWriter := StubWriter{}
+	stubWriter.WriteSpinner("processing", "...")
+
+	matchers.EqualLiterals(t, "processing", stubWriter.GetLastMessage())
+}

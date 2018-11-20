@@ -1,6 +1,5 @@
 package writer
 
-
 type StubWriter struct{
 	arrayOfOutputs []string
 }
@@ -10,6 +9,10 @@ func (stubWriter *StubWriter) Write(text string) {
 }
 
 func (stubWriter *StubWriter) WriteWarning(text string) {
+	stubWriter.arrayOfOutputs = append(stubWriter.arrayOfOutputs, text)
+}
+
+func (stubWriter *StubWriter) WriteSpinner(text string, spinner string) {
 	stubWriter.arrayOfOutputs = append(stubWriter.arrayOfOutputs, text)
 }
 
