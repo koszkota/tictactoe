@@ -3,13 +3,15 @@
 ## Requirements
 - golang version 1.11 (you can download go from [here](https://golang.org/dl/))
 
-## How to run in
+## How to run it
 - clone this repository `git clone https://github.com/koszkota/tictactoe`
 - `cd tictactoe`
 - `export GOPATH=$HOME/path/to-tictactoe`
 - run `echo $GOPATH` to check if the path is correct. I placed the directory on root, and so the path for me was: `Users/<my_name>/tictactoe`
 - run `go get github.com/logrunorgru/aurora` to get the dependency
-- `go run Main.go`
+- `go run main.go`
+
+(If you want to run or test the project using an IDE, remember to change the `$GOPATH` in project's settings in the IDE.) 
 
 ## How to test it
 In order to run all tests, go to the root directory and run: `$ go test ./...`
