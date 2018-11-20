@@ -3,10 +3,11 @@ package clui
 import (
 	"bufio"
 	"fmt"
+	"github.com/tj/go-spin"
 	"io"
 	"strings"
-	"time"
 	. "tictactoe/clui/writer"
+	"time"
 )
 
 type Clui struct {
@@ -68,8 +69,12 @@ func (clui Clui) InformOfInvalidMove() {
 }
 
 func (clui Clui) InformOfThinkingComputer(thinkingTime time.Duration) {
-	clui.writer.Write("Computer is thinking...")
-	time.Sleep(thinkingTime * time.Second)
+	s := spin.New()
+	for i := 0; i < 30; i++ {
+		clui.writer.WriteSpinner("\r\033[36mComputer is thinking...\033[m %s ", s.Next())
+		time.Sleep(thinkingTime * time.Millisecond)
+	}
+	clui.writer.Write("\n")
 }
 
 func (clui Clui) ShowBoard(rows [][]string) {

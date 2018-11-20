@@ -119,10 +119,11 @@ func TestInformOfInvalidInput(t *testing.T) {
 func TestInformOfThinkingComputer(t *testing.T) {
 	stubWriter := &StubWriter{}
 	clui := NewClui(os.Stdin, stubWriter)
+	expected := "\r\x1b[36mComputer is thinking...\x1b[m %s "
 
 	clui.InformOfThinkingComputer(0)
 
-	matchers.EqualLiterals(t, "Computer is thinking...", stubWriter.GetLastMessage())
+	matchers.EqualLiterals(t, expected, stubWriter.GetOutputs()[len(stubWriter.GetOutputs())-2])
 }
 
 func TestShowBoard(t *testing.T) {

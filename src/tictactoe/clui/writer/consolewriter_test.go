@@ -6,3 +6,10 @@ func ExampleWritesToConsole() {
 
 	// Output: test
 }
+
+func ExampleWritesSpinnerToConsole() {
+	consoleWriter := ConsoleWriter{}
+	consoleWriter.WriteSpinner("test", "...")
+
+	// Output: test%!(EXTRA string=...)
+}
