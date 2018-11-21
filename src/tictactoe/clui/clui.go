@@ -37,11 +37,11 @@ func (clui Clui) ShowMainMenu() {
 }
 
 func (clui Clui) AskForGameMode() {
-	clui.writer.Write("To play Human vs Human enter 1. To play Human vs Computer enter 2. To see two computers playing enter 3.")
+	clui.writer.Write("To play Human vs Human enter 1. \nTo play Human vs Computer enter 2. \nTo see two Computers playing enter 3.")
 }
 
 func (clui Clui) AskWhoGoesFirst() {
-	clui.writer.Write("If Human player should go first, enter H; if computer, enter C.")
+	clui.writer.Write("If Human player should go first, enter H;\nIf Computer, enter C.")
 }
 
 func (clui Clui) InformOfNotAvailableMark(mark string) {

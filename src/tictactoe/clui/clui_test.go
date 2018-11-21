@@ -50,7 +50,7 @@ func TestShowGameMode(t *testing.T) {
 
 	clui.AskForGameMode()
 
-	matchers.EqualLiterals(t, "To play Human vs Human enter 1. To play Human vs Computer enter 2. To see two computers playing enter 3.", stubWriter.GetLastMessage())
+	matchers.EqualLiterals(t, "To play Human vs Human enter 1. \nTo play Human vs Computer enter 2. \nTo see two Computers playing enter 3.", stubWriter.GetLastMessage())
 }
 
 func TestShowWhoGoesFirstMenu(t *testing.T) {
@@ -59,7 +59,7 @@ func TestShowWhoGoesFirstMenu(t *testing.T) {
 
 	clui.AskWhoGoesFirst()
 
-	matchers.EqualLiterals(t, "If Human player should go first, enter H; if computer, enter C.", stubWriter.GetLastMessage())
+	matchers.EqualLiterals(t, "If Human player should go first, enter H;\nIf Computer, enter C.", stubWriter.GetLastMessage())
 }
 
 func TestAskPlayerOneForMark(t *testing.T) {
